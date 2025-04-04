@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'theme/theme.dart' as theme;
-import 'home.dart';
+
+import 'app/modules/get_start/get_start.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme.themeData,
-      home: HomeScreen()
+      home: GetStart()
     );
   }
 }

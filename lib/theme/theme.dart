@@ -45,10 +45,10 @@ final ThemeData themeData = ThemeData(
     ),
     headlineSmall: GoogleFonts.fredoka(
       fontSize: 24,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
     ),
     titleLarge: GoogleFonts.fredoka(fontSize: 22, fontWeight: FontWeight.w600),
-    titleMedium: GoogleFonts.fredoka(fontSize: 16, fontWeight: FontWeight.w500),
+    titleMedium: GoogleFonts.fredoka(fontSize: 18, fontWeight: FontWeight.w600),
     titleSmall: GoogleFonts.fredoka(fontSize: 14, fontWeight: FontWeight.w500),
     bodyLarge: GoogleFonts.fredoka(fontSize: 16, fontWeight: FontWeight.w400),
     bodyMedium: GoogleFonts.fredoka(fontSize: 14, fontWeight: FontWeight.w400),
