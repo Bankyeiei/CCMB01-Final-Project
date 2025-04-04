@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class GetStart extends StatelessWidget {
-  const GetStart({super.key});
+class GetStartPage extends StatelessWidget {
+  const GetStartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,9 @@ class GetStart extends StatelessWidget {
                     ).textTheme.titleMedium!.copyWith(letterSpacing: 1.5),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offNamed('/login');
+                    },
                     style: TextButton.styleFrom(
                       textStyle: Theme.of(
                         context,

@@ -1,9 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'theme/theme.dart' as theme;
 
-import 'app/modules/get_start/get_start.dart';
+import 'app/views/get_start/get_start.dart';
+import 'app/views/login/login.dart';
+
+import 'bindings/login_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,10 +20,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme.themeData,
-      home: GetStart()
+      getPages: [
+        GetPage(
+          name: '/login',
+          page: () => LoginPage(),
+          binding: LoginBinding(),
+        ),
+      ],
+      home: const GetStartPage(),
     );
   }
 }
