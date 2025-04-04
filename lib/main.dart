@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import 'theme/theme.dart' as theme;
 
-import 'app/views/get_start/get_start.dart';
-import 'app/views/login/login.dart';
+import 'app/modules/get_start/get_start.dart';
+import 'app/modules/login/login.dart';
 
-import 'bindings/login_binding.dart';
+import 'app/modules/login/login_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
