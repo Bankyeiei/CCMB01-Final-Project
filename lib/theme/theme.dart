@@ -10,7 +10,7 @@ final ThemeData themeData = ThemeData(
     primary: Color(0xFF5CB15A),
     onPrimary: Colors.white,
     secondary: Color(0xFFD4D4D4),
-    onSecondary: Colors.black,
+    onSecondary: Color(0xFF4A4A4A),
     surface: Colors.white,
     onSurface: Colors.black,
     error: Color(0xFFE54D4D),
@@ -24,38 +24,38 @@ final ThemeData themeData = ThemeData(
   useMaterial3: true,
   textTheme: TextTheme(
     displayLarge: GoogleFonts.fredoka(
-      fontSize: 57,
-      fontWeight: FontWeight.w700,
+      fontSize: 57, //! Unused
+      fontWeight: FontWeight.w600,
     ),
     displayMedium: GoogleFonts.fredoka(
-      fontSize: 45,
+      fontSize: 45, //! Unused
       fontWeight: FontWeight.w600,
     ),
     displaySmall: GoogleFonts.fredoka(
-      fontSize: 36,
-      fontWeight: FontWeight.w500,
-    ),
-    headlineLarge: GoogleFonts.fredoka(
-      fontSize: 32,
-      fontWeight: FontWeight.w700,
-    ),
-    headlineMedium: GoogleFonts.fredoka(
-      fontSize: 28,
-      fontWeight: FontWeight.w600,
-    ),
-    headlineSmall: GoogleFonts.fredoka(
       fontSize: 24,
       fontWeight: FontWeight.w600,
     ),
-    titleLarge: GoogleFonts.fredoka(fontSize: 22, fontWeight: FontWeight.w600),
-    titleMedium: GoogleFonts.fredoka(fontSize: 18, fontWeight: FontWeight.w600),
-    titleSmall: GoogleFonts.fredoka(fontSize: 14, fontWeight: FontWeight.w500),
-    bodyLarge: GoogleFonts.fredoka(fontSize: 18, fontWeight: FontWeight.w400),
-    bodyMedium: GoogleFonts.fredoka(fontSize: 14, fontWeight: FontWeight.w400),
-    bodySmall: GoogleFonts.fredoka(fontSize: 12, fontWeight: FontWeight.w400),
-    labelLarge: GoogleFonts.fredoka(fontSize: 14, fontWeight: FontWeight.w500),
-    labelMedium: GoogleFonts.fredoka(fontSize: 12, fontWeight: FontWeight.w500),
-    labelSmall: GoogleFonts.fredoka(fontSize: 11, fontWeight: FontWeight.w400),
+    headlineLarge: GoogleFonts.fredoka(
+      fontSize: 32, //! Unused
+      fontWeight: FontWeight.w600,
+    ),
+    headlineMedium: GoogleFonts.fredoka(
+      fontSize: 24, //! Unused
+      fontWeight: FontWeight.w600,
+    ),
+    headlineSmall: GoogleFonts.fredoka(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+    ),
+    titleLarge: GoogleFonts.fredoka(fontSize: 25, fontWeight: FontWeight.w600),
+    titleMedium: GoogleFonts.fredoka(fontSize: 20, fontWeight: FontWeight.w600),
+    titleSmall: GoogleFonts.fredoka(fontSize: 18), //! Unused
+    bodyLarge: GoogleFonts.fredoka(fontSize: 20),
+    bodyMedium: GoogleFonts.fredoka(fontSize: 16), //! Unused
+    bodySmall: GoogleFonts.fredoka(fontSize: 14),
+    labelLarge: GoogleFonts.fredoka(fontSize: 12), //! Unused
+    labelMedium: GoogleFonts.fredoka(fontSize: 11), //! Unused
+    labelSmall: GoogleFonts.fredoka(fontSize: 10), //! Unused
   ),
 
   // ElevatedButton Theme

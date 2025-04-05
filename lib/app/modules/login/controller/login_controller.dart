@@ -21,8 +21,8 @@ class LoginController extends GetxController {
   void validatePassword(String value) {
     if (value.isEmpty) {
       passwordError.value = 'Please enter your password';
-    } else if (value.length < 6) {
-      passwordError.value = 'Password must be at least 6 characters';
+    } else if (value.length < 8) {
+      passwordError.value = 'Password must be at least 8 characters';
     } else {
       passwordError.value = '';
     }

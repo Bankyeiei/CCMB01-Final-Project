@@ -7,7 +7,7 @@ import 'theme/theme.dart' as theme;
 import 'app/modules/get_start/get_start.dart';
 import 'app/modules/login/login.dart';
 
-import 'app/modules/login/login_binding.dart';
+import 'app/modules/login/login_page_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
         GetPage(
           name: '/login',
           page: () => LoginPage(),
-          binding: LoginBinding(),
+          binding: LoginPageBinding(),
         ),
       ],
       home: const GetStartPage(),
