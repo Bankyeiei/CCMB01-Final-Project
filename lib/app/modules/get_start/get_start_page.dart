@@ -14,7 +14,6 @@ class GetStartPage extends StatelessWidget {
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 0.16 * Get.mediaQuery.size.height),
                 Image.asset('assets/logo/logo.png', height: 240),
@@ -35,7 +34,9 @@ class GetStartPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await Get.toNamed('/register');
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32),
@@ -62,16 +63,16 @@ class GetStartPage extends StatelessWidget {
                         letterSpacing: 1.5,
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Get.offNamed('/login');
-                      },
-                      style: TextButton.styleFrom(
-                        textStyle: Get.theme.textTheme.headlineSmall!.copyWith(
+                    const SizedBox(width: 8),
+                    InkWell(
+                      onTap: () => Get.offNamed('/login'),
+                      child: Text(
+                        'Login',
+                        style: Get.theme.textTheme.headlineSmall!.copyWith(
+                          color: Get.theme.primaryColor,
                           letterSpacing: 1.5,
                         ),
                       ),
-                      child: const Text('Login'),
                     ),
                   ],
                 ),

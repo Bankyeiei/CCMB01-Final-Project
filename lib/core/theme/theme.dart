@@ -24,11 +24,11 @@ final ThemeData themeData = ThemeData(
   useMaterial3: true,
   textTheme: TextTheme(
     displayLarge: GoogleFonts.fredoka(
-      fontSize: 57, //! Unused
+      fontSize: 48, //! Unused
       fontWeight: FontWeight.w600,
     ),
     displayMedium: GoogleFonts.fredoka(
-      fontSize: 45, //! Unused
+      fontSize: 36,
       fontWeight: FontWeight.w600,
     ),
     displaySmall: GoogleFonts.fredoka(
