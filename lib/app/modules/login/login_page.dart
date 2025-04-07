@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controller/login_controller.dart';
-import 'controller/remember_me_controller.dart';
+import '../../../core/controller/auth_state_controller.dart';
 
 import '../widgets/button.dart';
 import '../widgets/circle.dart';
@@ -10,44 +10,44 @@ import '../widgets/text_field.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
-  final LoginController loginController = Get.find<LoginController>();
-  final RememberMeController rememberMeController =
-      Get.find<RememberMeController>();
+  final LoginController _loginController = Get.find<LoginController>();
+  final AuthStateController _authStateController =
+      Get.find<AuthStateController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: FocusScope.of(context).unfocus,
+      onTap: () => Get.focusScope!.unfocus(),
       child: Stack(
         children: [
           Scaffold(
             body: SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 64),
+                    SizedBox(height: 0.12 * Get.mediaQuery.size.height),
                     Image.asset('assets/logo/logo.png', height: 200),
                     Obx(
-                      () => LoginTextField(
-                        labelText: 'Email Address',
-                        errorText: loginController.emailError.value,
+                      () => AppTextField(
                         icon: Icons.email_outlined,
-                        controller: loginController.emailController,
-                        validate: loginController.validateEmail,
+                        hintText: 'Email Address',
+                        errorText: _loginController.emailError.value,
+                        controller: _loginController.emailController,
+                        validate: _loginController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     Obx(
-                      () => LoginTextField(
-                        labelText: 'Password',
-                        errorText: loginController.passwordError.value,
+                      () => AppTextField(
                         icon: Icons.lock_outline,
-                        controller: loginController.passwordController,
-                        validate: loginController.validatePassword,
+                        hintText: 'Password',
+                        errorText: _loginController.passwordError.value,
+                        controller: _loginController.passwordController,
+                        validate: _loginController.validatePassword,
                         obscureText: true,
+                        keyboardType: TextInputType.visiblePassword,
                       ),
                     ),
                     Row(
@@ -56,9 +56,9 @@ class LoginPage extends StatelessWidget {
                           height: 20,
                           child: Obx(
                             () => Checkbox(
-                              value: rememberMeController.isRememberMe.value,
+                              value: _authStateController.isRememberMe.value,
                               onChanged:
-                                  (value) => rememberMeController.check(value!),
+                                  (value) => _authStateController.check(value!),
                             ),
                           ),
                         ),
@@ -66,14 +66,9 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 32),
-                    LoginButton(
+                    AppButton(
                       onPressed: () {
-                        if (loginController.validateForm()) {
-                          // Continue to login
-                          print('Validation passed');
-                        } else {
-                          print('Invalid input');
-                        }
+                        _loginController.validateForm();
                       },
                       child: Text('LOGIN', style: Get.textTheme.titleLarge),
                     ),
@@ -86,7 +81,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    LoginButton(
+                    AppButton(
                       onPressed: () {},
                       child: Row(
                         children: [
@@ -107,7 +102,7 @@ class LoginPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Get.toNamed('/register'),
                   child: Text(
                     'No account? Register now',
                     style: Get.theme.textTheme.headlineSmall!.copyWith(

@@ -31,7 +31,7 @@ class LoginController extends GetxController {
   bool validateForm() {
     validateEmail(emailController.text);
     validatePassword(passwordController.text);
-    return emailError.value == '' && passwordError.value == '';
+    return emailError.value.isEmpty && passwordError.value.isEmpty;
   }
 
   @override

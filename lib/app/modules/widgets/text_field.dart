@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class LoginTextField extends StatelessWidget {
-  final String labelText;
-  final String errorText;
+class AppTextField extends StatelessWidget {
   final IconData icon;
+  final String hintText;
+  final String errorText;
   final TextEditingController controller;
   final void Function(String) validate;
   final bool? obscureText;
-  final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  LoginTextField({
+  final List<TextInputFormatter>? inputFormatters;
+  AppTextField({
     super.key,
-    required this.labelText,
-    required this.errorText,
     required this.icon,
+    required this.hintText,
+    required this.errorText,
     required this.controller,
     required this.validate,
     this.obscureText,
-    this.inputFormatters,
     this.keyboardType,
+    this.inputFormatters,
   });
 
-  final obscuredController = ObscuredController();
+  final _obscuredController = _ObscuredController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LoginTextField extends StatelessWidget {
               onChanged: validate,
               obscureText:
                   obscureText ?? false
-                      ? obscuredController.isObscured.value
+                      ? _obscuredController.isObscured.value
                       : false.obs.value,
               inputFormatters: inputFormatters,
               keyboardType: keyboardType,
@@ -64,9 +64,9 @@ class LoginTextField extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              onPressed: obscuredController.click,
+                              onPressed: _obscuredController.click,
                               icon: Icon(
-                                obscuredController.isObscured.value
+                                _obscuredController.isObscured.value
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
                                 size: 24,
@@ -77,7 +77,7 @@ class LoginTextField extends StatelessWidget {
                           ],
                         )
                         : null,
-                hintText: labelText,
+                hintText: hintText,
                 hintStyle: Get.theme.textTheme.bodyLarge!.copyWith(
                   color: Colors.black38,
                 ),
@@ -91,7 +91,7 @@ class LoginTextField extends StatelessWidget {
   }
 }
 
-class ObscuredController extends GetxController {
+class _ObscuredController extends GetxController {
   RxBool isObscured = true.obs;
 
   void click() {
