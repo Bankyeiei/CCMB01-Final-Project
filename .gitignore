@@ -46,3 +46,6 @@ app.*.map.json
 
 # Firebase
 /android/app/google-services.json
+
+# Cloudinary
+/lib/core/constant/image_api.dart

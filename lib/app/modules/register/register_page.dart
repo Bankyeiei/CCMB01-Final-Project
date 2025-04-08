@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'controller/register_controller.dart';
+import 'controller/register_page_controller.dart';
+import '../../../core/controller/image_controller.dart';
 
 import '../widgets/button.dart';
 import '../widgets/circle.dart';
+import '../widgets/loading.dart';
 import '../widgets/text_field.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
   final RegisterController _registerController = Get.find<RegisterController>();
+  final RegisterPageController _registerPageController =
+      Get.find<RegisterPageController>();
+  final ImageController _imageController = Get.find<ImageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +24,83 @@ class RegisterPage extends StatelessWidget {
       onTap: () => Get.focusScope!.unfocus(),
       child: Stack(
         children: [
+          Container(
+            height: double.infinity,
+            color: Get.theme.colorScheme.onPrimary,
+            child: Opacity(
+              opacity: 0.2,
+              child: Image.asset('assets/background/background.png'),
+            ),
+          ),
           Scaffold(
-            appBar: AppBar(),
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              surfaceTintColor: Get.theme.colorScheme.onPrimary,
+              centerTitle: true,
+              title: Text('Register', style: Get.theme.textTheme.displayMedium),
+            ),
             body: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Column(
                   children: [
-                    Text('Register', style: Get.theme.textTheme.displayMedium),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24),
+                    Obx(
+                      () => Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () => _imageController.pickImage(),
+                            child: CircleAvatar(
+                              radius: 48,
+                              backgroundImage:
+                                  _imageController.imageFile.value != null
+                                      ? FileImage(
+                                        _imageController.imageFile.value!,
+                                      )
+                                      : null,
+                              child:
+                                  _imageController.imageFile.value == null
+                                      ? const Icon(
+                                        Icons.add_photo_alternate_outlined,
+                                        size: 48,
+                                      )
+                                      : null,
+                            ),
+                          ),
+                          if (_imageController.imageFile.value != null)
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: GestureDetector(
+                                onTap:
+                                    () =>
+                                        _imageController.imageFile.value = null,
+                                child: Container(
+                                  width: 28,
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    color: Get.theme.primaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 16,
+                                    color: Get.theme.colorScheme.onPrimary,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
                     Obx(
                       () => AppTextField(
                         icon: Icons.email_outlined,
                         hintText: 'Email Address',
-                        errorText: _registerController.emailError.value,
-                        controller: _registerController.emailController,
-                        validate: _registerController.validateEmail,
+                        errorText: _registerPageController.emailError.value,
+                        controller: _registerPageController.emailController,
+                        validate: _registerPageController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
                       ),
                     ),
@@ -43,9 +108,9 @@ class RegisterPage extends StatelessWidget {
                       () => AppTextField(
                         icon: Icons.person_outline,
                         hintText: 'Username',
-                        errorText: _registerController.usernameError.value,
-                        controller: _registerController.usernameController,
-                        validate: _registerController.validateUsername,
+                        errorText: _registerPageController.usernameError.value,
+                        controller: _registerPageController.usernameController,
+                        validate: _registerPageController.validateUsername,
                         keyboardType: TextInputType.name,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
@@ -56,27 +121,22 @@ class RegisterPage extends StatelessWidget {
                     ),
                     Obx(
                       () => AppTextField(
-                        icon: Icons.phone,
+                        icon: Icons.phone_outlined,
                         hintText: 'Phone',
-                        errorText: _registerController.phoneError.value,
-                        controller: _registerController.phoneController,
-                        validate: _registerController.validatePhone,
+                        errorText: _registerPageController.phoneError.value,
+                        controller: _registerPageController.phoneController,
+                        validate: _registerPageController.validatePhone,
                         keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          MaskTextInputFormatter(
-                            mask: '###-###-####',
-                            filter: {'#': RegExp(r'[0-9]')},
-                          ),
-                        ],
+                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
                       ),
                     ),
                     Obx(
                       () => AppTextField(
                         icon: Icons.lock_outline,
                         hintText: 'Password',
-                        errorText: _registerController.passwordError.value,
-                        controller: _registerController.passwordController,
-                        validate: _registerController.validatePassword,
+                        errorText: _registerPageController.passwordError.value,
+                        controller: _registerPageController.passwordController,
+                        validate: _registerPageController.validatePassword,
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                       ),
@@ -86,18 +146,22 @@ class RegisterPage extends StatelessWidget {
                         icon: Icons.lock_outline,
                         hintText: 'Confirm Password',
                         errorText:
-                            _registerController.confirmPasswordError.value,
+                            _registerPageController.confirmPasswordError.value,
                         controller:
-                            _registerController.confirmPasswordController,
-                        validate: _registerController.validateConfirmPassword,
+                            _registerPageController.confirmPasswordController,
+                        validate:
+                            _registerPageController.validateConfirmPassword,
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 24),
                     AppButton(
                       onPressed: () {
-                        _registerController.validateForm();
+                        Get.focusScope!.unfocus();
+                        if (_registerPageController.validateForm()) {
+                          _registerController.register();
+                        }
                       },
                       child: Text('REGISTER', style: Get.textTheme.titleLarge),
                     ),
@@ -121,6 +185,12 @@ class RegisterPage extends StatelessWidget {
             color: Get.theme.primaryColor,
             top: -175,
             right: -300,
+          ),
+          Obx(
+            () =>
+                _registerController.isLoading
+                    ? const LoadingScreen()
+                    : const UnLoadingScreen(),
           ),
         ],
       ),

@@ -4,6 +4,13 @@ import 'package:get/get.dart';
 class GetStartPage extends StatelessWidget {
   const GetStartPage({super.key});
 
+  void jumpToRegister() async {
+    final isRegister = await Get.toNamed('/register') ?? false;
+    if (isRegister) {
+      Get.offNamed('/login');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,8 +23,8 @@ class GetStartPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 0.16 * Get.mediaQuery.size.height),
-                Image.asset('assets/logo/logo.png', height: 240),
-                const SizedBox(height: 20),
+                Image.asset('assets/logo/logo.png', height: 180),
+                const SizedBox(height: 48),
                 Text(
                   'Hey! Welcome',
                   style: Get.theme.textTheme.displaySmall!.copyWith(
@@ -34,9 +41,7 @@ class GetStartPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: () async {
-                    await Get.toNamed('/register');
-                  },
+                  onPressed: () => jumpToRegister(),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32),
