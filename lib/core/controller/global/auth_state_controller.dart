@@ -4,61 +4,62 @@ import 'package:get_storage/get_storage.dart';
 
 import 'loading_controller.dart';
 
+import '../../../services/snackbar_service.dart';
+
 class AuthStateController extends GetxController {
-  final LoadingController loadingController;
-  AuthStateController({required this.loadingController});
+  final LoadingController _loadingController = Get.find<LoadingController>();
 
   final _box = GetStorage();
   final _auth = FirebaseAuth.instance;
 
-  RxBool isLoggedIn = false.obs;
   RxBool isRememberMe = false.obs;
+  RxBool hasJustLoggedIn = false.obs;
   RxString uid = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    isLoggedIn.value = _box.read('isLoggedIn') ?? false;
-    uid.value = _box.read('uid') ?? '';
+    uid.value = _box.read('uid');
   }
 
-  bool get isLoading => loadingController.isLoading.value;
+  bool get isLoading => _loadingController.isLoading.value;
 
   void clickCheckBox(bool value) {
     isRememberMe.value = value;
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
-    await Get.closeCurrentSnackbar();
-    loadingController.isLoading.value = true;
+    Get.closeCurrentSnackbar();
+    _loadingController.isLoading.value = true;
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       _saveAuthState(userCredential.user!.uid);
+      Get.offNamed('/home');
     } catch (error) {
-      Get.snackbar('Login fail', error.toString());
-    } finally {
-      loadingController.isLoading.value = false;
+      SnackbarService.showLoginError(error);
+      _loadingController.isLoading.value = false;
     }
   }
 
   void clearAuthState() {
-    isLoggedIn.value = false;
     isRememberMe.value = false;
     uid.value = '';
 
-    _box.erase();
+    _box.remove('isLoggedIn');
+    _box.remove('uid');
   }
 
   void _saveAuthState(String userId) {
     if (isRememberMe.value) {
-      isLoggedIn.value = true;
+      _box.write('isLoggedIn', true);
     }
+    hasJustLoggedIn.value = true;
     uid.value = userId;
 
-    _box.write('isLoggedIn', isLoggedIn);
+    _box.write('hasLoggedIn', true);
     _box.write('uid', userId);
   }
 }

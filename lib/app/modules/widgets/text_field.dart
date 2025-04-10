@@ -11,6 +11,7 @@ class AppTextField extends StatelessWidget {
   final bool? obscureText;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final TextInputAction textInputAction;
   AppTextField({
     super.key,
     required this.icon,
@@ -21,6 +22,7 @@ class AppTextField extends StatelessWidget {
     this.obscureText,
     this.keyboardType,
     this.inputFormatters,
+    this.textInputAction = TextInputAction.next,
   });
 
   final _obscuredController = _ObscuredController();
@@ -39,8 +41,11 @@ class AppTextField extends StatelessWidget {
                   obscureText ?? false
                       ? _obscuredController.isObscured.value
                       : false.obs.value,
-              inputFormatters: inputFormatters,
+              inputFormatters:
+                  (inputFormatters ?? []) +
+                  [LengthLimitingTextInputFormatter(30)],
               keyboardType: keyboardType,
+              textInputAction: textInputAction,
               decoration: InputDecoration(
                 isDense: true,
                 border: OutlineInputBorder(

@@ -1,50 +1,56 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:get/get.dart';
 
-import 'register_page_controller.dart';
-import '../../../data/repositories/register_repository.dart';
+import 'register_validate_controller.dart';
+import '../../../data/models/user_model.dart';
+import '../../../data/repositories/user_repository.dart';
 import '../../../../core/controller/image_controller.dart';
-import '../../../../core/controller/loading_controller.dart';
+import '../../../../core/controller/global/loading_controller.dart';
+import '../../../../services/snackbar_service.dart';
 
 class RegisterController extends GetxController {
-  final RegisterRepository registerRepository;
-  final RegisterPageController registerPageController;
+  final RegisterValidateController registerValidateController;
+  final UserRepositories userRepositories;
   final ImageController imageController;
-  final LoadingController loadingController;
   RegisterController({
-    required this.registerRepository,
-    required this.registerPageController,
+    required this.registerValidateController,
+    required this.userRepositories,
     required this.imageController,
-    required this.loadingController,
   });
+
+  final LoadingController _loadingController = Get.find<LoadingController>();
 
   final _auth = FirebaseAuth.instance;
 
-  bool get isLoading => loadingController.isLoading.value;
+  bool get isLoading => _loadingController.isLoading.value;
 
   Future<void> register() async {
-    await Get.closeCurrentSnackbar();
-    loadingController.isLoading.value = true;
+    Get.closeCurrentSnackbar();
+    _loadingController.isLoading.value = true;
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
-        email: registerPageController.emailController.text,
-        password: registerPageController.passwordController.text,
+        email: registerValidateController.emailController.text,
+        password: registerValidateController.passwordController.text,
       );
-      final imageUrl = await imageController.uploadAndGetImageUrl();
+      final imageUrlAndId = await imageController.uploadAndGetImageUrlAndId();
       final uid = userCredential.user!.uid;
-      await registerRepository.uploadUser(
+      await userRepositories.uploadUserMap(
         uid,
-        registerPageController.emailController.text,
-        registerPageController.usernameController.text,
-        registerPageController.phoneController.text,
-        imageUrl,
+        User(
+          email: registerValidateController.emailController.text,
+          name: registerValidateController.nameController.text,
+          phone: registerValidateController.phoneController.text,
+          imageUrl: imageUrlAndId?[0] ?? '',
+          imageId: imageUrlAndId?[1] ?? '',
+          createdAt: DateTime.now(),
+        ),
       );
       Get.back(result: true);
-      Get.snackbar('Register success', '');
+      SnackbarService.showRegisterSuccess();
     } catch (error) {
-      Get.snackbar('Register fail', error.toString());
+      SnackbarService.showRegisterError(error);
     } finally {
-      loadingController.isLoading.value = false;
+      _loadingController.isLoading.value = false;
     }
   }
 }

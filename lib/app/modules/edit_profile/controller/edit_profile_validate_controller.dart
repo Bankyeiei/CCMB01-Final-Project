@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class EditProfileValidateController extends GetxController {
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+
+  RxString nameError = ''.obs;
+  RxString phoneError = ''.obs;
+
+  void validateName(String value) {
+    if (value.isEmpty) {
+      nameError.value = 'Please enter your name';
+    } else if (value.startsWith(' ')) {
+      nameError.value = 'Please remove spaces at the beginning';
+    } else if (value.endsWith(' ')) {
+      nameError.value = 'Please remove spaces at the end';
+    } else if (value.length < 3) {
+      nameError.value = 'Name must be at least 3 characters';
+    } else {
+      nameError.value = '';
+    }
+  }
+
+  void validatePhone(String value) {
+    if (value.isEmpty) {
+      phoneError.value = 'Please enter your phone';
+    } else if (value.length < 9) {
+      phoneError.value = 'Invalid phone number';
+    } else {
+      phoneError.value = '';
+    }
+  }
+
+  bool validateForm() {
+    validateName(nameController.text);
+    validatePhone(phoneController.text);
+    return nameError.value.isEmpty && phoneError.value.isEmpty;
+  }
+
+  @override
+  void onClose() {
+    nameController.dispose();
+    phoneController.dispose();
+    super.onClose();
+  }
+}

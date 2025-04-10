@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../app/data/repositories/image_repository.dart';
@@ -9,25 +10,63 @@ class ImageController extends GetxController {
   ImageController({required this.imageRepository});
 
   Rx<File?> imageFile = Rx<File?>(null);
+  RxString imageUrl = ''.obs;
+  String imageId = '';
 
-  Future<void> pickImage() async {
-    final file = await imageRepository.pickAndGetFileImage();
+  Future<void> _pickImage([bool isCamera = false]) async {
+    final file = await imageRepository.pickAndGetImageFile(isCamera);
     if (file != null) {
       imageFile.value = file;
     }
   }
 
-  Future<String?> uploadAndGetImageUrl() async {
+  Future<List<String>?> uploadAndGetImageUrlAndId() async {
     try {
       if (imageFile.value != null) {
-        final imageUrl = await imageRepository.uploadAndGetImageUrl(
+        return await imageRepository.uploadAndGetImageUrlAndId(
           imageFile.value!,
         );
-        return imageUrl;
+      }
+      if (imageId.isNotEmpty) {
+        await imageRepository.deleteImage(imageId);
       }
       return null;
     } catch (error) {
-      throw error.toString();
+      rethrow;
     }
+  }
+
+  void pickImageBottomSheet() {
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Choose an option', style: TextStyle(fontSize: 18)),
+            ListTile(
+              leading: const Icon(Icons.photo),
+              title: const Text('Gallery'),
+              onTap: () async {
+                await _pickImage();
+                Get.back();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera),
+              title: const Text('Camera'),
+              onTap: () async {
+                await _pickImage(true);
+                Get.back();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

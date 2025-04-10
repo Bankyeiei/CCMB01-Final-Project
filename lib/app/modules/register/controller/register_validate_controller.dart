@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterPageController extends GetxController {
+class RegisterValidateController extends GetxController {
   final emailController = TextEditingController();
-  final usernameController = TextEditingController();
+  final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
   RxString emailError = ''.obs;
-  RxString usernameError = ''.obs;
+  RxString nameError = ''.obs;
   RxString phoneError = ''.obs;
   RxString passwordError = ''.obs;
   RxString confirmPasswordError = ''.obs;
@@ -24,20 +24,24 @@ class RegisterPageController extends GetxController {
     }
   }
 
-  void validateUsername(String value) {
+  void validateName(String value) {
     if (value.isEmpty) {
-      usernameError.value = 'Please enter your username';
-    } else if (value.length < 6) {
-      usernameError.value = 'Username must be at least 6 characters';
+      nameError.value = 'Please enter your name';
+    } else if (value.startsWith(' ')) {
+      nameError.value = 'Please remove spaces at the beginning';
+    } else if (value.endsWith(' ')) {
+      nameError.value = 'Please remove spaces at the end';
+    } else if (value.length < 3) {
+      nameError.value = 'Name must be at least 3 characters';
     } else {
-      usernameError.value = '';
+      nameError.value = '';
     }
   }
 
   void validatePhone(String value) {
     if (value.isEmpty) {
       phoneError.value = 'Please enter your phone';
-    } else if (value.length != 10) {
+    } else if (value.length < 9) {
       phoneError.value = 'Invalid phone number';
     } else {
       phoneError.value = '';
@@ -65,12 +69,12 @@ class RegisterPageController extends GetxController {
 
   bool validateForm() {
     validateEmail(emailController.text);
-    validateUsername(usernameController.text);
+    validateName(nameController.text);
     validatePhone(phoneController.text);
     validatePassword(passwordController.text);
     validateConfirmPassword(confirmPasswordController.text);
     return emailError.value.isEmpty &&
-        usernameError.value.isEmpty &&
+        nameError.value.isEmpty &&
         phoneError.value.isEmpty &&
         passwordError.value.isEmpty &&
         confirmPasswordError.value.isEmpty;
@@ -79,7 +83,7 @@ class RegisterPageController extends GetxController {
   @override
   void onClose() {
     emailController.dispose();
-    usernameController.dispose();
+    nameController.dispose();
     phoneController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();

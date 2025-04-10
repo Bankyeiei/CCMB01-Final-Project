@@ -1,18 +1,21 @@
 import 'package:get/get.dart';
 
 import 'controller/register_controller.dart';
-import 'controller/register_page_controller.dart';
+import 'controller/register_validate_controller.dart';
 import '../../data/providers/image_provider.dart';
-import '../../data/providers/register_provider.dart';
+import '../../data/providers/user_provider.dart';
 import '../../data/repositories/image_repository.dart';
-import '../../data/repositories/register_repository.dart';
+import '../../data/repositories/user_repository.dart';
 import '../../../core/controller/image_controller.dart';
-import '../../../core/controller/loading_controller.dart';
 
 class RegisterBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<RegisterPageController>(() => RegisterPageController());
+    Get.lazyPut<RegisterValidateController>(() => RegisterValidateController());
+    Get.lazyPut<UserProvider>(() => UserProvider());
+    Get.lazyPut<UserRepositories>(
+      () => UserRepositories(userProvider: Get.find<UserProvider>()),
+    );
     Get.lazyPut<ImageProvider>(() => ImageProvider());
     Get.lazyPut<ImageRepository>(
       () => ImageRepository(imageProvider: Get.find<ImageProvider>()),
@@ -20,16 +23,11 @@ class RegisterBinding extends Bindings {
     Get.lazyPut<ImageController>(
       () => ImageController(imageRepository: Get.find<ImageRepository>()),
     );
-    Get.lazyPut<RegisterProvider>(() => RegisterProvider());
-    Get.lazyPut<RegisterRepository>(
-      () => RegisterRepository(registerProvider: Get.find<RegisterProvider>()),
-    );
     Get.lazyPut<RegisterController>(
       () => RegisterController(
-        registerRepository: Get.find<RegisterRepository>(),
-        registerPageController: Get.find<RegisterPageController>(),
+        registerValidateController: Get.find<RegisterValidateController>(),
+        userRepositories: Get.find<UserRepositories>(),
         imageController: Get.find<ImageController>(),
-        loadingController: Get.find<LoadingController>(),
       ),
     );
   }

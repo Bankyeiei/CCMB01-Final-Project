@@ -25,23 +25,23 @@ final ThemeData themeData = ThemeData(
   textTheme: TextTheme(
     displayLarge: GoogleFonts.fredoka(
       fontSize: 48, //! Unused
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     displayMedium: GoogleFonts.fredoka(
       fontSize: 36,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     displaySmall: GoogleFonts.fredoka(
       fontSize: 24,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     headlineLarge: GoogleFonts.fredoka(
       fontSize: 32, //! Unused
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
     ),
     headlineMedium: GoogleFonts.fredoka(
-      fontSize: 24, //! Unused
-      fontWeight: FontWeight.w600,
+      fontSize: 26, //! Unused
+      fontWeight: FontWeight.w700,
     ),
     headlineSmall: GoogleFonts.fredoka(
       fontSize: 18,
@@ -49,7 +49,7 @@ final ThemeData themeData = ThemeData(
     ),
     titleLarge: GoogleFonts.fredoka(fontSize: 25, fontWeight: FontWeight.w600),
     titleMedium: GoogleFonts.fredoka(fontSize: 20, fontWeight: FontWeight.w600),
-    titleSmall: GoogleFonts.fredoka(fontSize: 18), //! Unused
+    titleSmall: GoogleFonts.fredoka(fontSize: 18),
     bodyLarge: GoogleFonts.fredoka(fontSize: 20),
     bodyMedium: GoogleFonts.fredoka(fontSize: 16), //! Unused
     bodySmall: GoogleFonts.fredoka(fontSize: 14),
@@ -66,5 +66,12 @@ final ThemeData themeData = ThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       textStyle: GoogleFonts.fredoka(fontWeight: FontWeight.w600, fontSize: 16),
     ),
+  ),
+
+  appBarTheme: const AppBarTheme(
+    centerTitle: true,
+    foregroundColor: Colors.white,
+    backgroundColor: Color(0xFF5CB15A),
+    iconTheme: IconThemeData(color: Colors.white),
   ),
 );
