@@ -6,7 +6,6 @@ import '../../../core/controller/global/auth_state_controller.dart';
 
 import '../widgets/button.dart';
 import '../widgets/circle.dart';
-import '../widgets/loading.dart';
 import '../widgets/text_field.dart';
 
 class LoginPage extends StatelessWidget {
@@ -156,9 +155,7 @@ class LoginPage extends StatelessWidget {
           ),
           Obx(
             () =>
-                authStateController.isLoading
-                    ? const LoadingScreen()
-                    : const UnLoadingScreen(),
+                authStateController.loadingScreen,
           ),
         ],
       ),

@@ -7,8 +7,6 @@ import 'pages/profile/profile_page.dart';
 
 import 'controller/home_view_controller.dart';
 
-import '../widgets/loading.dart';
-
 class HomeViewPage extends StatelessWidget {
   const HomeViewPage({super.key});
 
@@ -64,12 +62,7 @@ class HomeViewPage extends StatelessWidget {
             ),
           ),
         ),
-        Obx(
-          () =>
-              homeViewController.isLoading
-                  ? const LoadingScreen()
-                  : const UnLoadingScreen(),
-        ),
+        Obx(() => homeViewController.loadingScreen),
       ],
     );
   }

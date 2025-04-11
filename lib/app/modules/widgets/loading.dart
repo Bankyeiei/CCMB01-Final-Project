@@ -11,17 +11,12 @@ class LoadingScreen extends StatelessWidget {
       children: [
         ModalBarrier(
           dismissible: false,
-          color: Get.theme.colorScheme.onPrimary.withAlpha(160),
+          color: Get.theme.colorScheme.primary.withAlpha(160),
         ),
         Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Gif(
-              //   image: const NetworkImage(
-              //     'https://media.tenor.com/0Q5IZ6e9pC8AAAAM/cat-cute-cat.gif',
-              //   ),
-              // ),
               Gif(
                 image: const AssetImage('assets/loading/dog.gif'),
                 width: 0.5 * Get.mediaQuery.size.width,

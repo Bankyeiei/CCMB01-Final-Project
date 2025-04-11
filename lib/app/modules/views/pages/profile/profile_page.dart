@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(height: 8),
         profileSection(userController),
         const SizedBox(height: 16),
-        listTileSection(userController),
+        listTileSection(),
       ],
     );
   }
@@ -99,7 +99,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Container listTileSection(UserController userController) {
+  Container listTileSection() {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 24),

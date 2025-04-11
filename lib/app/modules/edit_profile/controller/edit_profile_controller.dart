@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:flutter/widgets.dart';
 
 import 'edit_profile_validate_controller.dart';
 import '../../../../core/controller/image_controller.dart';
@@ -21,7 +22,7 @@ class EditProfileController extends GetxController {
       Get.find<AuthStateController>();
   final LoadingController _loadingController = Get.find<LoadingController>();
 
-  bool get isLoading => _loadingController.isLoading.value;
+  Widget get loadingScreen => _loadingController.loadingScreen();
 
   @override
   void onInit() {
@@ -46,7 +47,7 @@ class EditProfileController extends GetxController {
         imageUrlAndId?[0],
         imageUrlAndId?[1],
       );
-      Get.back();
+      Get.back(closeOverlays: true);
       SnackbarService.showEditSuccess();
     } catch (error) {
       SnackbarService.showEditError();

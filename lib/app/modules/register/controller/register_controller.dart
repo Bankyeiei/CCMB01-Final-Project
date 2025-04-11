@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import 'register_validate_controller.dart';
@@ -22,7 +23,7 @@ class RegisterController extends GetxController {
 
   final _auth = FirebaseAuth.instance;
 
-  bool get isLoading => _loadingController.isLoading.value;
+  Widget get loadingScreen => _loadingController.loadingScreen();
 
   Future<void> register() async {
     Get.closeCurrentSnackbar();
@@ -45,7 +46,7 @@ class RegisterController extends GetxController {
           createdAt: DateTime.now(),
         ),
       );
-      Get.back(result: true);
+      Get.back(result: true, closeOverlays: true);
       SnackbarService.showRegisterSuccess();
     } catch (error) {
       SnackbarService.showRegisterError(error);

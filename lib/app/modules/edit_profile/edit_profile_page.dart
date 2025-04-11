@@ -8,7 +8,6 @@ import 'controller/edit_profile_validate_controller.dart';
 import '../../../core/controller/image_controller.dart';
 
 import '../widgets/button.dart';
-import '../widgets/loading.dart';
 import '../widgets/text_field.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -84,12 +83,7 @@ class EditProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          Obx(
-            () =>
-                editProfileController.isLoading
-                    ? const LoadingScreen()
-                    : const UnLoadingScreen(),
-          ),
+          Obx(() => editProfileController.loadingScreen),
         ],
       ),
     );
@@ -105,9 +99,9 @@ class EditProfilePage extends StatelessWidget {
             foregroundImage:
                 imageController.imageFile.value != null
                     ? FileImage(imageController.imageFile.value!)
-                    : CachedNetworkImageProvider(
-                      imageController.imageUrl.value,
-                    ),
+                    : imageController.imageUrl.value.isNotEmpty
+                    ? CachedNetworkImageProvider(imageController.imageUrl.value)
+                    : null,
             child:
                 imageController.imageFile.value == null &&
                         imageController.imageUrl.value == ''

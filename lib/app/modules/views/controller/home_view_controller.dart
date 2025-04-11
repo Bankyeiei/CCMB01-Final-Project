@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/controller/user_controller.dart';
@@ -36,7 +36,7 @@ class HomeViewController extends GetxController {
     }
   }
 
-  bool get isLoading => _loadingController.isLoading.value;
+  Widget get loadingScreen => _loadingController.loadingScreen();
 
   void onTap(int value) {
     pageIndex.value = value;

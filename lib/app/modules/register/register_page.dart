@@ -8,7 +8,6 @@ import '../../../core/controller/image_controller.dart';
 
 import '../widgets/button.dart';
 import '../widgets/circle.dart';
-import '../widgets/loading.dart';
 import '../widgets/text_field.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -161,9 +160,7 @@ class RegisterPage extends StatelessWidget {
           ),
           Obx(
             () =>
-                registerController.isLoading
-                    ? const LoadingScreen()
-                    : const UnLoadingScreen(),
+                registerController.loadingScreen,
           ),
         ],
       ),

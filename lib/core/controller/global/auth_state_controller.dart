@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,10 +23,21 @@ class AuthStateController extends GetxController {
     uid.value = _box.read('uid');
   }
 
-  bool get isLoading => _loadingController.isLoading.value;
+  Widget get loadingScreen => _loadingController.loadingScreen();
 
   void clickCheckBox(bool value) {
     isRememberMe.value = value;
+  }
+
+  void _saveAuthState(String userId) {
+    if (isRememberMe.value) {
+      _box.write('isLoggedIn', true);
+    }
+    hasJustLoggedIn.value = true;
+    uid.value = userId;
+
+    _box.write('hasLoggedIn', true);
+    _box.write('uid', userId);
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
@@ -50,16 +62,5 @@ class AuthStateController extends GetxController {
 
     _box.remove('isLoggedIn');
     _box.remove('uid');
-  }
-
-  void _saveAuthState(String userId) {
-    if (isRememberMe.value) {
-      _box.write('isLoggedIn', true);
-    }
-    hasJustLoggedIn.value = true;
-    uid.value = userId;
-
-    _box.write('hasLoggedIn', true);
-    _box.write('uid', userId);
   }
 }

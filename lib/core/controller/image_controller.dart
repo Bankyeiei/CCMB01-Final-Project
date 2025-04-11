@@ -23,14 +23,19 @@ class ImageController extends GetxController {
   Future<List<String>?> uploadAndGetImageUrlAndId() async {
     try {
       if (imageFile.value != null) {
+        if (imageId.isNotEmpty) {
+          await imageRepository.deleteImage(imageId);
+        }
         return await imageRepository.uploadAndGetImageUrlAndId(
           imageFile.value!,
         );
+      } else {
+        if (imageUrl.value.isEmpty && imageId.isNotEmpty) {
+          await imageRepository.deleteImage(imageId);
+          return null;
+        }
+        return [imageUrl.value, imageId];
       }
-      if (imageId.isNotEmpty) {
-        await imageRepository.deleteImage(imageId);
-      }
-      return null;
     } catch (error) {
       rethrow;
     }
