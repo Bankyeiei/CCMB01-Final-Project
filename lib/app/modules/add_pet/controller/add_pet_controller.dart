@@ -66,6 +66,7 @@ class AddPetController extends GetxController {
           imageId: imageUrlAndId?[1] ?? '',
         ),
       );
+      await petController.getPets(_authStateController.uid);
       Get.back(closeOverlays: true);
       SnackbarService.showAddPetSuccess();
     } catch (error) {

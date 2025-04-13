@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/controller/user_controller.dart';
@@ -32,9 +32,14 @@ class HomeViewController extends GetxController {
     _loadingController.isLoading.value = true;
     try {
       await userController.getUser(_authStateController.uid);
+      await petController.getPets(_authStateController.uid);
+      actions = [
+        null,
+        ViewAppBarActions.petListAction(),
+        ViewAppBarActions.profileAction(_logOut),
+      ];
       _updateTitles();
       ever(userController.userRx, (_) => _updateTitles());
-      actions = [null, null, AppBarActions.profileAction(_logOut)];
       _loadingController.isLoading.value = false;
       if (_authStateController.hasJustLoggedIn) {
         SnackbarService.showLoginSuccess();
@@ -54,14 +59,6 @@ class HomeViewController extends GetxController {
     pageIndex.value = value;
   }
 
-  void _updateTitles() {
-    titles.value = [
-      'Hey ${userController.user.name},',
-      'My Pets',
-      userController.user.name,
-    ];
-  }
-
   void _logOut() {
     Get.defaultDialog(
       title: 'Leaving already?',
@@ -75,5 +72,13 @@ class HomeViewController extends GetxController {
         Get.offAllNamed('/login');
       },
     );
+  }
+
+  void _updateTitles() {
+    titles.value = [
+      'Hey ${userController.user.name},',
+      'My Pets',
+      userController.user.name,
+    ];
   }
 }

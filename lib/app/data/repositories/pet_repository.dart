@@ -13,8 +13,6 @@ class PetRepository {
 
   Future<void> uploadPetMap(Pet pet) async {
     final petMap = Pet.toJson(pet);
-    print('55555555555555555555555555555555555555');
-    print(petMap);
     await petProvider.uploadPet(pet.petId, petMap);
   }
 }

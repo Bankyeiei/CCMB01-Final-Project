@@ -20,6 +20,7 @@ class HomeViewPage extends StatelessWidget {
     return Stack(
       children: [
         Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Obx(
               () => Text(
@@ -40,7 +41,6 @@ class HomeViewPage extends StatelessWidget {
             ],
           ),
           body: Obx(() => pages[homeViewController.pageIndex.value]),
-          resizeToAvoidBottomInset: false,
           bottomNavigationBar: Obx(
             () => BottomNavigationBar(
               backgroundColor: Get.theme.primaryColor,

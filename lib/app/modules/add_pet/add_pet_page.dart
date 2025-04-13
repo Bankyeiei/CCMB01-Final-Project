@@ -52,6 +52,7 @@ class AddPetPage extends StatelessWidget {
                           ),
                         ],
                         isHintText: false,
+                        lengthLimiting: 16,
                       ),
                     ),
                     Obx(
@@ -176,6 +177,7 @@ class AddPetPage extends StatelessWidget {
                   child: FocusScope(
                     canRequestFocus: false,
                     child: FloatingActionButton(
+                      tooltip: 'Add Pet',
                       onPressed: () {
                         Get.focusScope!.unfocus();
                         if (addPetValidateController.validateForm()) {

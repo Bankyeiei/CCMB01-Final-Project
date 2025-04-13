@@ -63,7 +63,7 @@ final ThemeData themeData = ThemeData(
     centerTitle: true,
     foregroundColor: Colors.white,
     backgroundColor: Color(0xFF5CB15A),
-    iconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(size: 32, color: Colors.white),
     shadowColor: Color(0xFF4A4A4A),
   ),
 

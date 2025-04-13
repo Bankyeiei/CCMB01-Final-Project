@@ -68,6 +68,8 @@ class ProfilePage extends StatelessWidget {
             () => Text(
               userController.user.name,
               style: Get.textTheme.headlineMedium,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Row(
@@ -75,7 +77,12 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(width: 16),
               const Icon(Icons.email_outlined),
               const SizedBox(width: 20),
-              Text(userController.user.email, style: Get.textTheme.titleSmall),
+              Text(
+                userController.user.email,
+                style: Get.textTheme.titleSmall,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
           Row(
@@ -87,6 +94,7 @@ class ProfilePage extends StatelessWidget {
                 () => Text(
                   userController.user.phone,
                   style: Get.textTheme.titleSmall,
+                  maxLines: 1,
                 ),
               ),
             ],

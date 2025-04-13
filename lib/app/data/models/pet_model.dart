@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 enum Gender {
   none('None', Colors.black, Icons.question_mark),
-  male('Male', Color.fromRGBO(21, 101, 192, 1), Icons.male),
-  female('Female', Colors.pink, Icons.female);
+  male('Male', Color(0xFF1565C0), Icons.male),
+  female('Female', Color(0xFFF576AC), Icons.female);
 
   final String text;
   final Color color;
@@ -53,7 +53,7 @@ class Pet {
       gender: gender,
       weight: jsonMap['weight'],
       color: jsonMap['color'] ?? '',
-      birthday: (jsonMap['birthday']).toDate(),
+      birthday: jsonMap['birthday']?.toDate(),
       story: jsonMap['story'] ?? '',
       imageUrl: jsonMap['image_url'] ?? '',
       imageId: jsonMap['image_id'] ?? '',

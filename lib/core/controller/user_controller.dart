@@ -12,7 +12,7 @@ class UserController extends GetxController {
   User get user => userRx.value;
 
   Future<void> getUser(String uid) async {
-    userRx.value = (await userRepositories.getUserModel(uid));
+    userRx.value = await userRepositories.getUserModel(uid);
   }
 
   Future<void> editUser(

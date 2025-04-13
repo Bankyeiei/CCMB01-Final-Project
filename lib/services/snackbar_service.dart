@@ -8,7 +8,7 @@ class SnackbarService {
     color: Get.theme.colorScheme.secondary,
     blurRadius: 8,
   );
-  static final _duration = const Duration(seconds: 4);
+  static final _duration = const Duration(seconds: 5);
 
   static void showSuccess(String message, {String title = 'Success 🐾'}) {
     Get.snackbar(
