@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../app/modules/widgets/loading.dart';
 
 class LoadingController extends GetxController {
-  RxBool isLoading = false.obs;
+  final RxBool isLoading = false.obs;
 
   Widget loadingScreen() {
     if (isLoading.value) {

@@ -41,7 +41,7 @@ class EditProfileController extends GetxController {
     try {
       final imageUrlAndId = await imageController.uploadAndGetImageUrlAndId();
       await userController.editUser(
-        _authStateController.uid.value,
+        _authStateController.uid,
         editProfileValidateController.nameController.text,
         editProfileValidateController.phoneController.text,
         imageUrlAndId?[0],

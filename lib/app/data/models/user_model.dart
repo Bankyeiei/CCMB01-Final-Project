@@ -16,21 +16,22 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> jsonMap) {
     return User(
-      email: jsonMap['email'] ?? 'Unknown',
-      name: jsonMap['name'] ?? '',
+      email: jsonMap['email'] ?? '',
+      name: jsonMap['name'] ?? 'Unknown',
       phone: jsonMap['phone'] ?? '',
-      imageUrl: jsonMap['imageUrl'] ?? '',
-      imageId: jsonMap['imageId'] ?? '',
-      createdAt: jsonMap['createdAt'],
+      imageUrl: jsonMap['image_url'] ?? '',
+      imageId: jsonMap['image_id'] ?? '',
+      createdAt: (jsonMap['created_at']).toDate(),
     );
   }
+
   static Map<String, dynamic> toJson(User user) {
     Map<String, dynamic> userMap = {
       'email': user.email,
       'name': user.name,
       'phone': user.phone,
-      'imageUrl': user.imageUrl,
-      'imageId': user.imageId,
+      'image_url': user.imageUrl,
+      'image_id': user.imageId,
       'created_at': user.createdAt,
     };
     return userMap;

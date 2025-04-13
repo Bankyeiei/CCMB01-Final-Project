@@ -9,8 +9,9 @@ class ImageController extends GetxController {
   final ImageRepository imageRepository;
   ImageController({required this.imageRepository});
 
-  Rx<File?> imageFile = Rx<File?>(null);
-  RxString imageUrl = ''.obs;
+  final Rx<File?> imageFile = Rx<File?>(null);
+  final RxString imageUrl = ''.obs;
+  
   String imageId = '';
 
   Future<void> _pickImage([bool isCamera = false]) async {

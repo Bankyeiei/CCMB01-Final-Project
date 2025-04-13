@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SnackbarService {
-  static final _backgroundColor = Get.theme.primaryColor.withAlpha(160);
+  static final _backgroundColor = Get.theme.colorScheme.onPrimary;
+  static final _boxShadow = BoxShadow(
+    color: Get.theme.colorScheme.secondary,
+    blurRadius: 8,
+  );
   static final _duration = const Duration(seconds: 4);
 
   static void showSuccess(String message, {String title = 'Success 🐾'}) {
@@ -11,17 +15,22 @@ class SnackbarService {
       title,
       message,
       backgroundColor: _backgroundColor,
-      icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+      boxShadows: [_boxShadow],
+      icon: Icon(Icons.check_circle_outline, color: Get.theme.primaryColor),
       duration: _duration,
     );
   }
 
-  static void showError(String message, {String title = 'Woof! 🐶'}) {
+  static void showError({
+    String message = 'Something went wrong. Please try again.',
+    String title = 'Woof! 🐶',
+  }) {
     Get.snackbar(
       title,
       message,
       backgroundColor: _backgroundColor,
-      icon: const Icon(Icons.error_outline, color: Colors.white),
+      boxShadows: [_boxShadow],
+      icon: Icon(Icons.error_outline, color: Get.theme.colorScheme.error),
       duration: _duration,
     );
   }
@@ -31,7 +40,8 @@ class SnackbarService {
       title,
       message,
       backgroundColor: _backgroundColor,
-      icon: const Icon(Icons.info_outline, color: Colors.white),
+      boxShadows: [_boxShadow],
+      icon: Icon(Icons.info_outline, color: Get.theme.colorScheme.onSecondary),
       duration: _duration,
     );
   }
@@ -58,6 +68,9 @@ class SnackbarService {
         case 'operation-not-allowed':
           message = 'This operation is not allowed.';
           break;
+        case 'too-many-requests':
+          message = 'Too many requests. Please wait and try again.';
+          break;
         default:
           message = 'An unexpected error occurred.';
           break;
@@ -65,7 +78,7 @@ class SnackbarService {
     } catch (e) {
       message = 'Something went wrong. Please try again.';
     }
-    showError('Registration failed: $message', title: 'Oops! 🐶');
+    showError(message: 'Registration failed: $message', title: 'Oops! 🐶');
   }
 
   static void showLoginSuccess() {
@@ -78,32 +91,16 @@ class SnackbarService {
       throw error;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        case 'invalid-credential':
-          message = 'Invalid email or password.';
-          break;
-        case 'invalid-email':
-          message = 'The email address is badly formatted.';
-          break;
-        case 'user-not-found':
-          message = 'No account found for that email.';
-          break;
-        case 'wrong-password':
-          message = 'Incorrect password. Please try again.';
-          break;
-        case 'user-disabled':
-          message = 'This account has been disabled.';
-          break;
         case 'too-many-requests':
           message = 'Too many login attempts. Please wait and try again.';
           break;
         default:
-          message = 'An unexpected error occurred.';
-          break;
+          message = 'Email or password is incorrect. Please try again.';
       }
     } catch (e) {
       message = 'Something went wrong. Please try again.';
     }
-    showError('Login failed: $message');
+    showError(message: 'Login failed: $message');
   }
 
   static void showEditSuccess() {
@@ -114,14 +111,21 @@ class SnackbarService {
   }
 
   static void showEditError() {
-    showError('Something went wrong while saving your changes.');
+    showError(message: 'Something went wrong while saving your changes.');
   }
 
-  static void showWelcomeBack(String username) {
-    showInfo('Your pet(s) missed you 🐶', title: 'Welcome back, $username!');
+  static void showAddPetSuccess() {
+    showSuccess('Your pet has been added successfully! 🐕', title: 'Success!');
   }
 
-  static void showPetAdded() {
-    showSuccess('Your pet has been added successfully! 🐕');
+  static void showAddPetError() {
+    showError(message: 'Something went wrong while saving your pet.');
+  }
+
+  static void showWelcomeBack(String username, [int numberOfPets = 1]) {
+    showInfo(
+      'Your pet${numberOfPets == 1 ? '' : 's'} missed you 🐶',
+      title: 'Welcome back, $username!',
+    );
   }
 }

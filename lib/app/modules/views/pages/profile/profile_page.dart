@@ -67,7 +67,7 @@ class ProfilePage extends StatelessWidget {
           Obx(
             () => Text(
               userController.user.name,
-              style: Get.theme.textTheme.headlineMedium,
+              style: Get.textTheme.headlineMedium,
             ),
           ),
           Row(
@@ -75,10 +75,7 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(width: 16),
               const Icon(Icons.email_outlined),
               const SizedBox(width: 20),
-              Text(
-                userController.user.email,
-                style: Get.theme.textTheme.titleSmall,
-              ),
+              Text(userController.user.email, style: Get.textTheme.titleSmall),
             ],
           ),
           Row(
@@ -89,7 +86,7 @@ class ProfilePage extends StatelessWidget {
               Obx(
                 () => Text(
                   userController.user.phone,
-                  style: Get.theme.textTheme.titleSmall,
+                  style: Get.textTheme.titleSmall,
                 ),
               ),
             ],
@@ -119,17 +116,15 @@ class ProfilePage extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.settings),
-            title: Text(
-              'Edit Profile',
-              style: Get.theme.textTheme.headlineSmall,
-            ),
+            title: Text('Edit Profile', style: Get.textTheme.headlineSmall),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () => Get.toNamed('/edit_profile'),
           ),
           ListTile(
             leading: const Icon(Icons.pets_outlined),
-            title: Text('App Pet', style: Get.theme.textTheme.headlineSmall),
+            title: Text('App Pet', style: Get.textTheme.headlineSmall),
             trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () => Get.toNamed('/add_pet'),
           ),
         ],
       ),

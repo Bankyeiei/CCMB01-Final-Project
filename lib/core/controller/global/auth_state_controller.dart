@@ -13,14 +13,15 @@ class AuthStateController extends GetxController {
   final _box = GetStorage();
   final _auth = FirebaseAuth.instance;
 
-  RxBool isRememberMe = false.obs;
-  RxBool hasJustLoggedIn = false.obs;
-  RxString uid = ''.obs;
+  final RxBool isRememberMe = false.obs;
+
+  String uid = '';
+  bool hasJustLoggedIn = false;
 
   @override
   void onInit() {
     super.onInit();
-    uid.value = _box.read('uid');
+    uid = _box.read('uid');
   }
 
   Widget get loadingScreen => _loadingController.loadingScreen();
@@ -33,8 +34,8 @@ class AuthStateController extends GetxController {
     if (isRememberMe.value) {
       _box.write('isLoggedIn', true);
     }
-    hasJustLoggedIn.value = true;
-    uid.value = userId;
+    hasJustLoggedIn = true;
+    uid = userId;
 
     _box.write('hasLoggedIn', true);
     _box.write('uid', userId);
@@ -58,7 +59,7 @@ class AuthStateController extends GetxController {
 
   void clearAuthState() {
     isRememberMe.value = false;
-    uid.value = '';
+    uid = '';
 
     _box.remove('isLoggedIn');
     _box.remove('uid');

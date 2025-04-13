@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/controller/user_controller.dart';
+import '../../../../core/controller/pet_controller.dart';
 import '../../../../core/controller/global/auth_state_controller.dart';
 import '../../../../core/controller/global/loading_controller.dart';
 import '../../../../services/snackbar_service.dart';
@@ -10,29 +11,40 @@ import '../widgets/actions.dart';
 
 class HomeViewController extends GetxController {
   final UserController userController;
-  HomeViewController({required this.userController});
+  final PetController petController;
+  HomeViewController({
+    required this.userController,
+    required this.petController,
+  });
 
   final AuthStateController _authStateController =
       Get.find<AuthStateController>();
   final LoadingController _loadingController = Get.find<LoadingController>();
 
-  RxInt pageIndex = 0.obs;
-  RxList<String> titles = List.filled(3, '').obs;
+  final RxInt pageIndex = 0.obs;
+  final RxList<String> titles = List.filled(3, '').obs;
+
   List<List<Widget>?> actions = [null, null, null];
 
   @override
   void onInit() async {
     super.onInit();
     _loadingController.isLoading.value = true;
-    await userController.getUser(_authStateController.uid.value);
-    _updateTitles();
-    ever(userController.userRx, (_) => _updateTitles());
-    actions = [null, null, AppBarActions.profileAction(_logOut)];
-    _loadingController.isLoading.value = false;
-    if (_authStateController.hasJustLoggedIn.value) {
-      SnackbarService.showLoginSuccess();
-    } else {
-      SnackbarService.showWelcomeBack(userController.user.name);
+    try {
+      await userController.getUser(_authStateController.uid);
+      _updateTitles();
+      ever(userController.userRx, (_) => _updateTitles());
+      actions = [null, null, AppBarActions.profileAction(_logOut)];
+      _loadingController.isLoading.value = false;
+      if (_authStateController.hasJustLoggedIn) {
+        SnackbarService.showLoginSuccess();
+      } else {
+        SnackbarService.showWelcomeBack(
+          userController.user.name,
+        ); //? Waiting for pet Controller
+      }
+    } catch (error) {
+      SnackbarService.showError();
     }
   }
 
@@ -53,7 +65,7 @@ class HomeViewController extends GetxController {
   void _logOut() {
     Get.defaultDialog(
       title: 'Leaving already?',
-      middleText: 'Your pet(s) will miss you 🐶',
+      middleText: 'Your pet will miss you 🐶', //? Waiting for pet Controller
       textConfirm: 'Logout',
       textCancel: 'Stay',
       buttonColor: Get.theme.primaryColor,

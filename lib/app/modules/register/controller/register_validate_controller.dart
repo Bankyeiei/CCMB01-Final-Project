@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class RegisterValidateController extends GetxController {
@@ -8,11 +8,11 @@ class RegisterValidateController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  RxString emailError = ''.obs;
-  RxString nameError = ''.obs;
-  RxString phoneError = ''.obs;
-  RxString passwordError = ''.obs;
-  RxString confirmPasswordError = ''.obs;
+  final RxString emailError = ''.obs;
+  final RxString nameError = ''.obs;
+  final RxString phoneError = ''.obs;
+  final RxString passwordError = ''.obs;
+  final RxString confirmPasswordError = ''.obs;
 
   void validateEmail(String value) {
     if (value.isEmpty) {

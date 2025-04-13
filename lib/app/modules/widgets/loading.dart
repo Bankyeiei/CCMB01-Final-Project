@@ -11,7 +11,7 @@ class LoadingScreen extends StatelessWidget {
       children: [
         ModalBarrier(
           dismissible: false,
-          color: Get.theme.colorScheme.primary.withAlpha(160),
+          color: Get.theme.primaryColor.withAlpha(120),
         ),
         Center(
           child: Column(

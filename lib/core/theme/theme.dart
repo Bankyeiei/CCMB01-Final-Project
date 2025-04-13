@@ -51,11 +51,20 @@ final ThemeData themeData = ThemeData(
     titleMedium: GoogleFonts.fredoka(fontSize: 20, fontWeight: FontWeight.w600),
     titleSmall: GoogleFonts.fredoka(fontSize: 18),
     bodyLarge: GoogleFonts.fredoka(fontSize: 20),
-    bodyMedium: GoogleFonts.fredoka(fontSize: 16), //! Unused
+    bodyMedium: GoogleFonts.fredoka(fontSize: 16),
     bodySmall: GoogleFonts.fredoka(fontSize: 14),
     labelLarge: GoogleFonts.fredoka(fontSize: 12), //! Unused
     labelMedium: GoogleFonts.fredoka(fontSize: 11), //! Unused
     labelSmall: GoogleFonts.fredoka(fontSize: 10), //! Unused
+  ),
+
+  // AppBar Theme
+  appBarTheme: const AppBarTheme(
+    centerTitle: true,
+    foregroundColor: Colors.white,
+    backgroundColor: Color(0xFF5CB15A),
+    iconTheme: IconThemeData(color: Colors.white),
+    shadowColor: Color(0xFF4A4A4A),
   ),
 
   // ElevatedButton Theme
@@ -64,14 +73,14 @@ final ThemeData themeData = ThemeData(
       backgroundColor: const Color(0xFF5CB15A),
       foregroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      textStyle: GoogleFonts.fredoka(fontWeight: FontWeight.w600, fontSize: 16),
+      textStyle: GoogleFonts.fredoka(
+        fontWeight: FontWeight.w600,
+        fontSize: 25,
+        color: Colors.white,
+      ),
     ),
   ),
 
-  appBarTheme: const AppBarTheme(
-    centerTitle: true,
-    foregroundColor: Colors.white,
-    backgroundColor: Color(0xFF5CB15A),
-    iconTheme: IconThemeData(color: Colors.white),
-  ),
+  // FloatingActionButton Theme
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(iconSize: 32),
 );

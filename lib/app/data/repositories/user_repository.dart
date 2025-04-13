@@ -26,8 +26,8 @@ class UserRepositories {
     final userMap = {
       'name': name,
       'phone': phone,
-      'imageUrl': imageUrl,
-      'imageId': imageId,
+      'image_url': imageUrl,
+      'image_id': imageId,
     };
     await userProvider.uploadUser(uid, userMap);
   }

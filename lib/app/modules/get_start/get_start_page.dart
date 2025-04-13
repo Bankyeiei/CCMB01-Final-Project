@@ -26,16 +26,12 @@ class GetStartPage extends StatelessWidget {
               const SizedBox(height: 48),
               Text(
                 'Hey! Welcome',
-                style: Get.theme.textTheme.displaySmall!.copyWith(
-                  letterSpacing: 2,
-                ),
+                style: Get.textTheme.displaySmall!.copyWith(letterSpacing: 2),
               ),
               const SizedBox(height: 20),
               Text(
                 "While You Sit And Stay - We'll\nGo Out And Play",
-                style: Get.theme.textTheme.bodySmall!.copyWith(
-                  letterSpacing: 2.5,
-                ),
+                style: Get.textTheme.bodySmall!.copyWith(letterSpacing: 2.5),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -50,7 +46,7 @@ class GetStartPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
                     'GET STARTED >',
-                    style: Get.theme.textTheme.titleLarge!.copyWith(
+                    style: Get.textTheme.titleLarge!.copyWith(
                       color: Colors.white,
                       letterSpacing: 4,
                     ),
@@ -63,7 +59,7 @@ class GetStartPage extends StatelessWidget {
                 children: [
                   Text(
                     'Already have an account?',
-                    style: Get.theme.textTheme.headlineSmall!.copyWith(
+                    style: Get.textTheme.headlineSmall!.copyWith(
                       letterSpacing: 1.5,
                     ),
                   ),
@@ -72,7 +68,7 @@ class GetStartPage extends StatelessWidget {
                     onTap: () => Get.offNamed('/login'),
                     child: Text(
                       'Login',
-                      style: Get.theme.textTheme.headlineSmall!.copyWith(
+                      style: Get.textTheme.headlineSmall!.copyWith(
                         color: Get.theme.primaryColor,
                         letterSpacing: 1.5,
                       ),

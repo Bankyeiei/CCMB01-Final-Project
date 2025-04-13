@@ -7,12 +7,12 @@ class UserController extends GetxController {
   final UserRepositories userRepositories;
   UserController({required this.userRepositories});
 
-  Rx<User> userRx = User().obs;
+  final Rx<User> userRx = User().obs;
 
   User get user => userRx.value;
 
   Future<void> getUser(String uid) async {
-    userRx = (await userRepositories.getUserModel(uid)).obs;
+    userRx.value = (await userRepositories.getUserModel(uid));
   }
 
   Future<void> editUser(

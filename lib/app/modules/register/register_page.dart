@@ -47,7 +47,7 @@ class RegisterPage extends StatelessWidget {
                 color: Get.theme.colorScheme.onSecondary,
               ),
               centerTitle: true,
-              title: Text('Register', style: Get.theme.textTheme.displayMedium),
+              title: Text('Register', style: Get.textTheme.displayMedium),
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -91,9 +91,9 @@ class RegisterPage extends StatelessWidget {
                         validate: registerValidateController.validatePhone,
                         keyboardType: TextInputType.phone,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                         ],
+                        lengthLimiting: 10,
                       ),
                     ),
                     Obx(
@@ -105,8 +105,8 @@ class RegisterPage extends StatelessWidget {
                         controller:
                             registerValidateController.passwordController,
                         validate: registerValidateController.validatePassword,
-                        obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
+                        obscureText: true,
                       ),
                     ),
                     Obx(
@@ -122,9 +122,9 @@ class RegisterPage extends StatelessWidget {
                                 .confirmPasswordController,
                         validate:
                             registerValidateController.validateConfirmPassword,
-                        obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                         textInputAction: TextInputAction.done,
+                        obscureText: true,
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -158,10 +158,7 @@ class RegisterPage extends StatelessWidget {
             top: -175,
             right: -300,
           ),
-          Obx(
-            () =>
-                registerController.loadingScreen,
-          ),
+          Obx(() => registerController.loadingScreen),
         ],
       ),
     );

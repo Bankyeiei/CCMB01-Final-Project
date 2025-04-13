@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class EditProfileValidateController extends GetxController {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
 
-  RxString nameError = ''.obs;
-  RxString phoneError = ''.obs;
+  final RxString nameError = ''.obs;
+  final RxString phoneError = ''.obs;
 
   void validateName(String value) {
     if (value.isEmpty) {

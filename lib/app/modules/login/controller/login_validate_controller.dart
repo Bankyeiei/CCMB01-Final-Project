@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class LoginValidateController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  RxString emailError = ''.obs;
-  RxString passwordError = ''.obs;
+  final RxString emailError = ''.obs;
+  final RxString passwordError = ''.obs;
 
   void validateEmail(String value) {
     if (value.isEmpty) {

@@ -26,15 +26,12 @@ class LoginPage extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
-                Container(
-                  color: Get.theme.colorScheme.onPrimary,
-                  child: Opacity(
-                    opacity: 0.16,
-                    child: Image.asset(
-                      'assets/background/good_boy.png',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                Opacity(
+                  opacity: 0.16,
+                  child: Image.asset(
+                    'assets/background/good_boy.png',
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
@@ -63,6 +60,14 @@ class LoginPage extends StatelessWidget {
                           controller:
                               loginValidateController.passwordController,
                           validate: loginValidateController.validatePassword,
+                          onSubmitted: (value) {
+                            if (loginValidateController.validateForm()) {
+                              authStateController.signInWithEmailAndPassword(
+                                loginValidateController.emailController.text,
+                                loginValidateController.passwordController.text,
+                              );
+                            }
+                          },
                           obscureText: true,
                           keyboardType: TextInputType.visiblePassword,
                           textInputAction: TextInputAction.done,
@@ -100,7 +105,7 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 24),
                       Text(
                         'or connect with',
-                        style: Get.theme.textTheme.titleLarge!.copyWith(
+                        style: Get.textTheme.titleLarge!.copyWith(
                           letterSpacing: 1.2,
                           color: Get.theme.primaryColor,
                         ),
@@ -124,7 +129,7 @@ class LoginPage extends StatelessWidget {
                         onTap: () => Get.toNamed('/register'),
                         child: Text(
                           'No account? Register now',
-                          style: Get.theme.textTheme.headlineSmall!.copyWith(
+                          style: Get.textTheme.headlineSmall!.copyWith(
                             letterSpacing: 1.5,
                             decoration: TextDecoration.underline,
                           ),
@@ -153,10 +158,7 @@ class LoginPage extends StatelessWidget {
             top: -175,
             right: -300,
           ),
-          Obx(
-            () =>
-                authStateController.loadingScreen,
-          ),
+          Obx(() => authStateController.loadingScreen),
         ],
       ),
     );
