@@ -46,7 +46,8 @@ class HomeViewController extends GetxController {
       } else {
         SnackbarService.showWelcomeBack(
           userController.user.name,
-        ); //? Waiting for pet Controller
+          petController.petList.length,
+        );
       }
     } catch (error) {
       SnackbarService.showError();
@@ -61,10 +62,10 @@ class HomeViewController extends GetxController {
 
   void _logOut() {
     Get.defaultDialog(
-      title: 'Leaving already?',
-      middleText: 'Your pet will miss you 🐶', //? Waiting for pet Controller
-      textConfirm: 'Logout',
-      textCancel: 'Stay',
+      title: 'Time for a break?',
+      middleText: 'See you again soon! 🐾',
+      textConfirm: 'Yes, logout',
+      textCancel: 'Not yet',
       buttonColor: Get.theme.primaryColor,
       cancelTextColor: Get.theme.primaryColor,
       onConfirm: () {

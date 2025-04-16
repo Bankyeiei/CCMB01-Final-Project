@@ -22,6 +22,7 @@ class Pet {
   double? weight;
   String color;
   DateTime? birthday;
+  String age;
   String story;
   String imageUrl;
   String imageId;
@@ -35,6 +36,7 @@ class Pet {
     this.weight,
     this.color = '',
     this.birthday,
+    this.age = '',
     this.story = '',
     this.imageUrl = '',
     this.imageId = '',
@@ -44,6 +46,7 @@ class Pet {
     final gender = Gender.values.firstWhere(
       (gender) => gender.text == jsonMap['gender'],
     );
+    final age = calculateAge(jsonMap['birthday']?.toDate());
     return Pet(
       ownerId: jsonMap['owner_id'],
       petId: petId,
@@ -54,6 +57,7 @@ class Pet {
       weight: jsonMap['weight'],
       color: jsonMap['color'] ?? '',
       birthday: jsonMap['birthday']?.toDate(),
+      age: age,
       story: jsonMap['story'] ?? '',
       imageUrl: jsonMap['image_url'] ?? '',
       imageId: jsonMap['image_id'] ?? '',
@@ -75,5 +79,20 @@ class Pet {
       'image_id': pet.imageId,
     };
     return petMap;
+  }
+
+  static String calculateAge(DateTime? birthday) {
+    if (birthday == null) {
+      return '';
+    }
+    final now = DateTime.now();
+
+    int yearDiff = now.year - birthday.year;
+    int monthDiff = now.month - birthday.month;
+    if (monthDiff < 0) {
+      yearDiff -= 1;
+      monthDiff += 12;
+    }
+    return '${yearDiff != 0 ? '${yearDiff}y ' : ''}${monthDiff}m';
   }
 }

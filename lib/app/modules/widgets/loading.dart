@@ -19,13 +19,13 @@ class LoadingScreen extends StatelessWidget {
             children: [
               Gif(
                 image: const AssetImage('assets/loading/dog.gif'),
-                width: 0.5 * Get.mediaQuery.size.width,
+                width: 0.5 * Get.size.width,
                 autostart: Autostart.loop,
                 duration: const Duration(seconds: 2),
               ),
               Gif(
                 image: const AssetImage('assets/loading/loading.gif'),
-                width: 0.75 * Get.mediaQuery.size.width,
+                width: 0.75 * Get.size.width,
                 autostart: Autostart.loop,
                 duration: const Duration(seconds: 3),
               ),

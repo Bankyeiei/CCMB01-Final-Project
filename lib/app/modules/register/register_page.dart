@@ -142,7 +142,7 @@ class RegisterPage extends StatelessWidget {
               ),
             ),
             bottomNavigationBar: Container(
-              height: 0.08 * Get.mediaQuery.size.height,
+              height: 0.08 * Get.size.height,
               color: Get.theme.primaryColor,
             ),
           ),

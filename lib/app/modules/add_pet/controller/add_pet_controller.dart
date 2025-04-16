@@ -50,23 +50,22 @@ class AddPetController extends GetxController {
           addPetValidateController.weightController.text.isNotEmpty
               ? double.parse(addPetValidateController.weightController.text)
               : null;
-      await petController.petRepository.uploadPetMap(
-        Pet(
-          ownerId: _authStateController.uid,
-          petId: null,
-          petType: petType,
-          petName: addPetValidateController.petNameController.text,
-          breedName: addPetValidateController.breedNameController.text,
-          gender: gender,
-          weight: weight,
-          color: addPetValidateController.colorController.text,
-          birthday: birthday.value,
-          story: addPetValidateController.storyController.text,
-          imageUrl: imageUrlAndId?[0] ?? '',
-          imageId: imageUrlAndId?[1] ?? '',
-        ),
+      final newPet = Pet(
+        ownerId: _authStateController.uid,
+        petId: null,
+        petType: petType,
+        petName: addPetValidateController.petNameController.text,
+        breedName: addPetValidateController.breedNameController.text,
+        gender: gender,
+        weight: weight,
+        color: addPetValidateController.colorController.text,
+        birthday: birthday.value,
+        story: addPetValidateController.storyController.text,
+        imageUrl: imageUrlAndId?[0] ?? '',
+        imageId: imageUrlAndId?[1] ?? '',
       );
-      await petController.getPets(_authStateController.uid);
+      await petController.petRepository.uploadPetMap(newPet);
+      petController.petList.add(newPet);
       Get.back(closeOverlays: true);
       SnackbarService.showAddPetSuccess();
     } catch (error) {
@@ -77,7 +76,7 @@ class AddPetController extends GetxController {
   }
 
   void _updateAge() {
-    age.value = petController.calculateAge(birthday.value);
+    age.value = Pet.calculateAge(birthday.value);
   }
 
   void _scrollListener() {

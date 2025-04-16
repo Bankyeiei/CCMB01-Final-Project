@@ -14,6 +14,7 @@ class AppTextField extends StatelessWidget {
   final bool obscureText;
   final bool isHintText;
   final int lengthLimiting;
+  final bool isShowLength;
   final int maxLines;
   final TextInputAction textInputAction;
   const AppTextField({
@@ -29,6 +30,7 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.isHintText = true,
     this.lengthLimiting = 30,
+    this.isShowLength = false,
     this.maxLines = 1,
     this.textInputAction = TextInputAction.next,
   });
@@ -39,6 +41,7 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: 88 + 30 * (maxLines - 1),
       child: TextField(
+        maxLength: isShowLength ? lengthLimiting : null,
         controller: controller,
         maxLines: maxLines,
         onChanged: validate,
@@ -47,7 +50,9 @@ class AppTextField extends StatelessWidget {
             obscureText ? obscuredController.isObscured.value : false.obs.value,
         inputFormatters:
             (inputFormatters ?? []) +
-            [LengthLimitingTextInputFormatter(lengthLimiting)],
+            (isShowLength
+                ? []
+                : [LengthLimitingTextInputFormatter(lengthLimiting)]),
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         decoration: InputDecoration(

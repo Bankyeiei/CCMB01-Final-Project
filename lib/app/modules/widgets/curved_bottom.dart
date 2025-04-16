@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CurvedBottomClipper extends CustomClipper<Path> {
+  final double height;
+  CurvedBottomClipper({required this.height});
+
   @override
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(0, size.height); // Left Bottom
     path.quadraticBezierTo(
       size.width / 2,
-      size.height - 40, // Control point
+      size.height - height, // Control point
       size.width,
       size.height, // Right Bottom
     );

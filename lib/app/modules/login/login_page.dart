@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
                     children: [
-                      SizedBox(height: 0.1 * Get.mediaQuery.size.height),
+                      SizedBox(height: 0.1 * Get.size.height),
                       Image.asset('assets/logo/logo.png', height: 180),
                       const SizedBox(height: 32),
                       Obx(
@@ -135,14 +135,14 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 0.02 * Get.mediaQuery.size.height),
+                      SizedBox(height: 0.02 * Get.size.height),
                     ],
                   ),
                 ),
               ],
             ),
             bottomNavigationBar: Container(
-              height: 0.08 * Get.mediaQuery.size.height,
+              height: 0.08 * Get.size.height,
               color: Get.theme.primaryColor,
             ),
           ),

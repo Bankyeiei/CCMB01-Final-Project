@@ -27,6 +27,7 @@ class HomeViewPage extends StatelessWidget {
                 homeViewController.titles[homeViewController.pageIndex.value],
               ),
             ),
+            actionsPadding: const EdgeInsets.only(right: 10),
             actions: [
               Obx(
                 () => Row(

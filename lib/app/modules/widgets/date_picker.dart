@@ -30,10 +30,7 @@ class AppDatePicker extends StatelessWidget {
         weekdayLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         controlsTextStyle: Get.textTheme.titleMedium,
       ),
-      dialogSize: Size(
-        0.9 * Get.mediaQuery.size.width,
-        0.9 * Get.mediaQuery.size.width,
-      ),
+      dialogSize: Size(0.9 * Get.size.width, 0.9 * Get.size.width),
       value: dateValue.value != null ? [dateValue.value!] : [],
     );
     if (results != null && results.isNotEmpty) {

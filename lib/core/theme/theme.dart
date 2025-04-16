@@ -40,7 +40,7 @@ final ThemeData themeData = ThemeData(
       fontWeight: FontWeight.w700,
     ),
     headlineMedium: GoogleFonts.fredoka(
-      fontSize: 26, //! Unused
+      fontSize: 26,
       fontWeight: FontWeight.w700,
     ),
     headlineSmall: GoogleFonts.fredoka(

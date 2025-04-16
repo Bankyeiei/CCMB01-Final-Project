@@ -76,7 +76,7 @@ class AddPetPage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Expanded(flex: 10, child: GenderDropdown()),
+                        const Expanded(flex: 9, child: GenderDropdown()),
                         const Spacer(),
                         Expanded(
                           flex: 8,
@@ -154,12 +154,13 @@ class AddPetPage extends StatelessWidget {
                           addPetController.showFAB.value = true;
                         },
                         isHintText: false,
-                        lengthLimiting: 250,
-                        maxLines: 3,
+                        lengthLimiting: 500,
+                        isShowLength: true,
+                        maxLines: 5,
                         textInputAction: TextInputAction.done,
                       ),
                     ),
-                    SizedBox(height: 0.1 * Get.mediaQuery.size.height),
+                    SizedBox(height: 0.1 * Get.size.height),
                   ],
                 ),
               ),

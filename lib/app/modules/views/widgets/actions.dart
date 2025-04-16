@@ -9,7 +9,6 @@ class ViewAppBarActions {
         tooltip: 'Add Pet',
         icon: const Icon(Icons.add),
       ),
-      const SizedBox(width: 10),
     ];
   }
 
@@ -20,7 +19,6 @@ class ViewAppBarActions {
         tooltip: 'Logout',
         icon: const Icon(Icons.logout),
       ),
-      const SizedBox(width: 10),
     ];
   }
 }

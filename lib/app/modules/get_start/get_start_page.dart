@@ -21,7 +21,7 @@ class GetStartPage extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 0.16 * Get.mediaQuery.size.height),
+              SizedBox(height: 0.16 * Get.size.height),
               Image.asset('assets/logo/logo.png', height: 180),
               const SizedBox(height: 48),
               Text(

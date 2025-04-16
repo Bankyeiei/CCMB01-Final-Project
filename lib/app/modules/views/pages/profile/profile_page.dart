@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/controller/user_controller.dart';
 
-import 'widget/curved_bottom.dart';
+import '../../../widgets/curved_bottom.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -16,12 +16,12 @@ class ProfilePage extends StatelessWidget {
     return Column(
       children: [
         ClipPath(
-          clipper: CurvedBottomClipper(),
+          clipper: CurvedBottomClipper(height: 40),
           child: Obx(
             () => CachedNetworkImage(
               imageUrl: userController.user.imageUrl,
-              height: 0.75 * Get.mediaQuery.size.width,
-              width: Get.mediaQuery.size.width,
+              height: 0.75 * Get.size.width,
+              width: Get.size.width,
               fit: BoxFit.cover,
               errorWidget:
                   (context, url, error) => Container(
@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
 
   Container profileSection(UserController userController) {
     return Container(
-      height: 0.2 * Get.mediaQuery.size.height,
+      height: 0.2 * Get.size.height,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.symmetric(horizontal: 32),

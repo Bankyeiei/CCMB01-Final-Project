@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SnackbarService {
+  static final _duration = const Duration(seconds: 4);
   static final _backgroundColor = Get.theme.colorScheme.onPrimary;
   static final _boxShadow = BoxShadow(
     color: Get.theme.colorScheme.secondary,
     blurRadius: 8,
   );
-  static final _duration = const Duration(seconds: 5);
 
   static void showSuccess(String message, {String title = 'Success 🐾'}) {
     Get.snackbar(
@@ -122,10 +122,15 @@ class SnackbarService {
     showError(message: 'Something went wrong while saving your pet.');
   }
 
-  static void showWelcomeBack(String username, [int numberOfPets = 1]) {
-    showInfo(
-      'Your pet${numberOfPets == 1 ? '' : 's'} missed you 🐶',
-      title: 'Welcome back, $username!',
-    );
+  static void showWelcomeBack(String username, int numberOfPets) {
+    final title = 'Welcome back, $username!';
+    if (numberOfPets == 0) {
+      showInfo("Let's add your first furry friend 🐶", title: title);
+    } else {
+      showInfo(
+        'Your pet${numberOfPets == 1 ? '' : 's'} missed you 🐶',
+        title: title,
+      );
+    }
   }
 }
