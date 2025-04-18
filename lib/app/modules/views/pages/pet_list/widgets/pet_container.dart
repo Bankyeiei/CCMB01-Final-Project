@@ -14,7 +14,7 @@ class PetContainer extends StatelessWidget {
       onTap: () => Get.toNamed('/pet_profile', arguments: pet.petId),
       child: Container(
         height: 122,
-        margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),

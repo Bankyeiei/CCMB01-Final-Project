@@ -48,12 +48,21 @@ class PetListPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          ListView.builder(
+          ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 20),
             physics: const BouncingScrollPhysics(),
             itemCount: petController.petMap.length,
             itemBuilder:
-                (context, index) => PetContainer(
-                  pet: petController.petMap.values.toList()[index],
+                (context, index) => Column(
+                  children: [
+                    SizedBox(height: index == 0 ? 20 : 0),
+                    PetContainer(
+                      pet: petController.petMap.values.toList()[index],
+                    ),
+                    SizedBox(
+                      height: index == petController.petMap.length - 1 ? 20 : 0,
+                    ),
+                  ],
                 ),
           ),
         ],
