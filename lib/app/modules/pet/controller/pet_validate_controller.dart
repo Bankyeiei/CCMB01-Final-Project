@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class AddPetValidateController extends GetxController {
+class PetValidateController extends GetxController {
   final petNameController = TextEditingController();
   final breedNameController = TextEditingController();
   final weightController = TextEditingController();

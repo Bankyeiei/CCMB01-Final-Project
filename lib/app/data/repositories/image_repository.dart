@@ -58,7 +58,7 @@ class ImageRepository {
       if (response.statusCode == 200) {
         return;
       }
-      throw response.statusMessage.toString();
+      throw response;
     } catch (error) {
       rethrow;
     }

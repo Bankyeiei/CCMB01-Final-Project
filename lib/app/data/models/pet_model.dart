@@ -45,6 +45,7 @@ class Pet {
   factory Pet.fromJson(String petId, Map<String, dynamic> jsonMap) {
     final gender = Gender.values.firstWhere(
       (gender) => gender.text == jsonMap['gender'],
+      orElse: () => Gender.none,
     );
     final age = calculateAge(jsonMap['birthday']?.toDate());
     return Pet(

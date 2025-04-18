@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../controller/add_pet_controller.dart';
-
 class PetTypeDropDown extends StatelessWidget {
-  const PetTypeDropDown({super.key});
+  final RxString typeValue;
+  const PetTypeDropDown({super.key, required this.typeValue});
 
   @override
   Widget build(BuildContext context) {
-    final AddPetController addPetController = Get.find<AddPetController>();
-
     final List<String> petType = [
       'Dog',
       'Cat',
@@ -26,7 +23,7 @@ class PetTypeDropDown extends StatelessWidget {
 
     return DropdownSearch<String>(
       items: (f, cs) => mockPetType,
-      selectedItem: addPetController.petType,
+      selectedItem: typeValue.value,
       compareFn: (item, selectedItem) => item == selectedItem,
       popupProps: PopupProps.menu(
         fit: FlexFit.loose,
@@ -77,7 +74,7 @@ class PetTypeDropDown extends StatelessWidget {
       ),
       onChanged: (value) {
         Get.focusScope!.unfocus();
-        addPetController.petType = value!;
+        typeValue.value = value!;
       },
     );
   }

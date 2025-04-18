@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 
 import 'controller/add_pet_controller.dart';
-import 'controller/add_pet_validate_controller.dart';
-import '../../data/providers/image_provider.dart';
-import '../../data/repositories/image_repository.dart';
-import '../../../core/controller/pet_controller.dart';
-import '../../../core/controller/image_controller.dart';
+import '../controller/pet_validate_controller.dart';
+import '../../../data/providers/image_provider.dart';
+import '../../../data/repositories/image_repository.dart';
+import '../../../../core/controller/pet_controller.dart';
+import '../../../../core/controller/image_controller.dart';
 
 class AddPetBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AddPetValidateController>(() => AddPetValidateController());
+    Get.lazyPut<PetValidateController>(() => PetValidateController());
     Get.lazyPut<ImageProvider>(() => ImageProvider());
     Get.lazyPut<ImageRepository>(
       () => ImageRepository(imageProvider: Get.find<ImageProvider>()),
@@ -20,7 +20,7 @@ class AddPetBinding implements Bindings {
     );
     Get.lazyPut<AddPetController>(
       () => AddPetController(
-        addPetValidateController: Get.find<AddPetValidateController>(),
+        petValidateController: Get.find<PetValidateController>(),
         petController: Get.find<PetController>(),
         imageController: Get.find<ImageController>(),
       ),

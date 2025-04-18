@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/button.dart';
+import '../../../widgets/button.dart';
 
-class PetAppointments extends StatelessWidget {
-  const PetAppointments({super.key});
+class PetJournal extends StatelessWidget {
+  const PetJournal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,9 @@ class PetAppointments extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.event, size: 32),
+                const Icon(Icons.book_outlined, size: 32),
                 const SizedBox(width: 8),
-                Text('Appointments', style: Get.textTheme.headlineMedium),
+                Text('Pet Journal', style: Get.textTheme.headlineMedium),
                 const Spacer(),
                 TextButton(
                   onPressed: () {},
@@ -41,13 +41,16 @@ class PetAppointments extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              "When you schedule an appointment. You'll see it here. Let's set your first appointment",
+              'Start your first pet journal to record special moments, health notes, or fun adventures!',
               style: Get.textTheme.bodyMedium!.copyWith(letterSpacing: 0.6),
             ),
             const Spacer(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 64),
-              child: AppButton(onPressed: () {}, child: const Text('Start')),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: AppButton(
+                onPressed: () {},
+                child: const Text('Add Journal'),
+              ),
             ),
           ],
         ),

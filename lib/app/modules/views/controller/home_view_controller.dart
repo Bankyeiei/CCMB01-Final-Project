@@ -46,7 +46,7 @@ class HomeViewController extends GetxController {
       } else {
         SnackbarService.showWelcomeBack(
           userController.user.name,
-          petController.petList.length,
+          petController.petMap.length,
         );
       }
     } catch (error) {

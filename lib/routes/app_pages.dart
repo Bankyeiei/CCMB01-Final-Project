@@ -9,14 +9,16 @@ import '../app/modules/login/login_page.dart';
 import '../app/modules/register/register_page.dart';
 import '../app/modules/views/home_view_page.dart';
 import '../app/modules/edit_profile/edit_profile_page.dart';
-import '../app/modules/add_pet/add_pet_page.dart';
-import '../app/modules/pet_profile/pet_profile_page.dart';
+import '../app/modules/pet/add_pet/add_pet_page.dart';
+import '../app/modules/pet/pet_profile/pet_profile_page.dart';
+import '../app/modules/pet/edit_pet/edit_pet_page.dart';
 
 import '../app/modules/login/login_binding.dart';
 import '../app/modules/register/register_binding.dart';
 import '../app/modules/views/home_view_binding.dart';
 import '../app/modules/edit_profile/edit_profile_binding.dart';
-import '../app/modules/add_pet/add_pet_binding.dart';
+import '../app/modules/pet/add_pet/add_pet_binding.dart';
+import '../app/modules/pet/edit_pet/edit_pet_binding.dart';
 
 final List<GetPage> appPages = [
   GetPage(
@@ -63,10 +65,20 @@ final List<GetPage> appPages = [
   GetPage(
     name: Routes.petProfile,
     page: () {
-      final pet = Get.arguments as Pet;
-      return PetProfilePage(pet: pet);
+      final petId = Get.arguments as String;
+      return PetProfilePage(petId: petId);
     },
     transition: Transition.downToUp,
     transitionDuration: const Duration(milliseconds: 320),
+  ),
+  GetPage(
+    name: Routes.editPet,
+    page: () {
+      final pet = Get.arguments as Pet;
+      return EditPetPage(pet: pet);
+    },
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 250),
+    binding: EditPetBinding(),
   ),
 ];

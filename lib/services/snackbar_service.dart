@@ -10,7 +10,11 @@ class SnackbarService {
     blurRadius: 8,
   );
 
-  static void showSuccess(String message, {String title = 'Success 🐾'}) {
+  static void showSuccess(
+    String message, {
+    String title = 'Success 🐾',
+    SnackPosition snackPosition = SnackPosition.TOP,
+  }) {
     Get.snackbar(
       title,
       message,
@@ -18,12 +22,14 @@ class SnackbarService {
       boxShadows: [_boxShadow],
       icon: Icon(Icons.check_circle_outline, color: Get.theme.primaryColor),
       duration: _duration,
+      snackPosition: snackPosition,
     );
   }
 
   static void showError({
     String message = 'Something went wrong. Please try again.',
     String title = 'Woof! 🐶',
+    SnackPosition snackPosition = SnackPosition.TOP,
   }) {
     Get.snackbar(
       title,
@@ -32,10 +38,15 @@ class SnackbarService {
       boxShadows: [_boxShadow],
       icon: Icon(Icons.error_outline, color: Get.theme.colorScheme.error),
       duration: _duration,
+      snackPosition: snackPosition,
     );
   }
 
-  static void showInfo(String message, {String title = 'Heads up 🐶'}) {
+  static void showInfo(
+    String message, {
+    String title = 'Heads up 🐶',
+    SnackPosition snackPosition = SnackPosition.TOP,
+  }) {
     Get.snackbar(
       title,
       message,
@@ -43,6 +54,7 @@ class SnackbarService {
       boxShadows: [_boxShadow],
       icon: Icon(Icons.info_outline, color: Get.theme.colorScheme.onSecondary),
       duration: _duration,
+      snackPosition: snackPosition,
     );
   }
 
@@ -103,15 +115,26 @@ class SnackbarService {
     showError(message: 'Login failed: $message');
   }
 
-  static void showEditSuccess() {
+  static void showEditSuccess({
+    SnackPosition snackPosition = SnackPosition.TOP,
+  }) {
     showSuccess(
       'The changes have been saved successfully.',
       title: 'All set! 🐾',
+      snackPosition: snackPosition,
     );
   }
 
   static void showEditError() {
     showError(message: 'Something went wrong while saving your changes.');
+  }
+
+  static void showDeleteSuccess() {
+    showSuccess('The pet has been deleted successfully.', title: 'Pet removed');
+  }
+
+  static void showDeleteError() {
+    showError(message: 'Something went wrong while deleting');
   }
 
   static void showAddPetSuccess() {

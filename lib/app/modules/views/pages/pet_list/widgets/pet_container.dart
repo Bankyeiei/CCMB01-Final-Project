@@ -11,7 +11,7 @@ class PetContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed('/pet_profile', arguments: pet),
+      onTap: () => Get.toNamed('/pet_profile', arguments: pet.petId),
       child: Container(
         height: 122,
         margin: const EdgeInsets.only(left: 16, right: 16, top: 20),

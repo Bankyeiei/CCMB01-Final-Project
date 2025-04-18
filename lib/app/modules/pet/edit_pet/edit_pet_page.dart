@@ -1,34 +1,40 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'controller/add_pet_controller.dart';
-import 'controller/add_pet_validate_controller.dart';
-import '../../../core/controller/image_controller.dart';
+import 'controller/edit_pet_controller.dart';
+import '../controller/pet_validate_controller.dart';
+import '../../../data/models/pet_model.dart';
+import '../../../../core/controller/image_controller.dart';
 
-import 'widgets/gender_drop_down.dart';
-import 'widgets/pet_type_drop_down.dart';
-import '../widgets/date_picker.dart';
-import '../widgets/text_field.dart';
+import '../widgets/gender_drop_down.dart';
+import '../widgets/pet_type_drop_down.dart';
+import '../../widgets/button.dart';
+import '../../widgets/hold_button.dart';
+import '../../widgets/date_picker.dart';
+import '../../widgets/text_field.dart';
 
-class AddPetPage extends StatelessWidget {
-  const AddPetPage({super.key});
+class EditPetPage extends StatelessWidget {
+  final Pet pet;
+  const EditPetPage({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
-    final AddPetController addPetController = Get.find<AddPetController>();
-    final AddPetValidateController addPetValidateController =
-        Get.find<AddPetValidateController>();
+    final EditPetController editPetController = Get.find<EditPetController>();
+    final PetValidateController petValidateController =
+        Get.find<PetValidateController>();
     final ImageController imageController = Get.find<ImageController>();
+
+    editPetController.init(pet);
 
     return GestureDetector(
       onTap: () => Get.focusScope!.unfocus(),
       child: Stack(
         children: [
           Scaffold(
-            appBar: AppBar(title: const Text('Add Pet')),
+            appBar: AppBar(title: const Text('Edit Pet')),
             body: SingleChildScrollView(
-              controller: addPetController.scrollController,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -36,15 +42,15 @@ class AddPetPage extends StatelessWidget {
                     const SizedBox(height: 36),
                     Obx(() => imageAvatar(imageController)),
                     const SizedBox(height: 36),
-                    const PetTypeDropDown(),
+                    PetTypeDropDown(typeValue: editPetController.petType),
                     const SizedBox(height: 32),
                     Obx(
                       () => AppTextField(
                         icon: Icons.pets,
                         hintText: 'Pet Name',
-                        errorText: addPetValidateController.petNameError.value,
-                        controller: addPetValidateController.petNameController,
-                        validate: addPetValidateController.validatePetName,
+                        errorText: petValidateController.petNameError.value,
+                        controller: petValidateController.petNameController,
+                        validate: petValidateController.validatePetName,
                         keyboardType: TextInputType.name,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
@@ -59,11 +65,9 @@ class AddPetPage extends StatelessWidget {
                       () => AppTextField(
                         icon: Icons.pets,
                         hintText: 'Breed Name',
-                        errorText:
-                            addPetValidateController.breedNameError.value,
-                        controller:
-                            addPetValidateController.breedNameController,
-                        validate: addPetValidateController.validateBreedName,
+                        errorText: petValidateController.breedNameError.value,
+                        controller: petValidateController.breedNameController,
+                        validate: petValidateController.validateBreedName,
                         keyboardType: TextInputType.name,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
@@ -76,7 +80,12 @@ class AddPetPage extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Expanded(flex: 9, child: GenderDropdown()),
+                        Expanded(
+                          flex: 9,
+                          child: GenderDropdown(
+                            genderValue: editPetController.gender,
+                          ),
+                        ),
                         const Spacer(),
                         Expanded(
                           flex: 8,
@@ -84,10 +93,10 @@ class AddPetPage extends StatelessWidget {
                             () => AppTextField(
                               hintText: 'Weight (kg.)',
                               errorText:
-                                  addPetValidateController.weightError.value,
+                                  petValidateController.weightError.value,
                               controller:
-                                  addPetValidateController.weightController,
-                              validate: addPetValidateController.validateWeight,
+                                  petValidateController.weightController,
+                              validate: petValidateController.validateWeight,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                     decimal: true,
@@ -108,9 +117,9 @@ class AddPetPage extends StatelessWidget {
                       () => AppTextField(
                         icon: Icons.color_lens_outlined,
                         hintText: 'Color',
-                        errorText: addPetValidateController.colorError.value,
-                        controller: addPetValidateController.colorController,
-                        validate: addPetValidateController.validateColor,
+                        errorText: petValidateController.colorError.value,
+                        controller: petValidateController.colorController,
+                        validate: petValidateController.validateColor,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(r'[A-Za-z ]'),
@@ -124,7 +133,7 @@ class AddPetPage extends StatelessWidget {
                         Expanded(
                           flex: 10,
                           child: AppDatePicker(
-                            dateValue: addPetController.birthday,
+                            dateValue: editPetController.birthday,
                             label: 'Birthday',
                           ),
                         ),
@@ -133,8 +142,8 @@ class AddPetPage extends StatelessWidget {
                           flex: 7,
                           child: Obx(
                             () => Text(
-                              addPetController.age.value.isNotEmpty
-                                  ? 'Age : ${addPetController.age.value}'
+                              editPetController.age.value.isNotEmpty
+                                  ? 'Age : ${editPetController.age.value}'
                                   : '',
                               style: Get.textTheme.bodyLarge,
                             ),
@@ -147,12 +156,9 @@ class AddPetPage extends StatelessWidget {
                       () => AppTextField(
                         icon: Icons.description_outlined,
                         hintText: 'Write a story about your pet',
-                        errorText: addPetValidateController.storyError.value,
-                        controller: addPetValidateController.storyController,
-                        validate: addPetValidateController.validateStory,
-                        onSubmitted: (value) {
-                          addPetController.showFAB.value = true;
-                        },
+                        errorText: petValidateController.storyError.value,
+                        controller: petValidateController.storyController,
+                        validate: petValidateController.validateStory,
                         isHintText: false,
                         lengthLimiting: 500,
                         isShowLength: true,
@@ -160,39 +166,31 @@ class AddPetPage extends StatelessWidget {
                         textInputAction: TextInputAction.done,
                       ),
                     ),
+                    const SizedBox(height: 24),
+                    AppButton(
+                      onPressed: () {
+                        Get.focusScope!.unfocus();
+                        if (petValidateController.validateForm()) {
+                          editPetController.editPet();
+                        }
+                      },
+                      child: const Text('Edit Pet'),
+                    ),
+                    const SizedBox(height: 48),
+                    HoldButton(
+                      onPressed: () => editPetController.deletePet(),
+                      label: 'Delete Pet',
+                      fillDuration: const Duration(seconds: 2),
+                      startColor: Get.theme.primaryColor,
+                      endColor: Get.theme.colorScheme.error,
+                    ),
                     SizedBox(height: 0.1 * Get.size.height),
                   ],
                 ),
               ),
             ),
-            floatingActionButton: Obx(
-              () => AnimatedSlide(
-                offset:
-                    addPetController.showFAB.value
-                        ? Offset.zero
-                        : const Offset(0, 1),
-                duration: const Duration(milliseconds: 300),
-                child: AnimatedOpacity(
-                  opacity: addPetController.showFAB.value ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 300),
-                  child: FocusScope(
-                    canRequestFocus: false,
-                    child: FloatingActionButton(
-                      tooltip: 'Add Pet',
-                      onPressed: () {
-                        Get.focusScope!.unfocus();
-                        if (addPetValidateController.validateForm()) {
-                          addPetController.addPet();
-                        }
-                      },
-                      child: const Icon(Icons.add),
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ),
-          Obx(() => addPetController.loadingScreen),
+          Obx(() => editPetController.loadingScreen),
         ],
       ),
     );
@@ -208,19 +206,26 @@ class AddPetPage extends StatelessWidget {
             foregroundImage:
                 imageController.imageFile.value != null
                     ? FileImage(imageController.imageFile.value!)
+                    : imageController.imageUrl.value.isNotEmpty
+                    ? CachedNetworkImageProvider(imageController.imageUrl.value)
                     : null,
             child:
-                imageController.imageFile.value == null
+                imageController.imageFile.value == null &&
+                        imageController.imageUrl.value == ''
                     ? const Icon(Icons.add_photo_alternate_outlined, size: 48)
                     : null,
           ),
         ),
-        if (imageController.imageFile.value != null)
+        if (imageController.imageFile.value != null ||
+            imageController.imageUrl.value != '')
           Positioned(
             right: 0,
             bottom: 0,
             child: GestureDetector(
-              onTap: () => imageController.imageFile.value = null,
+              onTap: () {
+                imageController.imageFile.value = null;
+                imageController.imageUrl.value = '';
+              },
               child: Container(
                 width: 28,
                 height: 28,

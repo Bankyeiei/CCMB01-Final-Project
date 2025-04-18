@@ -2,16 +2,14 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/add_pet_controller.dart';
 import '../../../data/models/pet_model.dart';
 
 class GenderDropdown extends StatelessWidget {
-  const GenderDropdown({super.key});
+  final Rx<Gender> genderValue;
+  const GenderDropdown({super.key, required this.genderValue});
 
   @override
   Widget build(BuildContext context) {
-    final AddPetController addPetController = Get.find<AddPetController>();
-
     final List<Gender> genderOptions = [
       Gender.none,
       Gender.male,
@@ -22,7 +20,7 @@ class GenderDropdown extends StatelessWidget {
       canRequestFocus: false,
       child: DropdownSearch<Gender>(
         items: (f, cs) => genderOptions,
-        selectedItem: addPetController.gender,
+        selectedItem: genderValue.value,
         compareFn: (item1, item2) => item1.text == item2.text,
         popupProps: PopupProps.menu(
           itemBuilder:
@@ -65,7 +63,7 @@ class GenderDropdown extends StatelessWidget {
         ),
         onChanged: (value) {
           Get.focusScope!.unfocus();
-          addPetController.gender = value!;
+          genderValue.value = value!;
         },
       ),
     );

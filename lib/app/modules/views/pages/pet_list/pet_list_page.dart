@@ -12,7 +12,7 @@ class PetListPage extends StatelessWidget {
     final PetController petController = Get.find<PetController>();
 
     return Obx(() {
-      if (petController.petList.isEmpty) {
+      if (petController.petMap.isEmpty) {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -50,10 +50,11 @@ class PetListPage extends StatelessWidget {
           ),
           ListView.builder(
             physics: const BouncingScrollPhysics(),
-            itemCount: petController.petList.length,
+            itemCount: petController.petMap.length,
             itemBuilder:
-                (context, index) =>
-                    PetContainer(pet: petController.petList[index]),
+                (context, index) => PetContainer(
+                  pet: petController.petMap.values.toList()[index],
+                ),
           ),
         ],
       );

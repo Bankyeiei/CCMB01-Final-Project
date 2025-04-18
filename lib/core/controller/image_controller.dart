@@ -11,7 +11,7 @@ class ImageController extends GetxController {
 
   final Rx<File?> imageFile = Rx<File?>(null);
   final RxString imageUrl = ''.obs;
-  
+
   String imageId = '';
 
   Future<void> _pickImage([bool isCamera = false]) async {
@@ -24,9 +24,7 @@ class ImageController extends GetxController {
   Future<List<String>?> uploadAndGetImageUrlAndId() async {
     try {
       if (imageFile.value != null) {
-        if (imageId.isNotEmpty) {
-          await imageRepository.deleteImage(imageId);
-        }
+        await deleteImage();
         return await imageRepository.uploadAndGetImageUrlAndId(
           imageFile.value!,
         );
@@ -36,6 +34,16 @@ class ImageController extends GetxController {
           return null;
         }
         return [imageUrl.value, imageId];
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> deleteImage() async {
+    try {
+      if (imageId.isNotEmpty) {
+        await imageRepository.deleteImage(imageId);
       }
     } catch (error) {
       rethrow;

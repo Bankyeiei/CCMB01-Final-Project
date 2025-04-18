@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/pet_model.dart';
+import '../../../../data/models/pet_model.dart';
 
 class PetInfoHeader extends SliverPersistentHeaderDelegate {
   final Pet pet;
@@ -40,9 +40,7 @@ class PetInfoHeader extends SliverPersistentHeaderDelegate {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      pet.breedName.isNotEmpty
-                          ? pet.breedName
-                          : 'Unknown breed',
+                      '${pet.petType}${pet.breedName.isNotEmpty ? ' : ${pet.breedName}' : ''}',
                       maxLines: 1,
                       style: Get.textTheme.titleSmall,
                       overflow: TextOverflow.ellipsis,

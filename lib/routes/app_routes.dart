@@ -8,6 +8,7 @@ class Routes {
   static const editProfile = '/edit_profile';
   static const addPet = '/add_pet';
   static const petProfile = '/pet_profile';
+  static const editPet = '/edit_pet';
 
   static String chooseInitialRoute(GetStorage box) {
     if (box.read('isLoggedIn')) {
