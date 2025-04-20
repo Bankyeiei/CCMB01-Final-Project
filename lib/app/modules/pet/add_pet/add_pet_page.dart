@@ -7,6 +7,7 @@ import '../controller/pet_validate_controller.dart';
 import '../../../../core/controller/image_controller.dart';
 
 import '../widgets/gender_drop_down.dart';
+import '../widgets/pet_color_drop_down.dart';
 import '../widgets/pet_type_drop_down.dart';
 import '../../widgets/date_picker.dart';
 import '../../widgets/text_field.dart';
@@ -97,31 +98,18 @@ class AddPetPage extends StatelessWidget {
                                   ),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}'),
+                                  RegExp(r'^\d+\.?\d{0,3}'),
                                 ),
                               ],
-                              lengthLimiting: 7,
+                              lengthLimiting: 5,
                               isHintText: false,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    Obx(
-                      () => AppTextField(
-                        icon: Icons.color_lens_outlined,
-                        hintText: 'Color',
-                        errorText: petValidateController.colorError.value,
-                        controller: petValidateController.colorController,
-                        validate: petValidateController.validateColor,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(r'[A-Za-z ]'),
-                          ),
-                        ],
-                        isHintText: false,
-                      ),
-                    ),
+                    PetColorDropDown(petColorValue: addPetController.petColor),
+                    const SizedBox(height: 32),
                     Row(
                       children: [
                         Expanded(

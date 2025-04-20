@@ -4,7 +4,7 @@ class PetProvider {
   final _pets = FirebaseFirestore.instance.collection('pets');
 
   Future<QuerySnapshot<Map<String, dynamic>>> getPets(String uid) {
-    return _pets.where('owner_id', isEqualTo: uid).get();
+    return _pets.where('owner_id', isEqualTo: uid).orderBy('pet_name').get();
   }
 
   Future<void> uploadPet(String? petId, Map<String, dynamic> jsonMap) async {

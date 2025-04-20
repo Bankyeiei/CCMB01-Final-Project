@@ -5,13 +5,11 @@ class PetValidateController extends GetxController {
   final petNameController = TextEditingController();
   final breedNameController = TextEditingController();
   final weightController = TextEditingController();
-  final colorController = TextEditingController();
   final storyController = TextEditingController();
 
   final RxString petNameError = ''.obs;
   final RxString breedNameError = ''.obs;
   final RxString weightError = ''.obs;
-  final RxString colorError = ''.obs;
   final RxString storyError = ''.obs;
 
   void validatePetName(String value) {
@@ -48,16 +46,6 @@ class PetValidateController extends GetxController {
     }
   }
 
-  void validateColor(String value) {
-    if (value.startsWith(' ')) {
-      colorError.value = 'Please remove spaces at the beginning';
-    } else if (value.endsWith(' ')) {
-      colorError.value = 'Please remove spaces at the end';
-    } else {
-      colorError.value = '';
-    }
-  }
-
   void validateStory(String value) {
     if (value.startsWith(' ')) {
       storyError.value = 'Please remove spaces at the beginning';
@@ -72,13 +60,11 @@ class PetValidateController extends GetxController {
     validatePetName(petNameController.text);
     validateBreedName(breedNameController.text);
     validateWeight(weightController.text);
-    validateColor(colorController.text);
     validateStory(storyController.text);
 
     return petNameError.value.isEmpty &&
         breedNameError.value.isEmpty &&
         weightError.value.isEmpty &&
-        colorError.value.isEmpty &&
         storyError.value.isEmpty;
   }
 
@@ -87,7 +73,6 @@ class PetValidateController extends GetxController {
     petNameController.dispose();
     breedNameController.dispose();
     weightController.dispose();
-    colorController.dispose();
     storyController.dispose();
     super.onClose();
   }

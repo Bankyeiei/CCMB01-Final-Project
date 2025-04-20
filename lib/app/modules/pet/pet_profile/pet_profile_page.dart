@@ -70,7 +70,6 @@ class PetProfilePage extends StatelessWidget {
                                 Get.theme.colorScheme.secondary,
                                 expandRatio,
                               ),
-
                               child: Icon(
                                 Icons.pets,
                                 color: Get.theme.colorScheme.onSecondary
@@ -146,33 +145,77 @@ class PetProfilePage extends StatelessWidget {
                       children: [
                         PetInfoChip(
                           label: 'Birthday',
-                          value:
-                              pet.birthday != null
-                                  ? DateFormat(
-                                    'dd MMM yy',
-                                  ).format(pet.birthday!)
-                                  : 'Unknown',
-                          width: 96,
+                          value: Text(
+                            pet.birthday != null
+                                ? DateFormat('dd MMM yy').format(pet.birthday!)
+                                : 'Unknown',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Get.theme.colorScheme.onSecondary,
+                            ),
+                          ),
                         ),
                         PetInfoChip(
                           label: 'Age',
-                          value: pet.age.isNotEmpty ? pet.age : 'Unknown',
-                          width: 96,
+                          value: Text(
+                            pet.age.isNotEmpty ? pet.age : 'Unknown',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Get.theme.colorScheme.onSecondary,
+                            ),
+                          ),
                         ),
                         PetInfoChip(
                           label: 'Weight',
-                          value:
-                              pet.weight != null
-                                  ? '${pet.weight} kg'
-                                  : 'Unknown',
-                          width: 96,
+                          value: Text(
+                            pet.weight != null
+                                ? '${NumberFormat('#,###.##').format(pet.weight)} kg'
+                                : 'Unknown',
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Get.theme.colorScheme.onSecondary,
+                            ),
+                          ),
+                        ),
+                        PetInfoChip(
+                          label: 'Color',
+                          value: Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children:
+                                  pet.color
+                                      ?.map(
+                                        (color) => Tooltip(
+                                          message: color.text,
+                                          preferBelow: false,
+                                          verticalOffset: 42,
+                                          child: Container(
+                                            height: 20,
+                                            width: 20,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Get
+                                                    .theme
+                                                    .colorScheme
+                                                    .onSecondary
+                                                    .withAlpha(60),
+                                              ),
+                                              color: color.color,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList() ??
+                                  [],
+                            ),
+                          ),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 20),
-                    PetInfoChip(
-                      label: 'Color',
-                      value: pet.color.isNotEmpty ? pet.color : 'Unknown',
                     ),
                     const SizedBox(height: 20),
                     Align(

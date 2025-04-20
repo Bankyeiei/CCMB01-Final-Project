@@ -3,23 +3,15 @@ import 'package:get/get.dart';
 
 class PetInfoChip extends StatelessWidget {
   final String label;
-  final String value;
-  final double? width;
-  const PetInfoChip({
-    super.key,
-    required this.label,
-    required this.value,
-    this.width,
-  });
+  final Widget value;
+  const PetInfoChip({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: Container(
-        padding:
-            width != null ? null : const EdgeInsets.symmetric(horizontal: 24),
         height: 60,
-        width: width,
+        width: 86,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -32,17 +24,7 @@ class PetInfoChip extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(label),
-            Text(
-              value,
-              maxLines: 1,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Get.theme.colorScheme.onSecondary,
-              ),
-            ),
-          ],
+          children: [Text(label), value],
         ),
       ),
     );

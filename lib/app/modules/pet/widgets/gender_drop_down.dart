@@ -10,19 +10,15 @@ class GenderDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Gender> genderOptions = [
-      Gender.none,
-      Gender.male,
-      Gender.female,
-    ];
-
     return FocusScope(
       canRequestFocus: false,
       child: DropdownSearch<Gender>(
-        items: (f, cs) => genderOptions,
+        items: (f, cs) => Gender.values,
         selectedItem: genderValue.value,
-        compareFn: (item1, item2) => item1.text == item2.text,
+        compareFn: (item1, item2) => item1 == item2,
         popupProps: PopupProps.menu(
+          fit: FlexFit.loose,
+          showSelectedItems: true,
           itemBuilder:
               (context, item, isDisabled, isSelected) => Padding(
                 padding: const EdgeInsets.symmetric(
@@ -34,12 +30,10 @@ class GenderDropdown extends StatelessWidget {
                   style: Get.textTheme.bodyLarge!.copyWith(color: item.color),
                 ),
               ),
-          fit: FlexFit.loose,
         ),
         dropdownBuilder:
             (context, selectedItem) => Row(
               children: [
-                const SizedBox(width: 4),
                 Icon(selectedItem!.icon, size: 24, color: selectedItem.color),
                 const SizedBox(width: 6),
                 Text(
@@ -53,18 +47,23 @@ class GenderDropdown extends StatelessWidget {
         decoratorProps: DropDownDecoratorProps(
           decoration: InputDecoration(
             isDense: true,
+            labelText: 'Gender',
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16.5,
+              vertical: 12,
+            ),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(width: 1.5),
               borderRadius: BorderRadius.circular(8),
             ),
-            labelText: 'Gender',
           ),
         ),
-        onChanged: (value) {
+        onBeforePopupOpening: (selectedItem) async {
           Get.focusScope!.unfocus();
-          genderValue.value = value!;
+          return true;
         },
+        onChanged: (value) => genderValue.value = value!,
       ),
     );
   }

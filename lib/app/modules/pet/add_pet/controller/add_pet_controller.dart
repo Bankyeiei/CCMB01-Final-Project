@@ -31,6 +31,7 @@ class AddPetController extends GetxController {
   final RxString age = ''.obs;
   final RxString petType = 'Dog'.obs;
   final Rx<Gender> gender = Gender.none.obs;
+  final RxList<PetColor> petColor = <PetColor>[].obs;
   final Rx<DateTime?> birthday = Rx<DateTime?>(null);
 
   @override
@@ -57,7 +58,7 @@ class AddPetController extends GetxController {
         breedName: petValidateController.breedNameController.text,
         gender: gender.value,
         weight: weight,
-        color: petValidateController.colorController.text,
+        color: petColor,
         birthday: birthday.value,
         story: petValidateController.storyController.text,
         imageUrl: imageUrlAndId?[0] ?? '',

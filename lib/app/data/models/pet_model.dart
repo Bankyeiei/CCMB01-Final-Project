@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum Gender {
-  none('None', Colors.black, Icons.question_mark),
-  male('Male', Color(0xFF1565C0), Icons.male),
-  female('Female', Color(0xFFF576AC), Icons.female);
-
-  final String text;
-  final Color color;
-  final IconData icon;
-
-  const Gender(this.text, this.color, this.icon);
-}
-
 class Pet {
   final String ownerId;
   final String? petId;
@@ -20,7 +8,7 @@ class Pet {
   String breedName;
   Gender gender;
   double? weight;
-  String color;
+  List<PetColor>? color;
   DateTime? birthday;
   String age;
   String story;
@@ -34,7 +22,7 @@ class Pet {
     this.breedName = '',
     this.gender = Gender.none,
     this.weight,
-    this.color = '',
+    this.color,
     this.birthday,
     this.age = '',
     this.story = '',
@@ -47,6 +35,10 @@ class Pet {
       (gender) => gender.text == jsonMap['gender'],
       orElse: () => Gender.none,
     );
+    final colorList =
+        PetColor.values
+            .where((color) => jsonMap['color']?.contains(color.text) ?? false)
+            .toList();
     final age = calculateAge(jsonMap['birthday']?.toDate());
     return Pet(
       ownerId: jsonMap['owner_id'],
@@ -56,7 +48,7 @@ class Pet {
       breedName: jsonMap['breed_name'] ?? '',
       gender: gender,
       weight: jsonMap['weight'],
-      color: jsonMap['color'] ?? '',
+      color: colorList,
       birthday: jsonMap['birthday']?.toDate(),
       age: age,
       story: jsonMap['story'] ?? '',
@@ -66,6 +58,9 @@ class Pet {
   }
 
   static Map<String, dynamic> toJson(Pet pet) {
+    final colorList = pet.color?.map((color) => color.text).toList() ?? [];
+    colorList.sort();
+
     Map<String, dynamic> petMap = {
       'owner_id': pet.ownerId,
       'pet_type': pet.petType,
@@ -73,7 +68,7 @@ class Pet {
       'breed_name': pet.breedName,
       'gender': pet.gender.text,
       'weight': pet.weight,
-      'color': pet.color,
+      'color': colorList,
       'birthday': pet.birthday,
       'story': pet.story,
       'image_url': pet.imageUrl,
@@ -96,4 +91,55 @@ class Pet {
     }
     return '${yearDiff != 0 ? '${yearDiff}y ' : ''}${monthDiff}m';
   }
+}
+
+enum Gender {
+  none('None', Colors.black, Icons.question_mark),
+  male('Male', Color(0xFF1565C0), Icons.male),
+  female('Female', Color(0xFFF576AC), Icons.female);
+
+  final String text;
+  final Color color;
+  final IconData icon;
+
+  const Gender(this.text, this.color, this.icon);
+}
+
+enum PetColor {
+  amber('Amber', Colors.amber),
+  apricot('Apricot', Color(0xFFFBCEB1)),
+  black('Black', Colors.black),
+  blue('Blue', Colors.blue),
+  blueGrey('Blue Grey', Colors.blueGrey),
+  brown('Brown', Colors.brown),
+  champagne('Champagne', Color(0xFFF7E7CE)),
+  charcoal('Charcoal', Color(0xFF36454F)),
+  chocolate('Chocolate', Color(0xFF381819)),
+  cream('Cream', Color(0xFFFDFBD4)),
+  creamWhite('Cream White', Color(0xFFFFFDD0)),
+  cyan('Cyan', Colors.cyan),
+  fawn('Fawn', Color(0xFFE5AA70)),
+  gold('Gold', Color(0xFFEFBF04)),
+  green('Green', Colors.green),
+  grey('Grey', Colors.grey),
+  indigo('Indigo', Colors.indigo),
+  lightBlue('Light Blue', Colors.lightBlue),
+  lightGreen('Light Green', Colors.lightGreen),
+  lime('Lime', Colors.lime),
+  orange('Orange', Colors.orange),
+  pink('Pink', Color(0xFFF576AC)),
+  purple('Purple', Colors.purple),
+  red('Red', Colors.red),
+  rust('Rust', Color(0xFFB7410E)),
+  sable('Sable', Color(0xFF5C3A21)),
+  silver('Silver', Color(0xFFC0C0C0)),
+  tan('Tan', Color(0xFFD2B48C)),
+  teal('Teal', Colors.teal),
+  white('White', Colors.white),
+  yellow('Yellow', Colors.yellow);
+
+  final String text;
+  final Color color;
+
+  const PetColor(this.text, this.color);
 }

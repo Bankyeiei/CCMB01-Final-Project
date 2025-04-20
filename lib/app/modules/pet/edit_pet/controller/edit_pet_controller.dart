@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../controller/pet_validate_controller.dart';
 import '../../../../data/models/pet_model.dart';
@@ -26,6 +27,7 @@ class EditPetController extends GetxController {
   final RxString petType = 'Dog'.obs;
   final RxString age = ''.obs;
   final Rx<Gender> gender = Gender.none.obs;
+  final RxList<PetColor> petColor = <PetColor>[].obs;
   final Rx<DateTime?> birthday = Rx<DateTime?>(null);
 
   @override
@@ -40,11 +42,12 @@ class EditPetController extends GetxController {
     imageController.imageId = pet.imageId;
     petValidateController.petNameController.text = pet.petName;
     petValidateController.breedNameController.text = pet.breedName;
-    petValidateController.weightController.text = pet.weight?.toString() ?? '';
-    petValidateController.colorController.text = pet.color;
+    petValidateController.weightController.text =
+        pet.weight != null ? NumberFormat('0.##').format(pet.weight) : '';
     petValidateController.storyController.text = pet.story;
     petType.value = pet.petType;
     gender.value = pet.gender;
+    petColor.value = List.from(pet.color ?? []);
     birthday.value = pet.birthday;
   }
 
@@ -65,12 +68,13 @@ class EditPetController extends GetxController {
         petValidateController.breedNameController.text,
         gender.value,
         weight,
-        petValidateController.colorController.text,
+        petColor,
         birthday.value,
         petValidateController.storyController.text,
         imageUrlAndId?[0] ?? '',
         imageUrlAndId?[1] ?? '',
       );
+      petColor.sort((a, b) => a.text.compareTo(b.text));
       Get.back(closeOverlays: true);
       SnackbarService.showEditSuccess(snackPosition: SnackPosition.BOTTOM);
     } catch (error) {

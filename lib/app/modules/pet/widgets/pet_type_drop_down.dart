@@ -24,7 +24,7 @@ class PetTypeDropDown extends StatelessWidget {
     return DropdownSearch<String>(
       items: (f, cs) => mockPetType,
       selectedItem: typeValue.value,
-      compareFn: (item, selectedItem) => item == selectedItem,
+      compareFn: (item1, item2) => item1 == item2,
       popupProps: PopupProps.menu(
         fit: FlexFit.loose,
         showSearchBox: true,
@@ -60,11 +60,15 @@ class PetTypeDropDown extends StatelessWidget {
       ),
       dropdownBuilder:
           (context, selectedItem) =>
-              Text('  ${selectedItem!}', style: Get.textTheme.bodyLarge),
+              Text(' ${selectedItem!}', style: Get.textTheme.bodyLarge),
       decoratorProps: DropDownDecoratorProps(
         decoration: InputDecoration(
           isDense: true,
           labelText: 'Pet Type',
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16.5,
+            vertical: 12,
+          ),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(width: 1.5),
@@ -72,10 +76,11 @@ class PetTypeDropDown extends StatelessWidget {
           ),
         ),
       ),
-      onChanged: (value) {
+      onBeforePopupOpening: (selectedItem) async {
         Get.focusScope!.unfocus();
-        typeValue.value = value!;
+        return true;
       },
+      onChanged: (value) => typeValue.value = value!,
     );
   }
 }

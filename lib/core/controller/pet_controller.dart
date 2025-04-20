@@ -23,7 +23,7 @@ class PetController extends GetxController {
     String breedName,
     Gender gender,
     double? weight,
-    String color,
+    List<PetColor> color,
     DateTime? birthday,
     String story,
     String imageUrl,
