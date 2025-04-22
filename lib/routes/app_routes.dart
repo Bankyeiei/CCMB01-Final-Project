@@ -9,6 +9,7 @@ class Routes {
   static const addPet = '/add_pet';
   static const petProfile = '/pet_profile';
   static const editPet = '/edit_pet';
+  static const addAppointment = '/add_appointment';
 
   static String chooseInitialRoute(GetStorage box) {
     if (box.read('isLoggedIn')) {

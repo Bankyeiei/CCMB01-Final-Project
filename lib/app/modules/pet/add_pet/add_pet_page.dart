@@ -117,6 +117,7 @@ class AddPetPage extends StatelessWidget {
                           child: AppDatePicker(
                             dateValue: addPetController.birthday,
                             label: 'Birthday',
+                            lastDate: DateTime.now(),
                           ),
                         ),
                         const Spacer(),

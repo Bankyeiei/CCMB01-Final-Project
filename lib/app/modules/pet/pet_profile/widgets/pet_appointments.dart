@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../routes/app_routes.dart';
+
+import '../../../../data/models/pet_model.dart';
+
 import '../../../widgets/button.dart';
 
 class PetAppointments extends StatelessWidget {
-  const PetAppointments({super.key});
+  final Pet pet;
+  const PetAppointments({super.key, required this.pet});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,11 @@ class PetAppointments extends StatelessWidget {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 64),
-              child: AppButton(onPressed: () {}, child: const Text('Start')),
+              child: AppButton(
+                onPressed:
+                    () => Get.toNamed(Routes.addAppointment, arguments: pet),
+                child: const Text('Start'),
+              ),
             ),
           ],
         ),

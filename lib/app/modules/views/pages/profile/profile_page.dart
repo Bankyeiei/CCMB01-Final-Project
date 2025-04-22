@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../routes/app_routes.dart';
+
 import '../../../../../core/controller/user_controller.dart';
 
 import '../../../widgets/curved_bottom.dart';
@@ -126,13 +128,13 @@ class ProfilePage extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: Text('Edit Profile', style: Get.textTheme.headlineSmall),
             trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () => Get.toNamed('/edit_profile'),
+            onTap: () => Get.toNamed(Routes.editProfile),
           ),
           ListTile(
             leading: const Icon(Icons.pets_outlined),
             title: Text('App Pet', style: Get.textTheme.headlineSmall),
             trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () => Get.toNamed('/add_pet'),
+            onTap: () => Get.toNamed(Routes.addPet),
           ),
         ],
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_routes.dart';
+
+import '../../../../core/controller/appointment_controller.dart';
 import '../../../../core/controller/user_controller.dart';
 import '../../../../core/controller/pet_controller.dart';
 import '../../../../core/controller/global/auth_state_controller.dart';
@@ -12,9 +15,11 @@ import '../widgets/actions.dart';
 class HomeViewController extends GetxController {
   final UserController userController;
   final PetController petController;
+  final AppointmentController appointmentController;
   HomeViewController({
     required this.userController,
     required this.petController,
+    required this.appointmentController,
   });
 
   final AuthStateController _authStateController =
@@ -33,6 +38,7 @@ class HomeViewController extends GetxController {
     try {
       await userController.getUser(_authStateController.uid);
       await petController.getPets(_authStateController.uid);
+      await appointmentController.getAppointments(petController.petIds);
       actions = [
         null,
         ViewAppBarActions.petListAction(),
@@ -70,7 +76,7 @@ class HomeViewController extends GetxController {
       cancelTextColor: Get.theme.primaryColor,
       onConfirm: () {
         _authStateController.clearAuthState();
-        Get.offAllNamed('/login');
+        Get.offAllNamed(Routes.login);
       },
     );
   }

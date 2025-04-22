@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../routes/app_routes.dart';
+
 import '../../../../../data/models/pet_model.dart';
 
 class PetContainer extends StatelessWidget {
@@ -11,7 +13,7 @@ class PetContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed('/pet_profile', arguments: pet.petId),
+      onTap: () => Get.toNamed(Routes.petProfile, arguments: pet.petId),
       child: Container(
         height: 122,
         margin: const EdgeInsets.symmetric(horizontal: 16),

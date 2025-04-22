@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_routes.dart';
+
 import 'controller/login_validate_controller.dart';
 import '../../../core/controller/global/auth_state_controller.dart';
 
@@ -126,7 +128,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       const Spacer(),
                       InkWell(
-                        onTap: () => Get.toNamed('/register'),
+                        onTap: () => Get.toNamed(Routes.register),
                         child: Text(
                           'No account? Register now',
                           style: Get.textTheme.headlineSmall!.copyWith(

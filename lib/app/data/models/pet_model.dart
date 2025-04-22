@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Pet {
-  final String ownerId;
   final String? petId;
   String petType;
   String petName;
@@ -15,7 +14,6 @@ class Pet {
   String imageUrl;
   String imageId;
   Pet({
-    required this.ownerId,
     required this.petId,
     required this.petType,
     required this.petName,
@@ -41,7 +39,6 @@ class Pet {
             .toList();
     final age = calculateAge(jsonMap['birthday']?.toDate());
     return Pet(
-      ownerId: jsonMap['owner_id'],
       petId: petId,
       petType: jsonMap['pet_type'],
       petName: jsonMap['pet_name'],
@@ -57,12 +54,11 @@ class Pet {
     );
   }
 
-  static Map<String, dynamic> toJson(Pet pet) {
+  static Map<String, dynamic> toJson(String uid, Pet pet) {
     final colorList = pet.color?.map((color) => color.text).toList() ?? [];
     colorList.sort();
 
-    Map<String, dynamic> petMap = {
-      'owner_id': pet.ownerId,
+    final petMap = {
       'pet_type': pet.petType,
       'pet_name': pet.petName,
       'breed_name': pet.breedName,
@@ -74,6 +70,9 @@ class Pet {
       'image_url': pet.imageUrl,
       'image_id': pet.imageId,
     };
+    if (uid.isNotEmpty) {
+      petMap['owner_id'] = uid;
+    }
     return petMap;
   }
 
@@ -108,6 +107,7 @@ enum Gender {
 enum PetColor {
   amber('Amber', Colors.amber),
   apricot('Apricot', Color(0xFFFBCEB1)),
+  beige('Beige', Color(0xFFEDE8D0)),
   black('Black', Colors.black),
   blue('Blue', Colors.blue),
   blueGrey('Blue Grey', Colors.blueGrey),

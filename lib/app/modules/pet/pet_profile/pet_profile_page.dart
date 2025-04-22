@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sliver_app_bar_builder/sliver_app_bar_builder.dart';
 
+import '../../../../routes/app_routes.dart';
+
 import '../../../../core/controller/pet_controller.dart';
 
 import 'widgets/pet_info_header.dart';
@@ -99,7 +101,7 @@ class PetProfilePage extends StatelessWidget {
                       offset: Offset(100 * (1 - expandRatio), 0),
                       child: IconButton(
                         onPressed:
-                            () => Get.toNamed('/edit_pet', arguments: pet),
+                            () => Get.toNamed(Routes.editPet, arguments: pet),
                         icon: Icon(
                           Icons.edit,
                           size: 32,
@@ -182,38 +184,48 @@ class PetProfilePage extends StatelessWidget {
                         ),
                         PetInfoChip(
                           label: 'Color',
-                          value: Padding(
-                            padding: const EdgeInsets.only(top: 2),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children:
-                                  pet.color
-                                      ?.map(
-                                        (color) => Tooltip(
-                                          message: color.text,
-                                          preferBelow: false,
-                                          verticalOffset: 42,
-                                          child: Container(
-                                            height: 20,
-                                            width: 20,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Get
-                                                    .theme
-                                                    .colorScheme
-                                                    .onSecondary
-                                                    .withAlpha(60),
-                                              ),
-                                              color: color.color,
-                                              shape: BoxShape.circle,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                      .toList() ??
-                                  [],
-                            ),
-                          ),
+                          value:
+                              pet.color!.isEmpty
+                                  ? Text(
+                                    'Unknown',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Get.theme.colorScheme.onSecondary,
+                                    ),
+                                  )
+                                  : Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children:
+                                          pet.color
+                                              ?.map(
+                                                (color) => Tooltip(
+                                                  message: color.text,
+                                                  preferBelow: false,
+                                                  verticalOffset: 42,
+                                                  child: Container(
+                                                    height: 20,
+                                                    width: 20,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        color: Get
+                                                            .theme
+                                                            .colorScheme
+                                                            .onSecondary
+                                                            .withAlpha(60),
+                                                      ),
+                                                      color: color.color,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                              .toList() ??
+                                          [],
+                                    ),
+                                  ),
                         ),
                       ],
                     ),
@@ -228,7 +240,7 @@ class PetProfilePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const PetAppointments(),
+                    PetAppointments(pet: pet),
                     const SizedBox(height: 32),
                     const PetVaccinations(),
                     const SizedBox(height: 32),

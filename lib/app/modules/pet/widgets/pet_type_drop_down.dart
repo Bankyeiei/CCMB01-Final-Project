@@ -9,7 +9,7 @@ class PetTypeDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> petType = [
+    final List<String> petTypes = [
       'Dog',
       'Cat',
       'Bird',
@@ -19,7 +19,7 @@ class PetTypeDropDown extends StatelessWidget {
       'Mouse',
     ];
 
-    List<String> mockPetType = List.from(petType);
+    List<String> mockPetType = List.from(petTypes);
 
     return DropdownSearch<String>(
       items: (f, cs) => mockPetType,
@@ -30,7 +30,7 @@ class PetTypeDropDown extends StatelessWidget {
         showSearchBox: true,
         showSelectedItems: true,
         searchDelay: const Duration(milliseconds: 500),
-        onItemsLoaded: (value) => mockPetType = List.from(petType),
+        onItemsLoaded: (value) => mockPetType = List.from(petTypes),
         itemBuilder:
             (context, item, isDisabled, isSelected) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
@@ -47,12 +47,12 @@ class PetTypeDropDown extends StatelessWidget {
             LengthLimitingTextInputFormatter(20),
           ],
           decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.edit_outlined, size: 24),
+            prefixIcon: Icon(Icons.search, size: 24),
             hintText: 'Type or select...',
           ),
           onChanged: (value) {
-            mockPetType = List.from(petType);
-            if (value.isNotEmpty && !(petType.contains(value.capitalize))) {
+            mockPetType = List.from(petTypes);
+            if (value.isNotEmpty && !(petTypes.contains(value.capitalize))) {
               mockPetType.add(value.capitalize!);
             }
           },

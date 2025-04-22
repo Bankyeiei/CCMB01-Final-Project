@@ -42,11 +42,9 @@ class RegisterPage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               backgroundColor: Get.theme.colorScheme.onPrimary,
-              surfaceTintColor: Get.theme.colorScheme.onPrimary,
               iconTheme: IconThemeData(
                 color: Get.theme.colorScheme.onSecondary,
               ),
-              centerTitle: true,
               title: Text('Register', style: Get.textTheme.displayMedium),
             ),
             body: SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/pet_model.dart';
@@ -18,6 +19,7 @@ class PetColorDropDown extends StatelessWidget {
       child: Obx(
         () => DropdownSearch<PetColor>.multiSelection(
           items: (f, cs) => PetColor.values,
+          itemAsString: (item) => item.text,
           selectedItems: petColorValue,
           compareFn: (item1, item2) => item1 == item2,
           popupProps: PopupPropsMultiSelection.dialog(
@@ -51,7 +53,6 @@ class PetColorDropDown extends StatelessWidget {
                     horizontal: 24,
                   ),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
                         height: 32,
@@ -65,7 +66,10 @@ class PetColorDropDown extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      Text(item.text, style: Get.textTheme.bodyLarge),
+                      Opacity(
+                        opacity: isDisabled ? 0.4 : 1,
+                        child: Text(item.text, style: Get.textTheme.bodyLarge),
+                      ),
                     ],
                   ),
                 ),
@@ -74,9 +78,13 @@ class PetColorDropDown extends StatelessWidget {
               thumbVisibility: true,
               thumbColor: Get.theme.primaryColor,
             ),
-            searchFieldProps: const TextFieldProps(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.edit_outlined, size: 24),
+            searchFieldProps: TextFieldProps(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z ]')),
+                LengthLimitingTextInputFormatter(20),
+              ],
+              decoration: const InputDecoration(
+                prefixIcon: Icon(Icons.search, size: 24),
                 hintText: 'Type Color...',
               ),
             ),
@@ -128,7 +136,7 @@ class PetColorDropDown extends StatelessWidget {
               isDense: true,
               labelText: 'Color',
               contentPadding: EdgeInsets.symmetric(
-                horizontal: 12,
+                horizontal: 16,
                 vertical: petColorValue.isEmpty ? 27.1 : 8,
               ),
               border: OutlineInputBorder(

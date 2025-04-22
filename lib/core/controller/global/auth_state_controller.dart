@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../routes/app_routes.dart';
+
 import 'loading_controller.dart';
 
 import '../../../services/snackbar_service.dart';
@@ -50,7 +52,7 @@ class AuthStateController extends GetxController {
         password: password,
       );
       _saveAuthState(userCredential.user!.uid);
-      Get.offNamed('/home');
+      Get.offNamed(Routes.home);
     } catch (error) {
       SnackbarService.showLoginError(error);
       _loadingController.isLoading.value = false;

@@ -23,9 +23,9 @@ class AddPetController extends GetxController {
       Get.find<AuthStateController>();
   final LoadingController _loadingController = Get.find<LoadingController>();
 
-  final scrollController = ScrollController();
-
   Widget get loadingScreen => _loadingController.loadingScreen();
+
+  final scrollController = ScrollController();
 
   final RxBool showFAB = false.obs;
   final RxString age = ''.obs;
@@ -51,7 +51,6 @@ class AddPetController extends GetxController {
               ? double.parse(petValidateController.weightController.text)
               : null;
       final newPet = Pet(
-        ownerId: _authStateController.uid,
         petId: null,
         petType: petType.value,
         petName: petValidateController.petNameController.text,
@@ -64,7 +63,10 @@ class AddPetController extends GetxController {
         imageUrl: imageUrlAndId?[0] ?? '',
         imageId: imageUrlAndId?[1] ?? '',
       );
-      await petController.petRepository.uploadPetMap(newPet);
+      await petController.petRepository.uploadPetMap(
+        newPet,
+        uid: _authStateController.uid,
+      );
       await petController.getPets(_authStateController.uid);
       Get.back(closeOverlays: true);
       SnackbarService.showAddPetSuccess();

@@ -69,6 +69,13 @@ class AppTextField extends StatelessWidget {
                   isHintText ? Get.theme.colorScheme.secondary : Colors.black,
             ),
           ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 1.5,
+              color: Get.theme.colorScheme.error,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
           filled: true,
           fillColor: isHintText ? Get.theme.colorScheme.secondary : null,
           prefixIcon:

@@ -21,7 +21,7 @@ class User {
       phone: jsonMap['phone'] ?? '',
       imageUrl: jsonMap['image_url'] ?? '',
       imageId: jsonMap['image_id'] ?? '',
-      createdAt: (jsonMap['created_at']).toDate(),
+      createdAt: jsonMap['created_at'].toDate(),
     );
   }
 

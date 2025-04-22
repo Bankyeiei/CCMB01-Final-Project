@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_routes.dart';
+
 class GetStartPage extends StatelessWidget {
   const GetStartPage({super.key});
 
   void jumpToRegister() async {
-    final isRegister = await Get.toNamed('/register') ?? false;
+    final isRegister = await Get.toNamed(Routes.register) ?? false;
     if (isRegister) {
-      Get.offNamed('/login');
+      Get.offNamed(Routes.login);
     }
   }
 
@@ -65,7 +67,7 @@ class GetStartPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   InkWell(
-                    onTap: () => Get.offNamed('/login'),
+                    onTap: () => Get.offNamed(Routes.login),
                     child: Text(
                       'Login',
                       style: Get.textTheme.headlineSmall!.copyWith(

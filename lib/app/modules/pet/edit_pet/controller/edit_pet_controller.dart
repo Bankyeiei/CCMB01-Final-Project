@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../routes/app_routes.dart';
+
 import '../../controller/pet_validate_controller.dart';
 import '../../../../data/models/pet_model.dart';
 import '../../../../../core/controller/pet_controller.dart';
@@ -61,7 +63,6 @@ class EditPetController extends GetxController {
               ? double.parse(petValidateController.weightController.text)
               : null;
       await petController.editPet(
-        pet.ownerId,
         pet.petId!,
         petType.value,
         petValidateController.petNameController.text,
@@ -100,8 +101,8 @@ class EditPetController extends GetxController {
         try {
           await imageController.deleteImage();
           await petController.deletePet(pet.petId!);
-          Get.until((route) => Get.currentRoute == '/home');
-          SnackbarService.showDeleteSuccess();
+          Get.until((route) => Get.currentRoute == Routes.home);
+          SnackbarService.showDeleteSuccess('Pet');
         } catch (error) {
           SnackbarService.showDeleteError();
         } finally {

@@ -7,16 +7,15 @@ class PetController extends GetxController {
   final PetRepository petRepository;
   PetController({required this.petRepository});
 
-  final RxMap<String, Pet> petMapRx = <String, Pet>{}.obs;
+  final RxMap<String, Pet> petMap = <String, Pet>{}.obs;
 
-  Map<String, Pet> get petMap => petMapRx;
+  List<String> get petIds => petMap.values.map((pet) => pet.petId!).toList();
 
   Future<void> getPets(String uid) async {
-    petMapRx.value = await petRepository.getPetModelMap(uid);
+    petMap.value = await petRepository.getPetModelMap(uid);
   }
 
   Future<void> editPet(
-    String ownerId,
     String petId,
     String petType,
     String petName,
@@ -30,7 +29,6 @@ class PetController extends GetxController {
     String imageId,
   ) async {
     final newPet = Pet(
-      ownerId: ownerId,
       petId: petId,
       petType: petType,
       petName: petName,
@@ -45,11 +43,11 @@ class PetController extends GetxController {
       imageId: imageId,
     );
     await petRepository.uploadPetMap(newPet);
-    petMapRx.update(petId, (value) => newPet);
+    petMap.update(petId, (value) => newPet);
   }
 
   Future<void> deletePet(String petId) async {
     await petRepository.deletePet(petId);
-    petMapRx.remove(petId);
+    petMap.remove(petId);
   }
 }

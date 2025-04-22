@@ -11,8 +11,8 @@ class PetRepository {
     return {for (var pet in petQuery) pet.id: Pet.fromJson(pet.id, pet.data())};
   }
 
-  Future<void> uploadPetMap(Pet pet) async {
-    final petMap = Pet.toJson(pet);
+  Future<void> uploadPetMap(Pet pet, {String uid = ''}) async {
+    final petMap = Pet.toJson(uid, pet);
     await petProvider.uploadPet(pet.petId, petMap);
   }
 

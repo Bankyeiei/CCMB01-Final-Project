@@ -115,22 +115,11 @@ class SnackbarService {
     showError(message: 'Login failed: $message');
   }
 
-  static void showEditSuccess({
-    SnackPosition snackPosition = SnackPosition.TOP,
-  }) {
+  static void showDeleteSuccess(String label) {
     showSuccess(
-      'The changes have been saved successfully.',
-      title: 'All set! 🐾',
-      snackPosition: snackPosition,
+      'The ${label.toLowerCase()} has been deleted successfully.',
+      title: '$label removed',
     );
-  }
-
-  static void showEditError() {
-    showError(message: 'Something went wrong while saving your changes.');
-  }
-
-  static void showDeleteSuccess() {
-    showSuccess('The pet has been deleted successfully.', title: 'Pet removed');
   }
 
   static void showDeleteError() {
@@ -143,6 +132,33 @@ class SnackbarService {
 
   static void showAddPetError() {
     showError(message: 'Something went wrong while saving your pet.');
+  }
+
+  static void showAddAppointmentSuccess() {
+    showSuccess(
+      'Your appointment has been successfully scheduled.',
+      title: 'Appointment Confirmed 🐾',
+    );
+  }
+
+  static void showAddAppointmentError() {
+    showError(
+      message: 'We couldn’t schedule your appointment. Please try again.',
+    );
+  }
+
+  static void showEditSuccess({
+    SnackPosition snackPosition = SnackPosition.TOP,
+  }) {
+    showSuccess(
+      'The changes have been saved successfully.',
+      title: 'All set! 🐾',
+      snackPosition: snackPosition,
+    );
+  }
+
+  static void showEditError() {
+    showError(message: 'Something went wrong while saving your changes.');
   }
 
   static void showWelcomeBack(String username, int numberOfPets) {

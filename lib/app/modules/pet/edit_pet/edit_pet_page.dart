@@ -123,6 +123,7 @@ class EditPetPage extends StatelessWidget {
                           child: AppDatePicker(
                             dateValue: editPetController.birthday,
                             label: 'Birthday',
+                            lastDate: DateTime.now(),
                           ),
                         ),
                         const Spacer(),
@@ -168,7 +169,7 @@ class EditPetPage extends StatelessWidget {
                     HoldButton(
                       onPressed: () => editPetController.deletePet(),
                       label: 'Delete Pet',
-                      fillDuration: const Duration(seconds: 2),
+                      fillDuration: const Duration(seconds: 5),
                       startColor: Get.theme.primaryColor,
                       endColor: Get.theme.colorScheme.error,
                     ),
