@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Pet {
-  final String? petId;
+  final String petId;
   String petType;
   String petName;
   String breedName;

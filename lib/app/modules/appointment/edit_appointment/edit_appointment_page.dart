@@ -2,42 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import 'controller/add_appointment_controller.dart';
+import 'controller/edit_appointment_controller.dart';
 import '../controller/appointment_validate_controller.dart';
-import '../../../../core/controller/pet_controller.dart';
+import '../../../data/models/appointment_model.dart';
 
 import '../widgets/service_check_button.dart';
 import '../widgets/service_time_picker.dart';
 import '../widgets/select_pet_drop_down.dart';
 import '../../widgets/button.dart';
+import '../../widgets/hold_button.dart';
 import '../../widgets/date_picker.dart';
 import '../../widgets/text_field.dart';
 
-class AddAppointmentPage extends StatelessWidget {
-  final String? petId;
-  const AddAppointmentPage({super.key, this.petId});
+class EditAppointmentPage extends StatelessWidget {
+  final Appointment appointment;
+  const EditAppointmentPage({super.key, required this.appointment});
 
   @override
   Widget build(BuildContext context) {
-    final AddAppointmentController addAppointmentController =
-        Get.find<AddAppointmentController>();
+    final EditAppointmentController editAppointmentController =
+        Get.find<EditAppointmentController>();
     final AppointmentValidateController appointmentValidateController =
         Get.find<AppointmentValidateController>();
-    final PetController petController = Get.find<PetController>();
 
-    if (petId != null) {
-      final pet = petController.petMap[petId]!;
-      addAppointmentController.pets.add(pet);
-    }
-
-    addAppointmentController.init();
+    editAppointmentController.init(appointment);
 
     return GestureDetector(
       onTap: () => Get.focusScope!.unfocus(),
       child: Stack(
         children: [
           Scaffold(
-            appBar: AppBar(title: const Text('Add Appointment')),
+            appBar: AppBar(title: const Text('Edit Appointment')),
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -51,19 +46,19 @@ class AddAppointmentPage extends StatelessWidget {
                     const SizedBox(height: 16),
                     ServiceCheckButton(
                       label: 'Vaccination',
-                      serviceValue: addAppointmentController.service,
+                      serviceValue: editAppointmentController.service,
                     ),
                     const SizedBox(height: 12),
                     ServiceCheckButton(
                       label: 'Grooming',
-                      serviceValue: addAppointmentController.service,
+                      serviceValue: editAppointmentController.service,
                     ),
                     const SizedBox(height: 16),
                     Obx(
                       () => AppTextField(
                         icon: Icons.info_outline,
                         hintText:
-                            '${addAppointmentController.service.value.text} details',
+                            '${editAppointmentController.service.value.text} details',
                         errorText:
                             appointmentValidateController.detailsError.value,
                         controller:
@@ -79,7 +74,7 @@ class AddAppointmentPage extends StatelessWidget {
                     Text('Select your pets', style: Get.textTheme.titleLarge),
                     const SizedBox(height: 16),
                     SelectPetDropDown(
-                      petListValue: addAppointmentController.pets,
+                      petListValue: editAppointmentController.pets,
                       errorText: appointmentValidateController.petError,
                     ),
                     Padding(
@@ -97,7 +92,7 @@ class AddAppointmentPage extends StatelessWidget {
                     Text('Choose a Date', style: Get.textTheme.titleLarge),
                     const SizedBox(height: 16),
                     AppDatePicker(
-                      dateValue: addAppointmentController.serviceDate,
+                      dateValue: editAppointmentController.serviceDate,
                       label: 'Service Date',
                       startDay: DateTime.now(),
                       dateFormat: DateFormat.YEAR_MONTH_WEEKDAY_DAY,
@@ -107,7 +102,7 @@ class AddAppointmentPage extends StatelessWidget {
                     Text('Pick a Time', style: Get.textTheme.titleLarge),
                     const SizedBox(height: 16),
                     ServiceTimePicker(
-                      timeValue: addAppointmentController.serviceTime,
+                      timeValue: editAppointmentController.serviceTime,
                       label: 'Service Time',
                       errorText: appointmentValidateController.timeError,
                     ),
@@ -115,10 +110,19 @@ class AddAppointmentPage extends StatelessWidget {
                     AppButton(
                       onPressed: () {
                         if (appointmentValidateController.validateForm()) {
-                          addAppointmentController.addAppointment();
+                          editAppointmentController.editAppointment();
                         }
                       },
-                      child: const Text('Add Appointment'),
+                      child: const Text('Edit Appointment'),
+                    ),
+                    const SizedBox(height: 48),
+                    HoldButton(
+                      onPressed:
+                          () => editAppointmentController.deleteAppointment(),
+                      label: 'Delete Appointment',
+                      fillDuration: const Duration(seconds: 1),
+                      startColor: Get.theme.primaryColor,
+                      endColor: Get.theme.colorScheme.error,
                     ),
                     SizedBox(height: 0.1 * Get.size.height),
                   ],
@@ -126,7 +130,7 @@ class AddAppointmentPage extends StatelessWidget {
               ),
             ),
           ),
-          Obx(() => addAppointmentController.loadingScreen),
+          Obx(() => editAppointmentController.loadingScreen),
         ],
       ),
     );

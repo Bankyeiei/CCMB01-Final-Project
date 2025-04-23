@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import 'app_routes.dart';
 
+import '../app/data/models/appointment_model.dart';
 import '../app/data/models/pet_model.dart';
 
 import '../app/modules/get_start/get_start_page.dart';
@@ -13,6 +14,8 @@ import '../app/modules/pet/add_pet/add_pet_page.dart';
 import '../app/modules/pet/pet_profile/pet_profile_page.dart';
 import '../app/modules/pet/edit_pet/edit_pet_page.dart';
 import '../app/modules/appointment/add_appointment/add_appointment_page.dart';
+import '../app/modules/appointment/appointment_detail/appointment_detail_page.dart';
+import '../app/modules/appointment/edit_appointment/edit_appointment_page.dart';
 
 import '../app/modules/login/login_binding.dart';
 import '../app/modules/register/register_binding.dart';
@@ -21,6 +24,7 @@ import '../app/modules/edit_profile/edit_profile_binding.dart';
 import '../app/modules/pet/add_pet/add_pet_binding.dart';
 import '../app/modules/pet/edit_pet/edit_pet_binding.dart';
 import '../app/modules/appointment/add_appointment/add_appointment_binding.dart';
+import '../app/modules/appointment/edit_appointment/edit_appointment_binding.dart';
 
 final List<GetPage> appPages = [
   GetPage(
@@ -86,11 +90,30 @@ final List<GetPage> appPages = [
   GetPage(
     name: Routes.addAppointment,
     page: () {
-      final pet = Get.arguments as Pet;
-      return AddAppointmentPage(pet: pet);
+      final petId = Get.arguments as String?;
+      return AddAppointmentPage(petId: petId);
     },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: AddAppointmentBinding(),
+  ),
+  GetPage(
+    name: Routes.appointmentDetail,
+    page: () {
+      final appointmentId = Get.arguments as String;
+      return AppointmentDetailPage(appointmentId: appointmentId);
+    },
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 250),
+  ),
+  GetPage(
+    name: Routes.editAppointment,
+    page: () {
+      final appointment = Get.arguments as Appointment;
+      return EditAppointmentPage(appointment: appointment);
+    },
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 250),
+    binding: EditAppointmentBinding(),
   ),
 ];

@@ -6,6 +6,7 @@ import '../../../../../routes/app_routes.dart';
 
 import '../../controller/pet_validate_controller.dart';
 import '../../../../data/models/pet_model.dart';
+import '../../../../../core/controller/appointment_controller.dart';
 import '../../../../../core/controller/pet_controller.dart';
 import '../../../../../core/controller/image_controller.dart';
 import '../../../../../core/controller/global/loading_controller.dart';
@@ -15,10 +16,12 @@ class EditPetController extends GetxController {
   final PetValidateController petValidateController;
   final PetController petController;
   final ImageController imageController;
+  final AppointmentController appointmentController;
   EditPetController({
     required this.petValidateController,
     required this.petController,
     required this.imageController,
+    required this.appointmentController,
   });
 
   final LoadingController _loadingController = Get.find<LoadingController>();
@@ -63,9 +66,9 @@ class EditPetController extends GetxController {
               ? double.parse(petValidateController.weightController.text)
               : null;
       await petController.editPet(
-        pet.petId!,
+        pet.petId,
         petType.value,
-        petValidateController.petNameController.text,
+        petValidateController.petNameController.text.capitalizeFirst!,
         petValidateController.breedNameController.text,
         gender.value,
         weight,
@@ -100,7 +103,8 @@ class EditPetController extends GetxController {
         _loadingController.isLoading.value = true;
         try {
           await imageController.deleteImage();
-          await petController.deletePet(pet.petId!);
+          await petController.deletePet(pet.petId);
+          await appointmentController.deletePetfromAppointments(pet.petId);
           Get.until((route) => Get.currentRoute == Routes.home);
           SnackbarService.showDeleteSuccess('Pet');
         } catch (error) {

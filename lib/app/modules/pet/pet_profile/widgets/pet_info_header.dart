@@ -49,13 +49,17 @@ class PetInfoHeader extends SliverPersistentHeaderDelegate {
                 ),
               ),
               const SizedBox(width: 16),
-              Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: pet.gender.color,
+              Tooltip(
+                preferBelow: false,
+                message: pet.gender.text,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: pet.gender.color,
+                  ),
+                  child: Icon(pet.gender.icon, size: 32, color: Colors.white),
                 ),
-                child: Icon(pet.gender.icon, size: 32, color: Colors.white),
               ),
             ],
           ),

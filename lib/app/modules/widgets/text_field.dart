@@ -40,81 +40,85 @@ class AppTextField extends StatelessWidget {
     final obscuredController = _ObscuredController();
     return SizedBox(
       height: 88 + 30 * (maxLines - 1),
-      child: TextField(
-        maxLength: isShowLength ? lengthLimiting : null,
-        controller: controller,
-        maxLines: maxLines,
-        onChanged: validate,
-        onSubmitted: onSubmitted,
-        obscureText:
-            obscureText ? obscuredController.isObscured.value : false.obs.value,
-        inputFormatters:
-            (inputFormatters ?? []) +
-            (isShowLength
-                ? []
-                : [LengthLimitingTextInputFormatter(lengthLimiting)]),
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        decoration: InputDecoration(
-          isDense: true,
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(width: 2),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(
-              width: 1.5,
-              color:
-                  isHintText ? Get.theme.colorScheme.secondary : Colors.black,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: 1.5,
-              color: Get.theme.colorScheme.error,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          filled: true,
-          fillColor: isHintText ? Get.theme.colorScheme.secondary : null,
-          prefixIcon:
-              icon != null
-                  ? Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Icon(
-                      icon,
-                      size: 24,
-                      color: isHintText ? Colors.black26 : Colors.black54,
-                    ),
-                  )
-                  : null,
-          suffixIcon:
+      child: Obx(
+        () => TextField(
+          maxLength: isShowLength ? lengthLimiting : null,
+          controller: controller,
+          maxLines: maxLines,
+          onChanged: validate,
+          onSubmitted: onSubmitted,
+          obscureText:
               obscureText
-                  ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      FocusScope(
-                        canRequestFocus: false,
-                        child: IconButton(
-                          onPressed: obscuredController.click,
-                          icon: Icon(
-                            obscuredController.isObscured.value
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined,
-                            size: 24,
-                            color: Colors.black26,
+                  ? obscuredController.isObscured.value
+                  : false.obs.value,
+          inputFormatters:
+              (inputFormatters ?? []) +
+              (isShowLength
+                  ? []
+                  : [LengthLimitingTextInputFormatter(lengthLimiting)]),
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          decoration: InputDecoration(
+            isDense: true,
+            border: OutlineInputBorder(
+              borderSide: const BorderSide(width: 2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(
+                width: 1.5,
+                color:
+                    isHintText ? Get.theme.colorScheme.secondary : Colors.black,
+              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1.5,
+                color: Get.theme.colorScheme.error,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            filled: true,
+            fillColor: isHintText ? Get.theme.colorScheme.secondary : null,
+            prefixIcon:
+                icon != null
+                    ? Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Icon(
+                        icon,
+                        size: 24,
+                        color: isHintText ? Colors.black26 : Colors.black54,
+                      ),
+                    )
+                    : null,
+            suffixIcon:
+                obscureText
+                    ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        FocusScope(
+                          canRequestFocus: false,
+                          child: IconButton(
+                            onPressed: () => obscuredController.click(),
+                            icon: Icon(
+                              obscuredController.isObscured.value
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              size: 24,
+                              color: Colors.black26,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 4),
-                    ],
-                  )
-                  : null,
-          labelText: isHintText ? null : hintText,
-          hintText: isHintText ? hintText : null,
-          hintStyle: Get.textTheme.bodyLarge!.copyWith(color: Colors.black38),
-          errorText: errorText.isEmpty ? null : errorText,
+                        const SizedBox(width: 4),
+                      ],
+                    )
+                    : null,
+            labelText: isHintText ? null : hintText,
+            hintText: isHintText ? hintText : null,
+            hintStyle: Get.textTheme.bodyLarge!.copyWith(color: Colors.black38),
+            errorText: errorText.isEmpty ? null : errorText,
+          ),
         ),
       ),
     );

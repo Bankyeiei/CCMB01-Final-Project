@@ -24,24 +24,32 @@ class AddAppointmentController extends GetxController {
 
   Widget get loadingScreen => _loadingController.loadingScreen();
 
-  final RxString serviceType = 'Vaccination'.obs;
+  final Rx<Service> service = Service.vaccination.obs;
   final RxList<Pet> pets = <Pet>[].obs;
   final Rx<DateTime?> serviceDate = Rx<DateTime?>(null);
   final Rx<Time?> serviceTime = Rx<Time?>(null);
+
+  void init() {
+    appointmentValidateController.pets = pets;
+    appointmentValidateController.serviceDate = serviceDate;
+    appointmentValidateController.serviceTime = serviceTime;
+  }
 
   Future<void> addAppointment() async {
     Get.closeCurrentSnackbar();
     _loadingController.isLoading.value = true;
     try {
+      final petIds = pets.map((pet) => pet.petId).toList();
+
       final dateTime = serviceDate.value!.copyWith(
         hour: serviceTime.value!.hour,
         minute: serviceTime.value!.minute,
       );
       final newAppointment = Appointment(
-        appointmentId: null,
-        serviceType: serviceType.value,
+        appointmentId: '',
+        service: service.value,
         details: appointmentValidateController.detailsController.text,
-        pets: pets,
+        petIds: petIds,
         appointedAt: dateTime,
       );
       await appointmentController.appointmentRepository.uploadAppointmentMap(

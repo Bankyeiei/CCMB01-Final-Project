@@ -102,6 +102,7 @@ class PetProfilePage extends StatelessWidget {
                       child: IconButton(
                         onPressed:
                             () => Get.toNamed(Routes.editPet, arguments: pet),
+                        tooltip: 'Edit Pet',
                         icon: Icon(
                           Icons.edit,
                           size: 32,
@@ -240,7 +241,7 @@ class PetProfilePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    PetAppointments(pet: pet),
+                    PetAppointments(petId: petId),
                     const SizedBox(height: 32),
                     const PetVaccinations(),
                     const SizedBox(height: 32),

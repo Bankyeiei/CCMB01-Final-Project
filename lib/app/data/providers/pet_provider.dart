@@ -7,8 +7,10 @@ class PetProvider {
     return _pets.where('owner_id', isEqualTo: uid).orderBy('pet_name').get();
   }
 
-  Future<void> uploadPet(String? petId, Map<String, dynamic> jsonMap) async {
-    await _pets.doc(petId).set(jsonMap, SetOptions(merge: true));
+  Future<void> uploadPet(String petId, Map<String, dynamic> jsonMap) async {
+    await _pets
+        .doc(petId.isEmpty ? null : petId)
+        .set(jsonMap, SetOptions(merge: true));
   }
 
   Future<void> deletePet(String petId) async {

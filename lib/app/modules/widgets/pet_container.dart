@@ -2,18 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../routes/app_routes.dart';
+import '../../../routes/app_routes.dart';
 
-import '../../../../../data/models/pet_model.dart';
+import '../../data/models/pet_model.dart';
 
 class PetContainer extends StatelessWidget {
   final Pet pet;
-  const PetContainer({super.key, required this.pet});
+  final bool canNavigate;
+  const PetContainer({super.key, required this.pet, this.canNavigate = true});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.petProfile, arguments: pet.petId),
+      onTap:
+          canNavigate
+              ? () => Get.toNamed(Routes.petProfile, arguments: pet.petId)
+              : null,
       child: Container(
         height: 122,
         margin: const EdgeInsets.symmetric(horizontal: 16),

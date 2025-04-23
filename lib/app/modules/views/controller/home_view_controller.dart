@@ -27,9 +27,9 @@ class HomeViewController extends GetxController {
   final LoadingController _loadingController = Get.find<LoadingController>();
 
   final RxInt pageIndex = 0.obs;
-  final RxList<String> titles = List.filled(3, '').obs;
+  final RxList<String> titles = List.filled(4, '').obs;
 
-  List<List<Widget>?> actions = [null, null, null];
+  List<List<Widget>?> actions = [null, null, null, null];
 
   @override
   void onInit() async {
@@ -42,6 +42,7 @@ class HomeViewController extends GetxController {
       actions = [
         null,
         ViewAppBarActions.petListAction(),
+        ViewAppBarActions.appointmentListAction(),
         ViewAppBarActions.profileAction(_logOut),
       ];
       _updateTitles();
@@ -85,6 +86,7 @@ class HomeViewController extends GetxController {
     titles.value = [
       'Hey ${userController.user.name},',
       'My Pets',
+      'Appointments',
       userController.user.name,
     ];
   }

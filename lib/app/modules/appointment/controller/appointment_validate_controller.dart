@@ -12,7 +12,7 @@ class AppointmentValidateController extends GetxController {
   final RxString dateError = ''.obs;
   final RxString timeError = ''.obs;
 
-  late final RxList<Pet> pet;
+  late final RxList<Pet> pets;
   late final Rx<DateTime?> serviceDate;
   late final Rx<Time?> serviceTime;
 
@@ -52,7 +52,7 @@ class AppointmentValidateController extends GetxController {
 
   bool validateForm() {
     validateDetails(detailsController.text);
-    validatePets(pet);
+    validatePets(pets);
     validateDate(serviceDate);
     validateTime(serviceTime);
     return detailsError.value.isEmpty &&

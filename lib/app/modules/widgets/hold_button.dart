@@ -51,7 +51,7 @@ class HoldButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
-                    widthFactor: progress,
+                    widthFactor: 0.08 + (progress * 0.92),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Color.lerp(startColor, endColor, progress),

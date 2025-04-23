@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/models/appointment_model.dart';
+
 class PetGrooming extends StatelessWidget {
   const PetGrooming({super.key});
 
@@ -24,7 +26,7 @@ class PetGrooming extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.shower_outlined, size: 32),
+                Icon(Service.grooming.icon, size: 32),
                 const SizedBox(width: 8),
                 Text('Grooming', style: Get.textTheme.headlineMedium),
                 const Spacer(),

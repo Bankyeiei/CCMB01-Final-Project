@@ -14,6 +14,16 @@ class ViewAppBarActions {
     ];
   }
 
+  static List<Widget> appointmentListAction() {
+    return [
+      IconButton(
+        onPressed: () => Get.toNamed(Routes.addAppointment),
+        tooltip: 'Add Appointment',
+        icon: const Icon(Icons.add),
+      ),
+    ];
+  }
+
   static List<Widget> profileAction(void Function() logoutFunction) {
     return [
       IconButton(

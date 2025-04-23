@@ -15,7 +15,44 @@ class AppointmentController extends GetxController {
     );
   }
 
-  //TODO Edit Appointment
+  Future<void> editAppointment(
+    String appointmentId,
+    Service service,
+    String details,
+    List<String> petIds,
+    DateTime appointedAt,
+  ) async {
+    final editedAppointment = Appointment(
+      appointmentId: appointmentId,
+      service: service,
+      details: details,
+      petIds: petIds,
+      appointedAt: appointedAt,
+    );
+    await appointmentRepository.uploadAppointmentMap(editedAppointment);
+    appointmentMap.update(appointmentId, (value) => editedAppointment);
+    final sortedEntries =
+        appointmentMap.entries.toList()
+          ..sort((a, b) => a.value.appointedAt.compareTo(b.value.appointedAt));
+    appointmentMap.assignAll(Map.fromEntries(sortedEntries));
+  }
+
+  Future<void> deletePetfromAppointments(String petId) async {
+    final entries = appointmentMap.entries.toList();
+
+    for (final entry in entries) {
+      final appointment = entry.value;
+      final id = entry.key;
+
+      if (appointment.petIds.remove(petId)) {
+        if (appointment.petIds.isEmpty) {
+          await deleteAppointment(id);
+        } else {
+          await appointmentRepository.uploadAppointmentMap(appointment);
+        }
+      }
+    }
+  }
 
   Future<void> deleteAppointment(String appointmentId) async {
     await appointmentRepository.deleteAppointment(appointmentId);

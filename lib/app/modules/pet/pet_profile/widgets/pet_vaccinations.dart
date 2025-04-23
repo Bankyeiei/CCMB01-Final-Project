@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/models/appointment_model.dart';
+
 class PetVaccinations extends StatelessWidget {
   const PetVaccinations({super.key});
 
@@ -24,7 +26,7 @@ class PetVaccinations extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.vaccines, size: 32),
+                Icon(Service.vaccination.icon, size: 32),
                 const SizedBox(width: 8),
                 Text('Vaccinations', style: Get.textTheme.headlineMedium),
                 const Spacer(),

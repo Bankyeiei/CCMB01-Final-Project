@@ -36,7 +36,7 @@ final ThemeData themeData = ThemeData(
       fontWeight: FontWeight.w700,
     ),
     headlineLarge: GoogleFonts.fredoka(
-      fontSize: 32, //! Unused
+      fontSize: 32,
       fontWeight: FontWeight.w700,
     ),
     headlineMedium: GoogleFonts.fredoka(
@@ -54,8 +54,8 @@ final ThemeData themeData = ThemeData(
     bodyMedium: GoogleFonts.fredoka(fontSize: 16),
     bodySmall: GoogleFonts.fredoka(fontSize: 14),
     labelLarge: GoogleFonts.fredoka(fontSize: 12), //! Unused
-    labelMedium: GoogleFonts.fredoka(fontSize: 11), //! Unused
-    labelSmall: GoogleFonts.fredoka(fontSize: 10), //! Unused
+    labelMedium: GoogleFonts.fredoka(fontSize: 10), //! Unused
+    labelSmall: GoogleFonts.fredoka(fontSize: 8),
   ),
 
   // AppBar Theme
@@ -65,6 +65,7 @@ final ThemeData themeData = ThemeData(
     backgroundColor: Color(0xFF5CB15A),
     iconTheme: IconThemeData(size: 32, color: Colors.white),
     shadowColor: Color(0xFF4A4A4A),
+    actionsPadding: EdgeInsets.only(right: 10)
   ),
 
   // ElevatedButton Theme

@@ -126,8 +126,8 @@ class SelectPetDropDown extends StatelessWidget {
                                       child: CachedNetworkImage(
                                         imageUrl: item.imageUrl,
                                         fit: BoxFit.cover,
-                                        height: 100,
-                                        width: 100,
+                                        height: 80,
+                                        width: 80,
                                         errorWidget:
                                             (context, url, error) => Container(
                                               color:

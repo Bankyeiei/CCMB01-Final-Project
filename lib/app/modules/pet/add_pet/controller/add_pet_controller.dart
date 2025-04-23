@@ -51,9 +51,9 @@ class AddPetController extends GetxController {
               ? double.parse(petValidateController.weightController.text)
               : null;
       final newPet = Pet(
-        petId: null,
+        petId: '',
         petType: petType.value,
-        petName: petValidateController.petNameController.text,
+        petName: petValidateController.petNameController.text.capitalizeFirst!,
         breedName: petValidateController.breedNameController.text,
         gender: gender.value,
         weight: weight,
