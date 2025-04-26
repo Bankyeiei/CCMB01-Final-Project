@@ -98,11 +98,11 @@ class PetAppointments extends StatelessWidget {
   Row _notEmptyAppointment(List<Appointment> thisPetAppointments) {
     return Row(
       children: [
-        Expanded(child: _appointmentContainer(thisPetAppointments[0])),
+        Expanded(child: _appointmentCard(thisPetAppointments[0])),
         const SizedBox(width: 16),
         thisPetAppointments.length >= 2
-            ? Expanded(child: _appointmentContainer(thisPetAppointments[1]))
-            : Flexible(
+            ? Expanded(child: _appointmentCard(thisPetAppointments[1]))
+            : Expanded(
               child: Center(
                 child: Container(
                   decoration: BoxDecoration(
@@ -126,16 +126,20 @@ class PetAppointments extends StatelessWidget {
     );
   }
 
-  GestureDetector _appointmentContainer(Appointment appointment) {
+  GestureDetector _appointmentCard(Appointment appointment) {
     return GestureDetector(
       onTap:
           () => Get.toNamed(
             Routes.appointmentDetail,
             arguments: appointment.appointmentId,
           ),
-      child: Card.outlined(
+      child: Card.filled(
         elevation: 4,
-        margin: const EdgeInsets.symmetric(vertical: 8),
+        color:
+            DateTime.now().difference(appointment.appointedAt).inMinutes > 0
+                ? Get.theme.colorScheme.secondary
+                : Get.theme.colorScheme.onPrimary,
+        margin: const EdgeInsets.symmetric(vertical: 6),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
@@ -158,7 +162,7 @@ class PetAppointments extends StatelessWidget {
                 appointment.details.isNotEmpty
                     ? appointment.details
                     : 'No details',
-                style: Get.textTheme.labelLarge,
+                style: Get.textTheme.bodySmall,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),

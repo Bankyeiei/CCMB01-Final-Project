@@ -56,6 +56,7 @@ class AddAppointmentController extends GetxController {
         newAppointment,
       );
       await appointmentController.getAppointments(petController.petIds);
+      appointmentController.update();
       Get.back(closeOverlays: true);
       SnackbarService.showAddAppointmentSuccess();
     } catch (error) {

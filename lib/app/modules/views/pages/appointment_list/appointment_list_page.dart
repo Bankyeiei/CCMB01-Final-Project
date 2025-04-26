@@ -27,8 +27,10 @@ class AppointmentListPage extends StatelessWidget {
             ),
           ),
         ),
-        Obx(() {
-          if (appointmentController.appointmentMap.isEmpty) {
+        GetBuilder(
+          init: appointmentController,
+          builder:(controller)  {
+          if (controller.appointmentMap.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +59,7 @@ class AppointmentListPage extends StatelessWidget {
           return ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 16),
             physics: const BouncingScrollPhysics(),
-            itemCount: appointmentController.appointmentMap.length,
+            itemCount: controller.appointmentMap.length,
             separatorBuilder:
                 (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -69,7 +71,7 @@ class AppointmentListPage extends StatelessWidget {
                 ),
             itemBuilder: (context, index) {
               final appointment =
-                  appointmentController.appointmentMap.values.toList()[index];
+                  controller.appointmentMap.values.toList()[index];
               return Row(
                 children: [
                   Container(

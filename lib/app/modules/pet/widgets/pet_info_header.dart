@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../data/models/pet_model.dart';
+import '../../../data/models/pet_model.dart';
 
 class PetInfoHeader extends SliverPersistentHeaderDelegate {
   final Pet pet;

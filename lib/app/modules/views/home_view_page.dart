@@ -97,7 +97,7 @@ class HomeViewPage extends StatelessWidget {
                               notifyAppointmentLength <= 9
                                   ? '$notifyAppointmentLength'
                                   : '9+',
-                              style: Get.textTheme.labelMedium!.copyWith(
+                              style: Get.textTheme.labelSmall!.copyWith(
                                 color: Get.theme.colorScheme.onPrimary,
                               ),
                             ),

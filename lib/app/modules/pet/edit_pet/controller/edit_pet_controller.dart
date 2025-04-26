@@ -8,6 +8,8 @@ import '../../controller/pet_validate_controller.dart';
 import '../../../../data/models/pet_model.dart';
 import '../../../../../core/controller/appointment_controller.dart';
 import '../../../../../core/controller/pet_controller.dart';
+import '../../../../../core/controller/grooming_controller.dart';
+import '../../../../../core/controller/vaccination_controller.dart';
 import '../../../../../core/controller/image_controller.dart';
 import '../../../../../core/controller/global/loading_controller.dart';
 import '../../../../../services/snackbar_service.dart';
@@ -17,11 +19,15 @@ class EditPetController extends GetxController {
   final PetController petController;
   final ImageController imageController;
   final AppointmentController appointmentController;
+  final GroomingController groomingController;
+  final VaccinationController vaccinationController;
   EditPetController({
     required this.petValidateController,
     required this.petController,
     required this.imageController,
     required this.appointmentController,
+    required this.groomingController,
+    required this.vaccinationController,
   });
 
   final LoadingController _loadingController = Get.find<LoadingController>();
@@ -61,6 +67,9 @@ class EditPetController extends GetxController {
     _loadingController.isLoading.value = true;
     try {
       final imageUrlAndId = await imageController.uploadAndGetImageUrlAndId();
+      final petName =
+          petValidateController.petNameController.text[0].toUpperCase() +
+          petValidateController.petNameController.text.substring(1);
       final weight =
           petValidateController.weightController.text.isNotEmpty
               ? double.parse(petValidateController.weightController.text)
@@ -68,8 +77,8 @@ class EditPetController extends GetxController {
       await petController.editPet(
         pet.petId,
         petType.value,
-        petValidateController.petNameController.text.capitalizeFirst!,
-        petValidateController.breedNameController.text,
+        petName,
+        petValidateController.breedNameController.text.capitalize!,
         gender.value,
         weight,
         petColor,
@@ -79,8 +88,9 @@ class EditPetController extends GetxController {
         imageUrlAndId?[1] ?? '',
       );
       petColor.sort((a, b) => a.text.compareTo(b.text));
+      petController.update();
       Get.back(closeOverlays: true);
-      SnackbarService.showEditSuccess(snackPosition: SnackPosition.BOTTOM);
+      SnackbarService.showEditSuccess();
     } catch (error) {
       SnackbarService.showEditError();
     } finally {
@@ -89,6 +99,7 @@ class EditPetController extends GetxController {
   }
 
   Future<void> deletePet() async {
+    Get.closeCurrentSnackbar();
     Get.defaultDialog(
       title: 'Delete ${pet.petName}?',
       middleText:
@@ -105,6 +116,9 @@ class EditPetController extends GetxController {
           await imageController.deleteImage();
           await petController.deletePet(pet.petId);
           await appointmentController.deletePetfromAppointments(pet.petId);
+          await groomingController.deleteAllGroomingByPet(pet.petId);
+          await vaccinationController.deleteAllVaccinationByPet(pet.petId);
+          petController.update();
           Get.until((route) => Get.currentRoute == Routes.home);
           SnackbarService.showDeleteSuccess('Pet');
         } catch (error) {

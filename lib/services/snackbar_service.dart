@@ -147,6 +147,17 @@ class SnackbarService {
     );
   }
 
+  static void showMarkAppointmentSuccess() {
+    showSuccess(
+      'This appointment has been marked as completed.',
+      title: 'Appointment Completed',
+    );
+  }
+
+  static void showMarkAppointmentError() {
+    showError(message: 'We couldn’t mark your appointment. Please try again.');
+  }
+
   static void showEditSuccess({
     SnackPosition snackPosition = SnackPosition.TOP,
   }) {

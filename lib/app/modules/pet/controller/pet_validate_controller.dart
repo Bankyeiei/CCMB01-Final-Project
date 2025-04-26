@@ -62,10 +62,10 @@ class PetValidateController extends GetxController {
     validateWeight(weightController.text);
     validateStory(storyController.text);
 
-    return petNameError.value.isEmpty &&
-        breedNameError.value.isEmpty &&
-        weightError.value.isEmpty &&
-        storyError.value.isEmpty;
+    return petNameError.isEmpty &&
+        breedNameError.isEmpty &&
+        weightError.isEmpty &&
+        storyError.isEmpty;
   }
 
   @override

@@ -26,17 +26,16 @@ class EditAppointmentController extends GetxController {
 
   Widget get loadingScreen => _loadingController.loadingScreen();
 
-  late Appointment appointment;
-  final Rx<Service> service = Service.vaccination.obs;
+  late final Appointment appointment;
+  late final Service service;
   final RxList<Pet> pets = <Pet>[].obs;
   final Rx<DateTime?> serviceDate = Rx<DateTime?>(null);
   final Rx<Time?> serviceTime = Rx<Time?>(null);
 
   void init(Appointment appointment) {
     this.appointment = appointment;
-    service.value = appointment.service;
+    service = appointment.service;
     appointmentValidateController.detailsController.text = appointment.details;
-
     pets.value =
         appointment.petIds
             .map((petId) => petController.petMap[petId]!)
@@ -64,13 +63,14 @@ class EditAppointmentController extends GetxController {
       );
       await appointmentController.editAppointment(
         appointment.appointmentId,
-        service.value,
+        service,
         appointmentValidateController.detailsController.text,
         petIds,
         appointedAt,
       );
+      appointmentController.update();
       Get.back(closeOverlays: true);
-      SnackbarService.showEditSuccess(snackPosition: SnackPosition.BOTTOM);
+      SnackbarService.showEditSuccess();
     } catch (error) {
       SnackbarService.showEditError();
     } finally {
@@ -79,6 +79,7 @@ class EditAppointmentController extends GetxController {
   }
 
   Future<void> deleteAppointment() async {
+    Get.closeCurrentSnackbar();
     Get.defaultDialog(
       title: 'Delete Appointment',
       middleText:
@@ -88,13 +89,13 @@ class EditAppointmentController extends GetxController {
       buttonColor: Get.theme.colorScheme.error,
       cancelTextColor: Get.theme.colorScheme.error,
       onConfirm: () async {
-        Get.closeCurrentSnackbar();
         Get.back();
         _loadingController.isLoading.value = true;
         try {
           await appointmentController.deleteAppointment(
             appointment.appointmentId,
           );
+          appointmentController.update();
           Get.until((route) => Get.currentRoute == Routes.home);
           SnackbarService.showDeleteSuccess('Appointment');
         } catch (error) {

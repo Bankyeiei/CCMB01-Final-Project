@@ -46,6 +46,9 @@ class AddPetController extends GetxController {
     _loadingController.isLoading.value = true;
     try {
       final imageUrlAndId = await imageController.uploadAndGetImageUrlAndId();
+      final petName =
+          petValidateController.petNameController.text[0].toUpperCase() +
+          petValidateController.petNameController.text.substring(1);
       final weight =
           petValidateController.weightController.text.isNotEmpty
               ? double.parse(petValidateController.weightController.text)
@@ -53,7 +56,7 @@ class AddPetController extends GetxController {
       final newPet = Pet(
         petId: '',
         petType: petType.value,
-        petName: petValidateController.petNameController.text.capitalizeFirst!,
+        petName: petName,
         breedName: petValidateController.breedNameController.text,
         gender: gender.value,
         weight: weight,
@@ -68,6 +71,7 @@ class AddPetController extends GetxController {
         uid: _authStateController.uid,
       );
       await petController.getPets(_authStateController.uid);
+      petController.update();
       Get.back(closeOverlays: true);
       SnackbarService.showAddPetSuccess();
     } catch (error) {

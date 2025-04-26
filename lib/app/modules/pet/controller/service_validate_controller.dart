@@ -1,20 +1,13 @@
-import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/pet_model.dart';
-
-class AppointmentValidateController extends GetxController {
+class ServiceValidateController extends GetxController {
   final detailsController = TextEditingController();
 
   final RxString detailsError = ''.obs;
-  final RxString petError = ''.obs;
   final RxString dateError = ''.obs;
-  final RxString timeError = ''.obs;
 
-  late final RxList<Pet> pets;
-  late final Rx<DateTime?> serviceDate;
-  late final Rx<Time?> serviceTime;
+  late Rx<DateTime?> serviceDate;
 
   void validateDetails(String value) {
     if (value.startsWith(' ')) {
@@ -26,14 +19,6 @@ class AppointmentValidateController extends GetxController {
     }
   }
 
-  void validatePets(RxList<Pet> pet) {
-    if (pet.isEmpty) {
-      petError.value = 'Please select your pets';
-    } else {
-      petError.value = '';
-    }
-  }
-
   void validateDate(Rx<DateTime?> date) {
     if (date.value == null) {
       dateError.value = 'Please choose service date';
@@ -42,23 +27,10 @@ class AppointmentValidateController extends GetxController {
     }
   }
 
-  void validateTime(Rx<Time?> time) {
-    if (time.value == null) {
-      timeError.value = 'Please pick service time';
-    } else {
-      timeError.value = '';
-    }
-  }
-
   bool validateForm() {
     validateDetails(detailsController.text);
-    validatePets(pets);
     validateDate(serviceDate);
-    validateTime(serviceTime);
-    return detailsError.isEmpty &&
-        petError.isEmpty &&
-        dateError.isEmpty &&
-        timeError.isEmpty;
+    return detailsError.isEmpty && dateError.isEmpty;
   }
 
   @override

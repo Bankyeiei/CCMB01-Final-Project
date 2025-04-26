@@ -16,15 +16,21 @@ import '../app/modules/pet/edit_pet/edit_pet_page.dart';
 import '../app/modules/appointment/add_appointment/add_appointment_page.dart';
 import '../app/modules/appointment/appointment_detail/appointment_detail_page.dart';
 import '../app/modules/appointment/edit_appointment/edit_appointment_page.dart';
+import '../app/modules/pet/grooming_records/grooming_records_page.dart';
+import '../app/modules/pet/vaccinations_records/vaccinations_records_page.dart';
 
 import '../app/modules/login/login_binding.dart';
 import '../app/modules/register/register_binding.dart';
 import '../app/modules/views/home_view_binding.dart';
 import '../app/modules/edit_profile/edit_profile_binding.dart';
 import '../app/modules/pet/add_pet/add_pet_binding.dart';
+import '../app/modules/pet/pet_profile/pet_profile_binding.dart';
 import '../app/modules/pet/edit_pet/edit_pet_binding.dart';
 import '../app/modules/appointment/add_appointment/add_appointment_binding.dart';
+import '../app/modules/appointment/appointment_detail/appointment_detail_binding.dart';
 import '../app/modules/appointment/edit_appointment/edit_appointment_binding.dart';
+import '../app/modules/pet/grooming_records/grooming_records_binding.dart';
+import '../app/modules/pet/vaccinations_records/vaccinations_records_binding.dart';
 
 final List<GetPage> appPages = [
   GetPage(
@@ -76,6 +82,7 @@ final List<GetPage> appPages = [
     },
     transition: Transition.downToUp,
     transitionDuration: const Duration(milliseconds: 320),
+    binding: PetProfileBinding(),
   ),
   GetPage(
     name: Routes.editPet,
@@ -105,6 +112,7 @@ final List<GetPage> appPages = [
     },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
+    binding: AppointmentDetailBinding(),
   ),
   GetPage(
     name: Routes.editAppointment,
@@ -115,5 +123,25 @@ final List<GetPage> appPages = [
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: EditAppointmentBinding(),
+  ),
+  GetPage(
+    name: Routes.groomingRecords,
+    page: () {
+      final petId = Get.arguments as String;
+      return GroomingRecordsPage(petId: petId);
+    },
+    transition: Transition.fadeIn,
+    transitionDuration: const Duration(milliseconds: 200),
+    binding: GroomingRecordsBinding(),
+  ),
+  GetPage(
+    name: Routes.vaccinationRecords,
+    page: () {
+      final petId = Get.arguments as String;
+      return VaccinationsRecordsPage(petId: petId);
+    },
+    transition: Transition.fadeIn,
+    transitionDuration: const Duration(milliseconds: 200),
+    binding: VaccinationsRecordsBinding(),
   ),
 ];

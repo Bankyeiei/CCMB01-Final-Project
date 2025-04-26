@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:coco/app/data/models/pet_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -10,12 +11,12 @@ import '../../../../routes/app_routes.dart';
 
 import '../../../../core/controller/pet_controller.dart';
 
-import 'widgets/pet_info_header.dart';
 import 'widgets/pet_info_chip.dart';
 import 'widgets/pet_appointments.dart';
 import 'widgets/pet_vaccinations.dart';
 import 'widgets/pet_grooming.dart';
 import 'widgets/pet_journal.dart';
+import '../widgets/pet_info_header.dart';
 import '../../widgets/curved_bottom.dart';
 
 class PetProfilePage extends StatelessWidget {
@@ -31,6 +32,7 @@ class PetProfilePage extends StatelessWidget {
       if (pet == null) {
         return Scaffold(appBar: AppBar(automaticallyImplyLeading: false));
       }
+
       return Scaffold(
         body: CustomScrollView(
           slivers: [
@@ -143,93 +145,7 @@ class PetProfilePage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        PetInfoChip(
-                          label: 'Birthday',
-                          value: Text(
-                            pet.birthday != null
-                                ? DateFormat('dd MMM yy').format(pet.birthday!)
-                                : 'Unknown',
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Get.theme.colorScheme.onSecondary,
-                            ),
-                          ),
-                        ),
-                        PetInfoChip(
-                          label: 'Age',
-                          value: Text(
-                            pet.age.isNotEmpty ? pet.age : 'Unknown',
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Get.theme.colorScheme.onSecondary,
-                            ),
-                          ),
-                        ),
-                        PetInfoChip(
-                          label: 'Weight',
-                          value: Text(
-                            pet.weight != null
-                                ? '${NumberFormat('#,###.##').format(pet.weight)} kg'
-                                : 'Unknown',
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Get.theme.colorScheme.onSecondary,
-                            ),
-                          ),
-                        ),
-                        PetInfoChip(
-                          label: 'Color',
-                          value:
-                              pet.color!.isEmpty
-                                  ? Text(
-                                    'Unknown',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Get.theme.colorScheme.onSecondary,
-                                    ),
-                                  )
-                                  : Padding(
-                                    padding: const EdgeInsets.only(top: 2),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children:
-                                          pet.color
-                                              ?.map(
-                                                (color) => Tooltip(
-                                                  message: color.text,
-                                                  preferBelow: false,
-                                                  verticalOffset: 42,
-                                                  child: Container(
-                                                    height: 20,
-                                                    width: 20,
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        color: Get
-                                                            .theme
-                                                            .colorScheme
-                                                            .onSecondary
-                                                            .withAlpha(60),
-                                                      ),
-                                                      color: color.color,
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                              .toList() ??
-                                          [],
-                                    ),
-                                  ),
-                        ),
-                      ],
-                    ),
+                    _petInfo(pet),
                     const SizedBox(height: 20),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -243,9 +159,9 @@ class PetProfilePage extends StatelessWidget {
                     const SizedBox(height: 20),
                     PetAppointments(petId: petId),
                     const SizedBox(height: 32),
-                    const PetVaccinations(),
+                    PetVaccinations(petId: petId),
                     const SizedBox(height: 32),
-                    const PetGrooming(),
+                    PetGrooming(petId: petId),
                     const SizedBox(height: 32),
                     const PetJournal(),
                     const SizedBox(height: 50),
@@ -266,5 +182,91 @@ class PetProfilePage extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Row _petInfo(Pet pet) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        PetInfoChip(
+          label: 'Birthday',
+          value: Text(
+            pet.birthday != null
+                ? DateFormat('dd MMM yy').format(pet.birthday!)
+                : 'Unknown',
+            maxLines: 1,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Get.theme.colorScheme.onSecondary,
+            ),
+          ),
+        ),
+        PetInfoChip(
+          label: 'Age',
+          value: Text(
+            pet.age.isNotEmpty ? pet.age : 'Unknown',
+            maxLines: 1,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Get.theme.colorScheme.onSecondary,
+            ),
+          ),
+        ),
+        PetInfoChip(
+          label: 'Weight',
+          value: Text(
+            pet.weight != null
+                ? '${NumberFormat('#,###.##').format(pet.weight)} kg'
+                : 'Unknown',
+            maxLines: 1,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Get.theme.colorScheme.onSecondary,
+            ),
+          ),
+        ),
+        PetInfoChip(
+          label: 'Color',
+          value:
+              pet.color!.isEmpty
+                  ? Text(
+                    'Unknown',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Get.theme.colorScheme.onSecondary,
+                    ),
+                  )
+                  : Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children:
+                          pet.color
+                              ?.map(
+                                (color) => Tooltip(
+                                  message: color.text,
+                                  preferBelow: false,
+                                  verticalOffset: 42,
+                                  child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Get.theme.colorScheme.onSecondary
+                                            .withAlpha(60),
+                                      ),
+                                      color: color.color,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList() ??
+                          [],
+                    ),
+                  ),
+        ),
+      ],
+    );
   }
 }

@@ -22,8 +22,8 @@ class SelectPetDropDown extends StatelessWidget {
 
     return FocusScope(
       canRequestFocus: false,
-      child: Obx(() {
-        return DropdownSearch<Pet>.multiSelection(
+      child: Obx(
+        () => DropdownSearch<Pet>.multiSelection(
           items: (f, cs) => petController.petMap.values.toList(),
           itemAsString: (item) => item.petName + item.petType + item.breedName,
           selectedItems: petListValue,
@@ -220,8 +220,8 @@ class SelectPetDropDown extends StatelessWidget {
             return true;
           },
           onChanged: (value) => petListValue.assignAll(value),
-        );
-      }),
+        ),
+      ),
     );
   }
 }

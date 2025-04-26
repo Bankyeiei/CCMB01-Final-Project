@@ -12,6 +12,8 @@ class Routes {
   static const addAppointment = '/add_appointment';
   static const appointmentDetail = '/appointment_detail';
   static const editAppointment = '/edit_appointment';
+  static const groomingRecords = '/grooming_records';
+  static const vaccinationRecords = '/vaccination_records';
 
   static String chooseInitialRoute(GetStorage box) {
     if (box.read('isLoggedIn')) {

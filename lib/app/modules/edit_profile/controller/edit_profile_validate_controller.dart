@@ -35,7 +35,7 @@ class EditProfileValidateController extends GetxController {
   bool validateForm() {
     validateName(nameController.text);
     validatePhone(phoneController.text);
-    return nameError.value.isEmpty && phoneError.value.isEmpty;
+    return nameError.isEmpty && phoneError.isEmpty;
   }
 
   @override

@@ -58,7 +58,7 @@ class Pet {
     final colorList = pet.color?.map((color) => color.text).toList() ?? [];
     colorList.sort();
 
-    final petMap = {
+    final Map<String, dynamic> petMap = {
       'pet_type': pet.petType,
       'pet_name': pet.petName,
       'breed_name': pet.breedName,

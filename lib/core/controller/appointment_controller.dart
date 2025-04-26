@@ -40,7 +40,7 @@ class AppointmentController extends GetxController {
   Future<void> deletePetfromAppointments(String petId) async {
     final entries = appointmentMap.entries.toList();
 
-    for (final entry in entries) {
+    for (var entry in entries) {
       final appointment = entry.value;
       final id = entry.key;
 

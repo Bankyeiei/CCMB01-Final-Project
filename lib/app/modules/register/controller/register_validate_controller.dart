@@ -60,7 +60,7 @@ class RegisterValidateController extends GetxController {
   }
 
   void validateConfirmPassword(String value) {
-    if (passwordError.value.isEmpty && value != passwordController.text) {
+    if (passwordError.isEmpty && value != passwordController.text) {
       confirmPasswordError.value = 'Passwords do not match';
     } else {
       confirmPasswordError.value = '';
@@ -73,11 +73,11 @@ class RegisterValidateController extends GetxController {
     validatePhone(phoneController.text);
     validatePassword(passwordController.text);
     validateConfirmPassword(confirmPasswordController.text);
-    return emailError.value.isEmpty &&
-        nameError.value.isEmpty &&
-        phoneError.value.isEmpty &&
-        passwordError.value.isEmpty &&
-        confirmPasswordError.value.isEmpty;
+    return emailError.isEmpty &&
+        nameError.isEmpty &&
+        phoneError.isEmpty &&
+        passwordError.isEmpty &&
+        confirmPasswordError.isEmpty;
   }
 
   @override

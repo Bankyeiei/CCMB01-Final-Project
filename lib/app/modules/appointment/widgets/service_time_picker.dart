@@ -35,10 +35,10 @@ class ServiceTimePicker extends StatelessWidget {
             ),
           ),
       child: AbsorbPointer(
-        child: Obx(
-          () => SizedBox(
-            height: 88,
-            child: TextField(
+        child: SizedBox(
+          height: 88,
+          child: Obx(
+            () => TextField(
               canRequestFocus: false,
               readOnly: true,
               controller: TextEditingController(

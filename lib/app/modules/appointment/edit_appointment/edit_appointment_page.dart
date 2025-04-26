@@ -6,7 +6,6 @@ import 'controller/edit_appointment_controller.dart';
 import '../controller/appointment_validate_controller.dart';
 import '../../../data/models/appointment_model.dart';
 
-import '../widgets/service_check_button.dart';
 import '../widgets/service_time_picker.dart';
 import '../widgets/select_pet_drop_down.dart';
 import '../../widgets/button.dart';
@@ -42,23 +41,24 @@ class EditAppointmentPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Select Pet Service', style: Get.textTheme.titleLarge),
-                    const SizedBox(height: 16),
-                    ServiceCheckButton(
-                      label: 'Vaccination',
-                      serviceValue: editAppointmentController.service,
+                    Text('Pet Service', style: Get.textTheme.titleLarge),
+                    const SizedBox(height: 4),
+                    Text(
+                      editAppointmentController.service.text,
+                      style: Get.textTheme.bodyLarge,
                     ),
-                    const SizedBox(height: 12),
-                    ServiceCheckButton(
-                      label: 'Grooming',
-                      serviceValue: editAppointmentController.service,
+                    Text(
+                      "*You can't edit pet sevice",
+                      style: Get.textTheme.labelLarge!.copyWith(
+                        color: Get.theme.colorScheme.error,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Obx(
                       () => AppTextField(
                         icon: Icons.info_outline,
                         hintText:
-                            '${editAppointmentController.service.value.text} details',
+                            '${editAppointmentController.service.text} details',
                         errorText:
                             appointmentValidateController.detailsError.value,
                         controller:
