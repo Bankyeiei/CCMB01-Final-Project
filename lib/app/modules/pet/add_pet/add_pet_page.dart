@@ -141,7 +141,7 @@ class AddPetPage extends StatelessWidget {
                         hintText: 'Write a story about your pet',
                         errorText: petValidateController.storyError.value,
                         controller: petValidateController.storyController,
-                        validate: petValidateController.validateStory,
+                        validate: petValidateController.timerValidateStory,
                         onSubmitted: (value) {
                           addPetController.showFAB.value = true;
                         },

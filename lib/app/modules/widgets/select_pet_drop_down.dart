@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/pet_model.dart';
-import '../../../../core/controller/pet_controller.dart';
+import '../../data/models/pet_model.dart';
+import '../../../core/controller/pet_controller.dart';
 
 class SelectPetDropDown extends StatelessWidget {
   final RxList<Pet> petListValue;

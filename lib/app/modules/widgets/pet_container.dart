@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../routes/app_routes.dart';
 
 import '../../data/models/pet_model.dart';
+import '../views/controller/home_view_controller.dart';
 
 class PetContainer extends StatelessWidget {
   final Pet pet;
@@ -13,10 +14,21 @@ class PetContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeViewController homeViewController =
+        Get.find<HomeViewController>();
+
     return GestureDetector(
       onTap:
           canNavigate
-              ? () => Get.toNamed(Routes.petProfile, arguments: pet.petId)
+              ? () async {
+                final petId = await Get.toNamed(
+                  Routes.petProfile,
+                  arguments: pet.petId,
+                );
+                if (petId != null) {
+                  homeViewController.pageIndex.value = 2;
+                }
+              }
               : null,
       child: Container(
         height: 122,

@@ -158,6 +158,14 @@ class SnackbarService {
     showError(message: 'We couldn’t mark your appointment. Please try again.');
   }
 
+  static void showAddJournalSuccess() {
+    showSuccess('Journal added successfully! ✨');
+  }
+
+  static void showAddJournalError() {
+    showError(message: "Something went wrong. Couldn't save your journal. 🐾");
+  }
+
   static void showEditSuccess({
     SnackPosition snackPosition = SnackPosition.TOP,
   }) {

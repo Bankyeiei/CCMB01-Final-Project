@@ -7,7 +7,7 @@ import '../controller/appointment_validate_controller.dart';
 import '../../../data/models/appointment_model.dart';
 
 import '../widgets/service_time_picker.dart';
-import '../widgets/select_pet_drop_down.dart';
+import '../../widgets/select_pet_drop_down.dart';
 import '../../widgets/button.dart';
 import '../../widgets/hold_button.dart';
 import '../../widgets/date_picker.dart';
@@ -63,7 +63,8 @@ class EditAppointmentPage extends StatelessWidget {
                             appointmentValidateController.detailsError.value,
                         controller:
                             appointmentValidateController.detailsController,
-                        validate: appointmentValidateController.validateDetails,
+                        validate:
+                            appointmentValidateController.timerValidateDetails,
                         isHintText: false,
                         lengthLimiting: 40,
                         isShowLength: true,
@@ -94,7 +95,7 @@ class EditAppointmentPage extends StatelessWidget {
                     AppDatePicker(
                       dateValue: editAppointmentController.serviceDate,
                       label: 'Service Date',
-                      startDay: DateTime.now(),
+                      startDate: DateTime.now(),
                       dateFormat: DateFormat.YEAR_MONTH_WEEKDAY_DAY,
                       errorText: appointmentValidateController.dateError,
                     ),

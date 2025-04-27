@@ -1,24 +1,35 @@
 import 'dart:async';
 
-import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/pet_model.dart';
 
-class AppointmentValidateController extends GetxController {
+class JournalValidateController extends GetxController {
+  final titleController = TextEditingController();
   final detailsController = TextEditingController();
 
+  final RxString titleError = ''.obs;
   final RxString detailsError = ''.obs;
   final RxString petError = ''.obs;
   final RxString dateError = ''.obs;
-  final RxString timeError = ''.obs;
 
   late final RxList<Pet> pets;
-  late final Rx<DateTime?> serviceDate;
-  late final Rx<Time?> serviceTime;
+  late final RxList<DateTime?> journalDate;
 
   Timer? _detailsDebounce;
+
+  void validateTitle(String value) {
+    if (value.isEmpty) {
+      titleError.value = 'Please enter journal title';
+    } else if (value.startsWith(' ')) {
+      titleError.value = 'Please remove spaces at the beginning';
+    } else if (value.endsWith(' ')) {
+      titleError.value = 'Please remove spaces at the end';
+    } else {
+      titleError.value = '';
+    }
+  }
 
   void timerValidateDetails(String value) {
     if (_detailsDebounce?.isActive ?? false) _detailsDebounce!.cancel();
@@ -47,35 +58,28 @@ class AppointmentValidateController extends GetxController {
     }
   }
 
-  void validateDate(Rx<DateTime?> date) {
-    if (date.value == null) {
-      dateError.value = 'Please choose service date';
+  void validateDate(RxList<DateTime?> date) {
+    if (date.isEmpty || date[0] == null) {
+      dateError.value = 'Please choose journal date';
     } else {
       dateError.value = '';
     }
   }
 
-  void validateTime(Rx<Time?> time) {
-    if (time.value == null) {
-      timeError.value = 'Please pick service time';
-    } else {
-      timeError.value = '';
-    }
-  }
-
   bool validateForm() {
+    validateTitle(titleController.text);
     validateDetails(detailsController.text);
     validatePets(pets);
-    validateDate(serviceDate);
-    validateTime(serviceTime);
-    return detailsError.isEmpty &&
+    validateDate(journalDate);
+    return titleError.isEmpty &&
+        detailsError.isEmpty &&
         petError.isEmpty &&
-        dateError.isEmpty &&
-        timeError.isEmpty;
+        dateError.isEmpty;
   }
 
   @override
   void onClose() {
+    titleController.dispose();
     detailsController.dispose();
     super.onClose();
   }

@@ -151,7 +151,7 @@ class PetProfilePage extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         pet.story.isNotEmpty
-                            ? pet.story
+                            ? '    ${pet.story}'
                             : "This pet doesn't have a story yet.\n(You can add one to tell others more about them!)",
                         softWrap: true,
                       ),
@@ -163,8 +163,10 @@ class PetProfilePage extends StatelessWidget {
                     const SizedBox(height: 32),
                     PetGrooming(petId: petId),
                     const SizedBox(height: 32),
-                    const PetJournal(),
-                    const SizedBox(height: 50),
+                    PetJournal(petId: petId),
+                    const SizedBox(height: 35),
+                    const Divider(thickness: 1.6, indent: 24, endIndent: 24),
+                    const SizedBox(height: 15),
                     Opacity(
                       opacity: 0.5,
                       child: Image.asset(

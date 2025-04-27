@@ -14,6 +14,10 @@ class Routes {
   static const editAppointment = '/edit_appointment';
   static const groomingRecords = '/grooming_records';
   static const vaccinationRecords = '/vaccination_records';
+  static const addJournal = '/add_journal';
+  static const journalDetail = '/journal_detail';
+  static const editJournal = '/edit_journal';
+  static const journalRecords = '/journal_records';
 
   static String chooseInitialRoute(GetStorage box) {
     if (box.read('isLoggedIn')) {

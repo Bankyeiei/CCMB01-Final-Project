@@ -163,7 +163,6 @@ class AppointmentDetailPage extends StatelessWidget {
                                         .petIds[index]]!,
                                 canNavigate: false,
                               ),
-
                               SizedBox(
                                 height:
                                     index == appointment.petIds.length - 1

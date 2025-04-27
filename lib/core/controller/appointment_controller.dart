@@ -37,7 +37,7 @@ class AppointmentController extends GetxController {
     appointmentMap.assignAll(Map.fromEntries(sortedEntries));
   }
 
-  Future<void> deletePetfromAppointments(String petId) async {
+  Future<void> deletePetFromAppointments(String petId) async {
     final entries = appointmentMap.entries.toList();
 
     for (var entry in entries) {

@@ -4,6 +4,7 @@ import 'app_routes.dart';
 
 import '../app/data/models/appointment_model.dart';
 import '../app/data/models/pet_model.dart';
+import '../app/data/models/journal_model.dart';
 
 import '../app/modules/get_start/get_start_page.dart';
 import '../app/modules/login/login_page.dart';
@@ -18,6 +19,10 @@ import '../app/modules/appointment/appointment_detail/appointment_detail_page.da
 import '../app/modules/appointment/edit_appointment/edit_appointment_page.dart';
 import '../app/modules/pet/grooming_records/grooming_records_page.dart';
 import '../app/modules/pet/vaccinations_records/vaccinations_records_page.dart';
+import '../app/modules/journal/add_journal/add_journal_page.dart';
+import '../app/modules/journal/journal_detail/journal_detail_page.dart';
+import '../app/modules/journal/edit_journal/edit_joutnal_binding.dart';
+import '../app/modules/pet/journal_records/journal_records_page.dart';
 
 import '../app/modules/login/login_binding.dart';
 import '../app/modules/register/register_binding.dart';
@@ -31,8 +36,10 @@ import '../app/modules/appointment/appointment_detail/appointment_detail_binding
 import '../app/modules/appointment/edit_appointment/edit_appointment_binding.dart';
 import '../app/modules/pet/grooming_records/grooming_records_binding.dart';
 import '../app/modules/pet/vaccinations_records/vaccinations_records_binding.dart';
+import '../app/modules/journal/add_journal/add_journal_binding.dart';
+import '../app/modules/journal/edit_journal/edit_journal_page.dart';
 
-final List<GetPage> appPages = [
+final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.getStart,
     page: () => const GetStartPage(),
@@ -143,5 +150,43 @@ final List<GetPage> appPages = [
     transition: Transition.fadeIn,
     transitionDuration: const Duration(milliseconds: 200),
     binding: VaccinationsRecordsBinding(),
+  ),
+  GetPage(
+    name: Routes.addJournal,
+    page: () {
+      final petId = Get.arguments as String?;
+      return AddJournalPage(petId: petId);
+    },
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 250),
+    binding: AddJournalBinding(),
+  ),
+  GetPage(
+    name: Routes.journalDetail,
+    page: () {
+      final journalId = Get.arguments as String;
+      return JournalDetailPage(journalId: journalId);
+    },
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 250),
+  ),
+  GetPage(
+    name: Routes.editJournal,
+    page: () {
+      final journal = Get.arguments as Journal;
+      return EditJournalPage(journal: journal);
+    },
+    transition: Transition.rightToLeft,
+    transitionDuration: const Duration(milliseconds: 250),
+    binding: EditJoutnalBinding(),
+  ),
+  GetPage(
+    name: Routes.journalRecords,
+    page: () {
+      final petId = Get.arguments as String;
+      return JournalRecordsPage(petId: petId);
+    },
+    transition: Transition.fadeIn,
+    transitionDuration: const Duration(milliseconds: 200),
   ),
 ];

@@ -203,7 +203,7 @@ class GroomingRecordsPage extends StatelessWidget {
                   hintText: 'Grooming details',
                   errorText: serviceValidateController.detailsError.value,
                   controller: serviceValidateController.detailsController,
-                  validate: serviceValidateController.validateDetails,
+                  validate: serviceValidateController.timerValidateDetails,
                   isHintText: false,
                   lengthLimiting: 40,
                   isShowLength: true,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +10,17 @@ class ServiceValidateController extends GetxController {
   final RxString dateError = ''.obs;
 
   late Rx<DateTime?> serviceDate;
+
+  Timer? _detailsDebounce;
+
+  void timerValidateDetails(String value) {
+    if (_detailsDebounce?.isActive ?? false) _detailsDebounce!.cancel();
+
+    _detailsDebounce = Timer(
+      const Duration(milliseconds: 500),
+      () => validateDetails(value),
+    );
+  }
 
   void validateDetails(String value) {
     if (value.startsWith(' ')) {

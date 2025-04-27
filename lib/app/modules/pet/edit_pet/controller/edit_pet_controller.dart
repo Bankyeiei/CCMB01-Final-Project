@@ -10,6 +10,7 @@ import '../../../../../core/controller/appointment_controller.dart';
 import '../../../../../core/controller/pet_controller.dart';
 import '../../../../../core/controller/grooming_controller.dart';
 import '../../../../../core/controller/vaccination_controller.dart';
+import '../../../../../core/controller/journal_controller.dart';
 import '../../../../../core/controller/image_controller.dart';
 import '../../../../../core/controller/global/loading_controller.dart';
 import '../../../../../services/snackbar_service.dart';
@@ -21,6 +22,7 @@ class EditPetController extends GetxController {
   final AppointmentController appointmentController;
   final GroomingController groomingController;
   final VaccinationController vaccinationController;
+  final JournalController journalController;
   EditPetController({
     required this.petValidateController,
     required this.petController,
@@ -28,6 +30,7 @@ class EditPetController extends GetxController {
     required this.appointmentController,
     required this.groomingController,
     required this.vaccinationController,
+    required this.journalController,
   });
 
   final LoadingController _loadingController = Get.find<LoadingController>();
@@ -115,9 +118,10 @@ class EditPetController extends GetxController {
         try {
           await imageController.deleteImage();
           await petController.deletePet(pet.petId);
-          await appointmentController.deletePetfromAppointments(pet.petId);
+          await appointmentController.deletePetFromAppointments(pet.petId);
           await groomingController.deleteAllGroomingByPet(pet.petId);
           await vaccinationController.deleteAllVaccinationByPet(pet.petId);
+          await journalController.deletePetFromJournals(pet.petId);
           petController.update();
           Get.until((route) => Get.currentRoute == Routes.home);
           SnackbarService.showDeleteSuccess('Pet');

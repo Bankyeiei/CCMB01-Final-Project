@@ -19,7 +19,7 @@ class PetAppointments extends StatelessWidget {
         Get.find<AppointmentController>();
 
     return Obx(() {
-      final thisPetAppointments =
+      final appointmentList =
           appointmentController.appointmentMap.values
               .where((appointment) => appointment.petIds.contains(petId))
               .toList();
@@ -52,7 +52,10 @@ class PetAppointments extends StatelessWidget {
                   Text('Appointments', style: Get.textTheme.headlineMedium),
                   const Spacer(),
                   TextButton(
-                    onPressed: thisPetAppointments.isEmpty ? null : () {},
+                    onPressed:
+                        appointmentList.isEmpty
+                            ? null
+                            : () => Get.back(result: petId),
                     child: const Text(
                       'See all >',
                       style: TextStyle(fontSize: 16),
@@ -62,9 +65,9 @@ class PetAppointments extends StatelessWidget {
               ),
               Expanded(
                 child:
-                    thisPetAppointments.isEmpty
+                    appointmentList.isEmpty
                         ? _emptyAppointment(petId)
-                        : _notEmptyAppointment(thisPetAppointments),
+                        : _notEmptyAppointment(appointmentList),
               ),
             ],
           ),
@@ -95,13 +98,13 @@ class PetAppointments extends StatelessWidget {
     );
   }
 
-  Row _notEmptyAppointment(List<Appointment> thisPetAppointments) {
+  Row _notEmptyAppointment(List<Appointment> appointmentList) {
     return Row(
       children: [
-        Expanded(child: _appointmentCard(thisPetAppointments[0])),
+        Expanded(child: _appointmentCard(appointmentList[0])),
         const SizedBox(width: 16),
-        thisPetAppointments.length >= 2
-            ? Expanded(child: _appointmentCard(thisPetAppointments[1]))
+        appointmentList.length >= 2
+            ? Expanded(child: _appointmentCard(appointmentList[1]))
             : Expanded(
               child: Center(
                 child: Container(

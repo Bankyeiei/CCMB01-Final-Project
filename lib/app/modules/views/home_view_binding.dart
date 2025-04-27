@@ -2,12 +2,15 @@ import 'package:get/get.dart';
 
 import 'controller/home_view_controller.dart';
 import '../../data/providers/appointment_provider.dart';
+import '../../data/providers/journal_provider.dart';
 import '../../data/providers/user_provider.dart';
 import '../../data/providers/pet_provider.dart';
 import '../../data/repositories/appointment_repository.dart';
+import '../../data/repositories/journal_repository.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../data/repositories/pet_repository.dart';
 import '../../../core/controller/appointment_controller.dart';
+import '../../../core/controller/journal_controller.dart';
 import '../../../core/controller/user_controller.dart';
 import '../../../core/controller/pet_controller.dart';
 
@@ -39,11 +42,18 @@ class HomeViewBinding implements Bindings {
         appointmentRepository: Get.find<AppointmentRepository>(),
       ),
     );
+    Get.lazyPut<JournalProvider>(() => JournalProvider());
+    Get.lazyPut<JournalRepository>(
+      () => JournalRepository(journalProvider: Get.find<JournalProvider>()),
+    );
+    Get.lazyPut<JournalController>(
+      () => JournalController(journalRepository: Get.find<JournalRepository>()),
+    );
     Get.lazyPut<HomeViewController>(
       () => HomeViewController(
         userController: Get.find<UserController>(),
         petController: Get.find<PetController>(),
-        appointmentController: Get.find<AppointmentController>()
+        appointmentController: Get.find<AppointmentController>(),
       ),
     );
   }

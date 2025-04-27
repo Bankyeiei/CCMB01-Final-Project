@@ -25,7 +25,7 @@ class Appointment {
     return Appointment(
       appointmentId: appointmentId,
       service: service,
-      details: jsonMap['details'],
+      details: jsonMap['details'] ?? '',
       petIds: (jsonMap['pet_ids'] as List).cast<String>(),
       appointedAt: jsonMap['appointed_at'].toDate(),
     );

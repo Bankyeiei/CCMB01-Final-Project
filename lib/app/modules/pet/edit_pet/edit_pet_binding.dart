@@ -8,6 +8,7 @@ import '../../../../core/controller/appointment_controller.dart';
 import '../../../../core/controller/pet_controller.dart';
 import '../../../../core/controller/grooming_controller.dart';
 import '../../../../core/controller/vaccination_controller.dart';
+import '../../../../core/controller/journal_controller.dart';
 import '../../../../core/controller/image_controller.dart';
 
 class EditPetBinding extends Bindings {
@@ -29,6 +30,7 @@ class EditPetBinding extends Bindings {
         appointmentController: Get.find<AppointmentController>(),
         groomingController: Get.find<GroomingController>(),
         vaccinationController: Get.find<VaccinationController>(),
+        journalController: Get.find<JournalController>(),
       ),
     );
   }

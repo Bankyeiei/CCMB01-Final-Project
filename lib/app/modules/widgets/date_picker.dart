@@ -6,7 +6,7 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 class AppDatePicker extends StatelessWidget {
   final Rx<DateTime?> dateValue;
   final String label;
-  final DateTime? startDay;
+  final DateTime? startDate;
   final DateTime? lastDate;
   final String dateFormat;
   final RxString? errorText;
@@ -14,7 +14,7 @@ class AppDatePicker extends StatelessWidget {
     super.key,
     required this.dateValue,
     required this.label,
-    this.startDay,
+    this.startDate,
     this.lastDate,
     this.dateFormat = 'dd/MM/yyyy',
     this.errorText,
@@ -26,7 +26,7 @@ class AppDatePicker extends StatelessWidget {
       context: context,
       config: CalendarDatePicker2WithActionButtonsConfig(
         calendarType: CalendarDatePicker2Type.single,
-        firstDate: startDay,
+        firstDate: startDate,
         lastDate: lastDate,
         dayTextStyle: Get.textTheme.bodyMedium,
         selectedDayTextStyle: Get.textTheme.bodyLarge!.copyWith(

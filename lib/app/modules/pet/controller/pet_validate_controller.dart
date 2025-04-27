@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,8 @@ class PetValidateController extends GetxController {
   final RxString breedNameError = ''.obs;
   final RxString weightError = ''.obs;
   final RxString storyError = ''.obs;
+
+  Timer? _storyDebounce;
 
   void validatePetName(String value) {
     if (value.isEmpty) {
@@ -44,6 +48,15 @@ class PetValidateController extends GetxController {
     } else {
       weightError.value = '';
     }
+  }
+
+  void timerValidateStory(String value) {
+    if (_storyDebounce?.isActive ?? false) _storyDebounce!.cancel();
+
+    _storyDebounce = Timer(
+      const Duration(milliseconds: 500),
+      () => validateStory(value),
+    );
   }
 
   void validateStory(String value) {
