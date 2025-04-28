@@ -65,7 +65,8 @@ class EditAppointmentPage extends StatelessWidget {
                           controller:
                               appointmentValidateController.detailsController,
                           validate:
-                              appointmentValidateController.timerValidateDetails,
+                              appointmentValidateController
+                                  .timerValidateDetails,
                           isHintText: false,
                           lengthLimiting: 40,
                           isShowLength: true,

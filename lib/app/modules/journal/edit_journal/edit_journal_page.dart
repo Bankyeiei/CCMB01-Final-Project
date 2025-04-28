@@ -93,8 +93,10 @@ class EditJournalPage extends StatelessWidget {
                         () => AppTextField(
                           icon: Icons.description_outlined,
                           hintText: 'Journal details',
-                          errorText: journalValidateController.detailsError.value,
-                          controller: journalValidateController.detailsController,
+                          errorText:
+                              journalValidateController.detailsError.value,
+                          controller:
+                              journalValidateController.detailsController,
                           validate:
                               journalValidateController.timerValidateDetails,
                           isHintText: false,

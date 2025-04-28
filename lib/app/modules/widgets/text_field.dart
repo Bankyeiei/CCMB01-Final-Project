@@ -38,6 +38,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final obscuredController = _ObscuredController();
+
     return SizedBox(
       height: 88 + 30 * (maxLines - 1),
       child: Obx(
@@ -45,7 +46,10 @@ class AppTextField extends StatelessWidget {
           maxLength: isShowLength ? lengthLimiting : null,
           controller: controller,
           maxLines: maxLines,
-          onChanged: validate,
+          onChanged: (value) {
+            validate(value);
+            obscuredController.isObscured.value = true;
+          },
           onSubmitted: onSubmitted,
           obscureText:
               obscureText
