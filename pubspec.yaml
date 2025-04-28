@@ -28,6 +28,8 @@ dependencies:
   intl: ^0.20.2
   get: ^4.7.2
   get_storage: ^2.1.1
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
@@ -40,4 +42,16 @@ flutter:
     - assets/background/
     - assets/loading/
     - assets/logo/
-    
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/logo/logo.png"
+
+flutter_native_splash:
+  color: "#5CB15A"
+  image: "assets/logo/logo.png"
+  android: true
+  android_12:
+    color: "#5CB15A"
+  ios: false
