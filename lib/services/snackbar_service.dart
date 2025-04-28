@@ -191,4 +191,8 @@ class SnackbarService {
       );
     }
   }
+
+  static void showComingSoon() {
+    showInfo('This feature is coming soon. Stay tuned!');
+  }
 }

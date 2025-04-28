@@ -5,6 +5,7 @@ import '../../../routes/app_routes.dart';
 
 import 'controller/login_validate_controller.dart';
 import '../../../core/controller/global/auth_state_controller.dart';
+import '../../../services/snackbar_service.dart';
 
 import '../widgets/button.dart';
 import '../widgets/circle.dart';
@@ -114,7 +115,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       AppButton(
-                        onPressed: () {},
+                        onPressed: () => SnackbarService.showComingSoon(),
                         child: Row(
                           children: [
                             Image.asset('assets/logo/google.png', height: 24),
