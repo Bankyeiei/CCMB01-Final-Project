@@ -45,6 +45,8 @@ class PetValidateController extends GetxController {
       weightError.value = '';
     } else if (double.tryParse(value) == null) {
       weightError.value = 'Weight must be a number';
+    } else if (double.parse(value) == 0) {
+      weightError.value = "Weight can't be zero";
     } else {
       weightError.value = '';
     }

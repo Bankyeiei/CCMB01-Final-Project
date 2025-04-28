@@ -139,7 +139,7 @@ class PetAppointments extends StatelessWidget {
       child: Card.filled(
         elevation: 4,
         color:
-            DateTime.now().difference(appointment.appointedAt).inMinutes > 0
+            DateTime.now().isAfter(appointment.appointedAt)
                 ? Get.theme.colorScheme.secondary
                 : Get.theme.colorScheme.onPrimary,
         margin: const EdgeInsets.symmetric(vertical: 6),

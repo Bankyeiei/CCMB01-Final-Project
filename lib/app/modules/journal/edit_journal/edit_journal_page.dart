@@ -30,98 +30,100 @@ class EditJournalPage extends StatelessWidget {
         children: [
           Scaffold(
             appBar: AppBar(title: const Text('Edit Journal')),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      child: Text(
-                        'Pet Journal',
-                        style: Get.textTheme.titleLarge,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        child: Text(
+                          'Pet Journal',
+                          style: Get.textTheme.titleLarge,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    Obx(
-                      () => AppTextField(
-                        icon: Icons.title,
-                        hintText: 'Title',
-                        errorText: journalValidateController.titleError.value,
-                        controller: journalValidateController.titleController,
-                        validate: journalValidateController.validateTitle,
-                        isHintText: false,
+                      const SizedBox(height: 24),
+                      Obx(
+                        () => AppTextField(
+                          icon: Icons.title,
+                          hintText: 'Title',
+                          errorText: journalValidateController.titleError.value,
+                          controller: journalValidateController.titleController,
+                          validate: journalValidateController.validateTitle,
+                          isHintText: false,
+                        ),
                       ),
-                    ),
-                    AppDateRangePicker(
-                      dateValue: editJournalController.journalDate,
-                      lastDate: DateTime.now(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Obx(
-                        () => Text(
-                          journalValidateController.dateError.value,
-                          style: Get.textTheme.bodySmall!.copyWith(
-                            color: Get.theme.colorScheme.error,
+                      AppDateRangePicker(
+                        dateValue: editJournalController.journalDate,
+                        lastDate: DateTime.now(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12),
+                        child: Obx(
+                          () => Text(
+                            journalValidateController.dateError.value,
+                            style: Get.textTheme.bodySmall!.copyWith(
+                              color: Get.theme.colorScheme.error,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    SelectPetDropDown(
-                      petListValue: editJournalController.pets,
-                      errorText: journalValidateController.petError,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12, top: 4),
-                      child: Obx(
-                        () => Text(
-                          journalValidateController.petError.value,
-                          style: Get.textTheme.bodySmall!.copyWith(
-                            color: Get.theme.colorScheme.error,
+                      const SizedBox(height: 20),
+                      SelectPetDropDown(
+                        petListValue: editJournalController.pets,
+                        errorText: journalValidateController.petError,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, top: 4),
+                        child: Obx(
+                          () => Text(
+                            journalValidateController.petError.value,
+                            style: Get.textTheme.bodySmall!.copyWith(
+                              color: Get.theme.colorScheme.error,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Obx(
-                      () => AppTextField(
-                        icon: Icons.description_outlined,
-                        hintText: 'Journal details',
-                        errorText: journalValidateController.detailsError.value,
-                        controller: journalValidateController.detailsController,
-                        validate:
-                            journalValidateController.timerValidateDetails,
-                        isHintText: false,
-                        lengthLimiting: 500,
-                        isShowLength: true,
-                        maxLines: 7,
-                        textInputAction: TextInputAction.done,
+                      const SizedBox(height: 20),
+                      Obx(
+                        () => AppTextField(
+                          icon: Icons.description_outlined,
+                          hintText: 'Journal details',
+                          errorText: journalValidateController.detailsError.value,
+                          controller: journalValidateController.detailsController,
+                          validate:
+                              journalValidateController.timerValidateDetails,
+                          isHintText: false,
+                          lengthLimiting: 500,
+                          isShowLength: true,
+                          maxLines: 7,
+                          textInputAction: TextInputAction.done,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    AppButton(
-                      onPressed: () {
-                        if (journalValidateController.validateForm()) {
-                          editJournalController.editJournal();
-                        }
-                      },
-                      child: const Text('Edit Journal'),
-                    ),
-                    const SizedBox(height: 48),
-                    HoldButton(
-                      onPressed: () => editJournalController.deleteJournal(),
-                      label: 'Delete Journal',
-                      fillDuration: const Duration(seconds: 1),
-                      startColor: Get.theme.primaryColor,
-                      endColor: Get.theme.colorScheme.error,
-                    ),
-                    SizedBox(height: 0.1 * Get.size.height),
-                  ],
+                      const SizedBox(height: 20),
+                      AppButton(
+                        onPressed: () {
+                          if (journalValidateController.validateForm()) {
+                            editJournalController.editJournal();
+                          }
+                        },
+                        child: const Text('Edit Journal'),
+                      ),
+                      const SizedBox(height: 48),
+                      HoldButton(
+                        onPressed: () => editJournalController.deleteJournal(),
+                        label: 'Delete Journal',
+                        fillDuration: const Duration(seconds: 1),
+                        startColor: Get.theme.primaryColor,
+                        endColor: Get.theme.colorScheme.error,
+                      ),
+                      SizedBox(height: 0.1 * Get.size.height),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -21,7 +21,7 @@ import '../app/modules/pet/grooming_records/grooming_records_page.dart';
 import '../app/modules/pet/vaccinations_records/vaccinations_records_page.dart';
 import '../app/modules/journal/add_journal/add_journal_page.dart';
 import '../app/modules/journal/journal_detail/journal_detail_page.dart';
-import '../app/modules/journal/edit_journal/edit_joutnal_binding.dart';
+import '../app/modules/journal/edit_journal/edit_journal_binding.dart';
 import '../app/modules/pet/journal_records/journal_records_page.dart';
 
 import '../app/modules/login/login_binding.dart';

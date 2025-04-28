@@ -25,9 +25,6 @@ class AddPetController extends GetxController {
 
   Widget get loadingScreen => _loadingController.loadingScreen();
 
-  final scrollController = ScrollController();
-
-  final RxBool showFAB = false.obs;
   final RxString age = ''.obs;
   final RxString petType = 'Dog'.obs;
   final Rx<Gender> gender = Gender.none.obs;
@@ -38,7 +35,6 @@ class AddPetController extends GetxController {
   void onInit() {
     super.onInit();
     ever(birthday, (_) => _updateAge());
-    scrollController.addListener(_scrollListener);
   }
 
   Future<void> addPet() async {
@@ -83,22 +79,5 @@ class AddPetController extends GetxController {
 
   void _updateAge() {
     age.value = Pet.calculateAge(birthday.value);
-  }
-
-  void _scrollListener() {
-    final maxScroll = scrollController.position.maxScrollExtent;
-    final currentScroll = scrollController.position.pixels;
-
-    if (currentScroll >= maxScroll - 80) {
-      showFAB.value = true;
-    } else {
-      showFAB.value = false;
-    }
-  }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
   }
 }

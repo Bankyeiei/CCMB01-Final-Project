@@ -186,7 +186,7 @@ class AppointmentDetailPage extends StatelessWidget {
   Widget _markButton(Appointment appointment, var serviceController) {
     return AppButton(
       onPressed:
-          DateTime.now().difference(appointment.appointedAt).inMinutes > 0
+          DateTime.now().isAfter(appointment.appointedAt)
               ? () {
                 Get.defaultDialog(
                   title: 'Mark as Completed?',

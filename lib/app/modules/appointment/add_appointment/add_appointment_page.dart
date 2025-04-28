@@ -38,91 +38,97 @@ class AddAppointmentPage extends StatelessWidget {
         children: [
           Scaffold(
             appBar: AppBar(title: const Text('Add Appointment')),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Select Pet Service', style: Get.textTheme.titleLarge),
-                    const SizedBox(height: 16),
-                    ServiceCheckButton(
-                      label: 'Vaccination',
-                      serviceValue: addAppointmentController.service,
-                    ),
-                    const SizedBox(height: 12),
-                    ServiceCheckButton(
-                      label: 'Grooming',
-                      serviceValue: addAppointmentController.service,
-                    ),
-                    const SizedBox(height: 16),
-                    Obx(
-                      () => AppTextField(
-                        icon: Icons.info_outline,
-                        hintText:
-                            '${addAppointmentController.service.value.text} details',
-                        errorText:
-                            appointmentValidateController.detailsError.value,
-                        controller:
-                            appointmentValidateController.detailsController,
-                        validate:
-                            appointmentValidateController.timerValidateDetails,
-                        isHintText: false,
-                        lengthLimiting: 40,
-                        isShowLength: true,
-                        textInputAction: TextInputAction.done,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Select Pet Service',
+                        style: Get.textTheme.titleLarge,
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text('Select your pets', style: Get.textTheme.titleLarge),
-                    const SizedBox(height: 16),
-                    SelectPetDropDown(
-                      petListValue: addAppointmentController.pets,
-                      errorText: appointmentValidateController.petError,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12, top: 4),
-                      child: Obx(
-                        () => Text(
-                          appointmentValidateController.petError.value,
-                          style: Get.textTheme.bodySmall!.copyWith(
-                            color: Get.theme.colorScheme.error,
+                      const SizedBox(height: 16),
+                      ServiceCheckButton(
+                        label: 'Vaccination',
+                        serviceValue: addAppointmentController.service,
+                      ),
+                      const SizedBox(height: 12),
+                      ServiceCheckButton(
+                        label: 'Grooming',
+                        serviceValue: addAppointmentController.service,
+                      ),
+                      const SizedBox(height: 16),
+                      Obx(
+                        () => AppTextField(
+                          icon: Icons.info_outline,
+                          hintText:
+                              '${addAppointmentController.service.value.text} details',
+                          errorText:
+                              appointmentValidateController.detailsError.value,
+                          controller:
+                              appointmentValidateController.detailsController,
+                          validate:
+                              appointmentValidateController
+                                  .timerValidateDetails,
+                          isHintText: false,
+                          lengthLimiting: 40,
+                          isShowLength: true,
+                          textInputAction: TextInputAction.done,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text('Select your pets', style: Get.textTheme.titleLarge),
+                      const SizedBox(height: 16),
+                      SelectPetDropDown(
+                        petListValue: addAppointmentController.pets,
+                        errorText: appointmentValidateController.petError,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, top: 4),
+                        child: Obx(
+                          () => Text(
+                            appointmentValidateController.petError.value,
+                            style: Get.textTheme.bodySmall!.copyWith(
+                              color: Get.theme.colorScheme.error,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 32),
-                    Text('Choose a Date', style: Get.textTheme.titleLarge),
-                    const SizedBox(height: 16),
-                    AppDatePicker(
-                      dateValue: addAppointmentController.serviceDate,
-                      label: 'Service Date',
-                      startDate: DateTime.now(),
-                      dateFormat: DateFormat.YEAR_MONTH_WEEKDAY_DAY,
-                      errorText: appointmentValidateController.dateError,
-                    ),
-                    const SizedBox(height: 16),
-                    Text('Pick a Time', style: Get.textTheme.titleLarge),
-                    const SizedBox(height: 16),
-                    ServiceTimePicker(
-                      timeValue: addAppointmentController.serviceTime,
-                      label: 'Service Time',
-                      errorText: appointmentValidateController.timeError,
-                    ),
-                    const SizedBox(height: 32),
-                    AppButton(
-                      onPressed: () {
-                        if (appointmentValidateController.validateForm()) {
-                          addAppointmentController.addAppointment();
-                        }
-                      },
-                      child: const Text('Add Appointment'),
-                    ),
-                    SizedBox(height: 0.1 * Get.size.height),
-                  ],
+                      const SizedBox(height: 32),
+                      Text('Choose a Date', style: Get.textTheme.titleLarge),
+                      const SizedBox(height: 16),
+                      AppDatePicker(
+                        dateValue: addAppointmentController.serviceDate,
+                        label: 'Service Date',
+                        startDate: DateTime.now(),
+                        dateFormat: DateFormat.YEAR_MONTH_WEEKDAY_DAY,
+                        errorText: appointmentValidateController.dateError,
+                      ),
+                      const SizedBox(height: 16),
+                      Text('Pick a Time', style: Get.textTheme.titleLarge),
+                      const SizedBox(height: 16),
+                      ServiceTimePicker(
+                        timeValue: addAppointmentController.serviceTime,
+                        label: 'Service Time',
+                        errorText: appointmentValidateController.timeError,
+                      ),
+                      const SizedBox(height: 32),
+                      AppButton(
+                        onPressed: () {
+                          if (appointmentValidateController.validateForm()) {
+                            addAppointmentController.addAppointment();
+                          }
+                        },
+                        child: const Text('Add Appointment'),
+                      ),
+                      SizedBox(height: 0.1 * Get.size.height),
+                    ],
+                  ),
                 ),
               ),
             ),

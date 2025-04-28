@@ -55,8 +55,7 @@ class HomeViewPage extends StatelessWidget {
               appointmentController.appointmentMap,
             );
             notifyAppointment.removeWhere(
-              (key, value) =>
-                  !(DateTime.now().difference(value.appointedAt).inMinutes > 0),
+              (key, value) => !(DateTime.now().isAfter(value.appointedAt)),
             );
 
             final notifyAppointmentLength = notifyAppointment.length;

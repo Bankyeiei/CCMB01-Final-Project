@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'controller/home_view_controller.dart';
+import 'pages/home/controller/home_controller.dart';
 import '../../data/providers/appointment_provider.dart';
 import '../../data/providers/journal_provider.dart';
 import '../../data/providers/user_provider.dart';
@@ -49,6 +50,7 @@ class HomeViewBinding implements Bindings {
     Get.lazyPut<JournalController>(
       () => JournalController(journalRepository: Get.find<JournalRepository>()),
     );
+    Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<HomeViewController>(
       () => HomeViewController(
         userController: Get.find<UserController>(),

@@ -26,6 +26,7 @@ class HomeViewController extends GetxController {
       Get.find<AuthStateController>();
   final LoadingController _loadingController = Get.find<LoadingController>();
 
+  final RxBool isLoadingComplete = false.obs;
   final RxInt pageIndex = 0.obs;
   final RxList<String> titles = List.filled(4, '').obs;
 
@@ -47,6 +48,7 @@ class HomeViewController extends GetxController {
       ];
       _updateTitles();
       ever(userController.userRx, (_) => _updateTitles());
+      isLoadingComplete.value = true;
       _loadingController.isLoading.value = false;
       if (_authStateController.hasJustLoggedIn) {
         SnackbarService.showLoginSuccess();
