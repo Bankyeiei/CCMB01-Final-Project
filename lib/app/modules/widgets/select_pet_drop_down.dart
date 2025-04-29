@@ -103,7 +103,7 @@ class SelectPetDropDown extends StatelessWidget {
               ],
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.search, size: 24),
-                hintText: 'Type Pet Name...',
+                hintText: 'Type Pet...',
               ),
             ),
           ),

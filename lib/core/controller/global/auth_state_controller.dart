@@ -12,6 +12,8 @@ import '../../../services/snackbar_service.dart';
 class AuthStateController extends GetxController {
   final LoadingController _loadingController = Get.find<LoadingController>();
 
+  Widget get loadingScreen => _loadingController.loadingScreen();
+
   final _box = GetStorage();
   final _auth = FirebaseAuth.instance;
 
@@ -25,8 +27,6 @@ class AuthStateController extends GetxController {
     super.onInit();
     uid = _box.read('uid');
   }
-
-  Widget get loadingScreen => _loadingController.loadingScreen();
 
   void clickCheckBox(bool value) {
     isRememberMe.value = value;

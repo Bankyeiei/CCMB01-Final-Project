@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../routes/app_routes.dart';
 
-import '../../data/models/pet_model.dart';
 import '../views/controller/home_view_controller.dart';
+import '../views/pages/appointment_list/controller/appointment_list_controller.dart';
+import '../../data/models/pet_model.dart';
 
 class PetContainer extends StatelessWidget {
   final Pet pet;
@@ -16,20 +17,27 @@ class PetContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeViewController homeViewController =
         Get.find<HomeViewController>();
+    final AppointmentListController appointmentListController =
+        Get.find<AppointmentListController>();
 
     return GestureDetector(
       onTap:
           canNavigate
               ? () async {
+                Get.focusScope!.unfocus();
                 final petId = await Get.toNamed(
                   Routes.petProfile,
                   arguments: pet.petId,
                 );
                 if (petId != null) {
                   homeViewController.pageIndex.value = 2;
+                  appointmentListController.onChanged(pet.petName);
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  appointmentListController.searchController.text = pet.petName;
                 }
               }
               : null,
+      onTapCancel: () => Get.focusScope!.unfocus(),
       child: Container(
         height: 122,
         margin: const EdgeInsets.symmetric(horizontal: 16),

@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:gif/gif.dart';
 
 class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({super.key});
+  final bool isTransparent;
+  const LoadingScreen({super.key, this.isTransparent = true});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class LoadingScreen extends StatelessWidget {
       children: [
         ModalBarrier(
           dismissible: false,
-          color: Get.theme.primaryColor.withAlpha(120),
+          color: Get.theme.primaryColor.withAlpha(isTransparent ? 120 : 255),
         ),
         Center(
           child: Column(

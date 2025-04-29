@@ -147,12 +147,21 @@ class PetProfilePage extends StatelessWidget {
                     const SizedBox(height: 16),
                     _petInfo(pet),
                     const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const Icon(Icons.auto_stories, size: 28),
+                        const SizedBox(width: 8),
+                        Text('Pet Story', style: Get.textTheme.displaySmall),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         pet.story.isNotEmpty
                             ? '    ${pet.story}'
                             : "This pet doesn't have a story yet.\n(You can add one to tell others more about them!)",
+                        style: Get.textTheme.bodyLarge,
                         softWrap: true,
                       ),
                     ),
@@ -164,9 +173,7 @@ class PetProfilePage extends StatelessWidget {
                     PetGrooming(petId: petId),
                     const SizedBox(height: 32),
                     PetJournal(petId: petId),
-                    const SizedBox(height: 35),
-                    const Divider(thickness: 1.6, indent: 24, endIndent: 24),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 32),
                     Opacity(
                       opacity: 0.5,
                       child: Image.asset(

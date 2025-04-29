@@ -128,7 +128,8 @@ class AppointmentDetailPage extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           '      ${appointment.details.isNotEmpty ? appointment.details : 'No details'}',
-                          style: Get.textTheme.titleSmall,
+                          style: Get.textTheme.bodyLarge,
+                          softWrap: true,
                           maxLines: 2,
                         ),
                       ),

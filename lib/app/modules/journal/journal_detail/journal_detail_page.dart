@@ -113,7 +113,7 @@ class JournalDetailPage extends StatelessWidget {
                                   SizedBox(
                                     height:
                                         index == 0 && journal.petIds.length != 1
-                                            ? 10
+                                            ? 20
                                             : 0,
                                   ),
                                   PetContainer(
@@ -122,18 +122,11 @@ class JournalDetailPage extends StatelessWidget {
                                             .petIds[index]]!,
                                     canNavigate: false,
                                   ),
-                                  SizedBox(
-                                    height:
-                                        index == journal.petIds.length - 1 &&
-                                                journal.petIds.length != 1
-                                            ? 20
-                                            : 0,
-                                  ),
                                 ],
                               ),
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       const Divider(thickness: 1.6, indent: 16, endIndent: 16),
                       Padding(
                         padding: const EdgeInsets.all(16),
@@ -141,6 +134,8 @@ class JournalDetailPage extends StatelessWidget {
                           alignment: Alignment.topLeft,
                           child: Text(
                             '      ${journal.details.isNotEmpty ? journal.details : 'No journal details'}',
+                            style: Get.textTheme.bodyLarge,
+                            softWrap: true,
                           ),
                         ),
                       ),

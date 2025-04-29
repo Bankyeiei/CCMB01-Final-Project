@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import 'controller/home_view_controller.dart';
 import 'pages/home/controller/home_controller.dart';
+import 'pages/pet_list/controller/pet_list_controller.dart';
+import 'pages/appointment_list/controller/appointment_list_controller.dart';
 import '../../data/providers/appointment_provider.dart';
 import '../../data/providers/journal_provider.dart';
 import '../../data/providers/user_provider.dart';
@@ -51,6 +53,15 @@ class HomeViewBinding implements Bindings {
       () => JournalController(journalRepository: Get.find<JournalRepository>()),
     );
     Get.lazyPut<HomeController>(() => HomeController());
+    Get.lazyPut<PetListController>(
+      () => PetListController(petController: Get.find<PetController>()),
+    );
+    Get.lazyPut<AppointmentListController>(
+      () => AppointmentListController(
+        appointmentController: Get.find<AppointmentController>(),
+        petController: Get.find<PetController>(),
+      ),
+    );
     Get.lazyPut<HomeViewController>(
       () => HomeViewController(
         userController: Get.find<UserController>(),

@@ -39,44 +39,66 @@ import '../app/modules/pet/vaccinations_records/vaccinations_records_binding.dar
 import '../app/modules/journal/add_journal/add_journal_binding.dart';
 import '../app/modules/journal/edit_journal/edit_journal_page.dart';
 
+void _beforeRoute() {
+  Get.closeCurrentSnackbar();
+}
+
 final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.getStart,
-    page: () => const GetStartPage(),
+    page: () {
+      _beforeRoute();
+      return const GetStartPage();
+    },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
   ),
   GetPage(
     name: Routes.login,
-    page: () => const LoginPage(),
+    page: () {
+      _beforeRoute();
+      return const LoginPage();
+    },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: LoginBinding(),
   ),
   GetPage(
     name: Routes.register,
-    page: () => const RegisterPage(),
+    page: () {
+      _beforeRoute();
+      return const RegisterPage();
+    },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: RegisterBinding(),
   ),
   GetPage(
     name: Routes.home,
-    page: () => const HomeViewPage(),
+    page: () {
+      _beforeRoute();
+      return const HomeViewPage();
+    },
     transition: Transition.fadeIn,
     transitionDuration: const Duration(milliseconds: 250),
     binding: HomeViewBinding(),
   ),
   GetPage(
     name: Routes.editProfile,
-    page: () => const EditProfilePage(),
+    page: () {
+      _beforeRoute();
+      return const EditProfilePage();
+    },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: EditProfileBinding(),
   ),
   GetPage(
     name: Routes.addPet,
-    page: () => const AddPetPage(),
+    page: () {
+      _beforeRoute();
+      return const AddPetPage();
+    },
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: AddPetBinding(),
@@ -84,6 +106,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.petProfile,
     page: () {
+      _beforeRoute();
       final petId = Get.arguments as String;
       return PetProfilePage(petId: petId);
     },
@@ -94,6 +117,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.editPet,
     page: () {
+      _beforeRoute();
       final pet = Get.arguments as Pet;
       return EditPetPage(pet: pet);
     },
@@ -104,6 +128,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.addAppointment,
     page: () {
+      _beforeRoute();
       final petId = Get.arguments as String?;
       return AddAppointmentPage(petId: petId);
     },
@@ -114,6 +139,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.appointmentDetail,
     page: () {
+      _beforeRoute();
       final appointmentId = Get.arguments as String;
       return AppointmentDetailPage(appointmentId: appointmentId);
     },
@@ -124,6 +150,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.editAppointment,
     page: () {
+      _beforeRoute();
       final appointment = Get.arguments as Appointment;
       return EditAppointmentPage(appointment: appointment);
     },
@@ -134,6 +161,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.groomingRecords,
     page: () {
+      _beforeRoute();
       final petId = Get.arguments as String;
       return GroomingRecordsPage(petId: petId);
     },
@@ -144,6 +172,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.vaccinationRecords,
     page: () {
+      _beforeRoute();
       final petId = Get.arguments as String;
       return VaccinationsRecordsPage(petId: petId);
     },
@@ -154,6 +183,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.addJournal,
     page: () {
+      _beforeRoute();
       final petId = Get.arguments as String?;
       return AddJournalPage(petId: petId);
     },
@@ -164,6 +194,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.journalDetail,
     page: () {
+      _beforeRoute();
       final journalId = Get.arguments as String;
       return JournalDetailPage(journalId: journalId);
     },
@@ -173,6 +204,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.editJournal,
     page: () {
+      _beforeRoute();
       final journal = Get.arguments as Journal;
       return EditJournalPage(journal: journal);
     },
@@ -183,6 +215,7 @@ final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.journalRecords,
     page: () {
+      _beforeRoute();
       final petId = Get.arguments as String;
       return JournalRecordsPage(petId: petId);
     },

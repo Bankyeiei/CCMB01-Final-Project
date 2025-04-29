@@ -24,7 +24,7 @@ final ThemeData themeData = ThemeData(
   useMaterial3: true,
   textTheme: TextTheme(
     displayLarge: GoogleFonts.fredoka(
-      fontSize: 48, //! Unused
+      fontSize: 48,
       fontWeight: FontWeight.w700,
     ),
     displayMedium: GoogleFonts.fredoka(

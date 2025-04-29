@@ -26,6 +26,8 @@ class HomeViewController extends GetxController {
       Get.find<AuthStateController>();
   final LoadingController _loadingController = Get.find<LoadingController>();
 
+  Widget get loadingScreen => _loadingController.fadeLoadingScreen(Routes.home);
+
   final RxBool isLoadingComplete = false.obs;
   final RxInt pageIndex = 0.obs;
   final RxList<String> titles = List.filled(4, '').obs;
@@ -50,6 +52,7 @@ class HomeViewController extends GetxController {
       ever(userController.userRx, (_) => _updateTitles());
       isLoadingComplete.value = true;
       _loadingController.isLoading.value = false;
+      await Future.delayed(const Duration(milliseconds: 1600));
       if (_authStateController.hasJustLoggedIn) {
         SnackbarService.showLoginSuccess();
       } else {
@@ -62,8 +65,6 @@ class HomeViewController extends GetxController {
       SnackbarService.showError();
     }
   }
-
-  Widget get loadingScreen => _loadingController.loadingScreen();
 
   void onTap(int value) {
     pageIndex.value = value;

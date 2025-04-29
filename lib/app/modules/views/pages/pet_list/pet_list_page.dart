@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'controller/pet_list_controller.dart';
 import '../../../../../core/controller/pet_controller.dart';
 
 import '../../../widgets/pet_container.dart';
@@ -10,6 +11,7 @@ class PetListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PetListController petListController = Get.find<PetListController>();
     final PetController petController = Get.find<PetController>();
 
     return GetBuilder(
@@ -41,6 +43,10 @@ class PetListPage extends StatelessWidget {
             ),
           );
         }
+
+        petListController.updateSearchedPetList();
+        petListController.searchController.text = '';
+
         return Stack(
           children: [
             Opacity(
@@ -51,23 +57,68 @@ class PetListPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            ListView.separated(
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
-              physics: const BouncingScrollPhysics(),
-              itemCount: controller.petMap.length,
-              itemBuilder:
-                  (context, index) => Column(
-                    children: [
-                      SizedBox(height: index == 0 ? 16 : 0),
-                      PetContainer(
-                        pet: controller.petMap.values.toList()[index],
-                      ),
-                      SizedBox(
-                        height:
-                            index == controller.petMap.length - 1 ? 16 : 0,
-                      ),
-                    ],
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
                   ),
+                  child: TextField(
+                    controller: petListController.searchController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: 'Search Pet...',
+                      suffixIcon: IconButton(
+                        onPressed: () => petListController.resetSearch(),
+                        icon: const Icon(Icons.close),
+                      ),
+                    ),
+                    onChanged: (value) => petListController.onChanged(value),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => Get.focusScope!.unfocus(),
+                    onTapCancel: () => Get.focusScope!.unfocus(),
+                    child: Obx(() {
+                      if (petListController.searchedPetList.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'We couldn’t find any pets 🐾',
+                            style: Get.textTheme.headlineMedium!.copyWith(
+                              color: Get.theme.colorScheme.onSecondary,
+                            ),
+                          ),
+                        );
+                      }
+                      return ListView.separated(
+                        separatorBuilder:
+                            (context, index) => const SizedBox(height: 16),
+                        physics: const BouncingScrollPhysics(),
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
+                        itemCount: petListController.searchedPetList.length,
+                        itemBuilder:
+                            (context, index) => Column(
+                              children: [
+                                SizedBox(height: index == 0 ? 16 : 0),
+                                PetContainer(
+                                  pet: petListController.searchedPetList[index],
+                                ),
+                                SizedBox(
+                                  height:
+                                      index == controller.petMap.length - 1
+                                          ? 16
+                                          : 0,
+                                ),
+                              ],
+                            ),
+                      );
+                    }),
+                  ),
+                ),
+              ],
             ),
           ],
         );

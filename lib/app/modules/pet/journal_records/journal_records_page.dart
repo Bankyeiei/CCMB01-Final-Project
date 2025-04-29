@@ -67,6 +67,18 @@ class JournalRecordsPage extends StatelessWidget {
                       }
 
                       final journalList = snapshot.data!;
+                      if (journalList.isEmpty) {
+                        return Align(
+                          alignment: const Alignment(0, -0.2),
+                          child: Text(
+                            'No journal records yet.',
+                            style: Get.textTheme.bodyLarge!.copyWith(
+                              letterSpacing: 0.6,
+                            ),
+                          ),
+                        );
+                      }
+
                       return ListView.builder(
                         itemCount: journalList.length,
                         itemBuilder: (context, index) {
