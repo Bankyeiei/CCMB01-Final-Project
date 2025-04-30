@@ -93,10 +93,11 @@ class AppointmentListPage extends StatelessWidget {
                           .isEmpty) {
                         return Center(
                           child: Text(
-                            'No appointments found',
+                            'No upcoming walks\nor checkups 🐾',
                             style: Get.textTheme.headlineMedium!.copyWith(
                               color: Get.theme.colorScheme.onSecondary,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         );
                       }

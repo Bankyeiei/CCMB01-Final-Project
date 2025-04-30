@@ -41,7 +41,9 @@ class HomeViewController extends GetxController {
     try {
       await userController.getUser(_authStateController.uid);
       await petController.getPets(_authStateController.uid);
-      await appointmentController.getAppointments(petController.petIds);
+      if (petController.petIds.isNotEmpty) {
+        await appointmentController.getAppointments(petController.petIds);
+      }
       actions = [
         null,
         ViewAppBarActions.petListAction(),

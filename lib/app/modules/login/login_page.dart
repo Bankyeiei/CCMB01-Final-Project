@@ -52,6 +52,7 @@ class LoginPage extends StatelessWidget {
                           controller: loginValidateController.emailController,
                           validate: loginValidateController.validateEmail,
                           keyboardType: TextInputType.emailAddress,
+                          lengthLimiting: 50,
                         ),
                       ),
                       Obx(
@@ -73,6 +74,7 @@ class LoginPage extends StatelessWidget {
                           },
                           obscureText: true,
                           keyboardType: TextInputType.visiblePassword,
+                          lengthLimiting: 50,
                           textInputAction: TextInputAction.done,
                         ),
                       ),

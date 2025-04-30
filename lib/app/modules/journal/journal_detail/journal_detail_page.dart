@@ -85,10 +85,10 @@ class JournalDetailPage extends StatelessWidget {
                                 const Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SizedBox(height: 120),
+                                    SizedBox(height: 90),
                                     AbsorbPointer(
                                       child: SizedBox(
-                                        height: 200,
+                                        height: 270,
                                         width: double.infinity,
                                       ),
                                     ),
@@ -114,7 +114,7 @@ class JournalDetailPage extends StatelessWidget {
                                     height:
                                         index == 0 && journal.petIds.length != 1
                                             ? 20
-                                            : 0,
+                                            : 8,
                                   ),
                                   PetContainer(
                                     pet:
@@ -127,9 +127,9 @@ class JournalDetailPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Divider(thickness: 1.6, indent: 16, endIndent: 16),
+                      const Divider(thickness: 1.6, indent: 24, endIndent: 24),
                       Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(20),
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -139,7 +139,6 @@ class JournalDetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Divider(thickness: 1.6, indent: 72, endIndent: 72),
                       Opacity(
                         opacity: 0.5,
                         child: Image.asset(

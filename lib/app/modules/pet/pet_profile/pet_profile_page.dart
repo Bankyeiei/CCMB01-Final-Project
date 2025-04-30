@@ -154,7 +154,7 @@ class PetProfilePage extends StatelessWidget {
                         Text('Pet Story', style: Get.textTheme.displaySmall),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 8),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(

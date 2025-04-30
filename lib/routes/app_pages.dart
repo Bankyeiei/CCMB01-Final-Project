@@ -6,7 +6,7 @@ import '../app/data/models/appointment_model.dart';
 import '../app/data/models/pet_model.dart';
 import '../app/data/models/journal_model.dart';
 
-import '../app/modules/get_start/get_start_page.dart';
+import '../app/modules/welcome/welcome_page.dart';
 import '../app/modules/login/login_page.dart';
 import '../app/modules/register/register_page.dart';
 import '../app/modules/views/home_view_page.dart';
@@ -46,39 +46,27 @@ void _beforeRoute() {
 final List<GetPage> appPages = <GetPage>[
   GetPage(
     name: Routes.getStart,
-    page: () {
-      _beforeRoute();
-      return const GetStartPage();
-    },
+    page: () => const WelcomePage(),
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
   ),
   GetPage(
     name: Routes.login,
-    page: () {
-      _beforeRoute();
-      return const LoginPage();
-    },
+    page: () => const LoginPage(),
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: LoginBinding(),
   ),
   GetPage(
     name: Routes.register,
-    page: () {
-      _beforeRoute();
-      return const RegisterPage();
-    },
+    page: () => const RegisterPage(),
     transition: Transition.rightToLeft,
     transitionDuration: const Duration(milliseconds: 250),
     binding: RegisterBinding(),
   ),
   GetPage(
     name: Routes.home,
-    page: () {
-      _beforeRoute();
-      return const HomeViewPage();
-    },
+    page: () => const HomeViewPage(),
     transition: Transition.fadeIn,
     transitionDuration: const Duration(milliseconds: 250),
     binding: HomeViewBinding(),

@@ -33,9 +33,12 @@ class HomePage extends StatelessWidget {
         .copyWith(hour: 0, minute: 0);
   }
 
-  List<Appointment> _getMinDateAppointment(
+  List<Appointment>? _getMinDateAppointment(
     AppointmentController appointmentController,
   ) {
+    if (appointmentController.appointmentMap.isEmpty) {
+      return null;
+    }
     final minDate = _getMinDate(appointmentController);
     return appointmentController.appointmentMap.values
         .where(
@@ -43,6 +46,13 @@ class HomePage extends StatelessWidget {
               appointment.appointedAt.copyWith(hour: 0, minute: 0) == minDate,
         )
         .toList();
+  }
+
+  Future<List<Journal>> _getJornalList(
+    JournalController journalController,
+    List<String> petIds,
+  ) async {
+    return journalController.getJournalsByPets(petIds);
   }
 
   @override
@@ -81,10 +91,38 @@ class HomePage extends StatelessWidget {
                               style: Get.textTheme.headlineLarge,
                             ),
                           ),
-                          _petOverviewSection(
-                            minDateAppointment,
-                            petController,
-                          ),
+                          minDateAppointment == null
+                              ? Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                padding: const EdgeInsets.all(16),
+                                height: 122,
+                                decoration: BoxDecoration(
+                                  color: Get.theme.colorScheme.onPrimary,
+                                  borderRadius: BorderRadius.circular(16),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Get.theme.colorScheme.onSecondary
+                                          .withAlpha(140),
+                                      offset: const Offset(0, 2),
+                                      blurRadius: 2,
+                                      spreadRadius: 0.5,
+                                    ),
+                                  ],
+                                ),
+                                child: Text(
+                                  "You don't have any pets with appointments yet 🐾",
+                                  style: Get.textTheme.bodyLarge,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                ),
+                              )
+                              : _petOverviewSection(
+                                minDateAppointment,
+                                petController,
+                              ),
                           const SizedBox(height: 16),
                           Padding(
                             padding: const EdgeInsets.all(16),
@@ -220,21 +258,30 @@ class HomePage extends StatelessWidget {
   }
 
   FutureBuilder _upComingAndRecentSection(
-    List<Appointment> appointment,
+    List<Appointment>? appointmentList,
     PetController petController,
     JournalController journalController,
   ) {
     Random random = Random();
-    final randomAppointment = appointment[random.nextInt(appointment.length)];
+    Appointment? randomAppointment;
+    List<Appointment> dueAppointment = <Appointment>[];
 
-    final dueAppointment =
-        appointment
-            .where(
-              (appointment) => DateTime.now().isAfter(appointment.appointedAt),
-            )
-            .toList();
+    if (appointmentList != null) {
+      randomAppointment =
+          appointmentList[random.nextInt(appointmentList.length)];
+
+      dueAppointment =
+          appointmentList
+              .where(
+                (appointment) =>
+                    DateTime.now().isAfter(appointment.appointedAt),
+              )
+              .toList();
+    }
+
     Appointment? randomDueAppointment;
     Pet? randomDueAppointmentPet;
+
     if (dueAppointment.isNotEmpty) {
       randomDueAppointment =
           dueAppointment[random.nextInt(dueAppointment.length)];
@@ -249,8 +296,8 @@ class HomePage extends StatelessWidget {
       builder:
           (context, snapshot) => Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
-            padding: const EdgeInsets.all(16),
-            height: 160,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            height: 140,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Get.theme.colorScheme.onPrimary,
@@ -264,73 +311,61 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Builder(
-                  builder: (context) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Expanded(
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
+            child: Builder(
+              builder: (context) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (randomAppointment == null &&
+                    randomDueAppointment == null &&
+                    (snapshot.hasError ||
+                        snapshot.data == null ||
+                        snapshot.data!.isEmpty)) {
+                  return Center(
+                    child: Text(
+                      'No upcoming appointments or recent updates yet. Plan something fun for your pet! 🐾',
+                      style: Get.textTheme.bodyLarge,
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                    ),
+                  );
+                }
 
-                    return Column(
-                      children: [
-                        TitleLine(
-                          icon: Icons.event,
-                          text:
-                              '${randomAppointment.service.text} Appointment - ${DateFormat.MMMd().format(randomAppointment.appointedAt)}',
-                        ),
-                        if (randomDueAppointment != null &&
-                            randomDueAppointmentPet != null)
-                          Column(
-                            children: [
-                              const SizedBox(height: 8),
-                              TitleLine(
-                                icon: randomDueAppointment.service.icon,
-                                text:
-                                    "${randomDueAppointmentPet.petName} ${randomDueAppointment.service.text.toLowerCase()} due!",
-                              ),
-                            ],
-                          ),
-                      ],
-                    );
-                  },
-                ),
-                Builder(
-                  builder: (context) {
-                    if (snapshot.connectionState == ConnectionState.waiting ||
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (randomAppointment != null)
+                      TitleLine(
+                        icon: Icons.event,
+                        text:
+                            '${randomAppointment.service.text} Appointment - ${DateFormat.MMMd().format(randomAppointment.appointedAt)}',
+                      ),
+                    if (randomDueAppointment != null &&
+                        randomDueAppointmentPet != null)
+                      TitleLine(
+                        icon: randomDueAppointment.service.icon,
+                        text:
+                            "${randomDueAppointmentPet.petName} ${randomDueAppointment.service.text.toLowerCase()} due!",
+                      ),
+                    if (!(snapshot.connectionState == ConnectionState.waiting ||
                         snapshot.hasError ||
                         snapshot.data == null ||
-                        snapshot.data!.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
+                        snapshot.data!.isEmpty))
+                      Builder(
+                        builder: (context) {
+                          final journal = snapshot.data![0];
 
-                    final journal = snapshot.data![0];
-
-                    return Column(
-                      children: [
-                        const SizedBox(height: 8),
-                        TitleLine(
-                          icon: Icons.auto_stories_outlined,
-                          text: 'Latest journal : ${journal.title}',
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
+                          return TitleLine(
+                            icon: Icons.auto_stories_outlined,
+                            text: 'Latest journal : ${journal.title}',
+                          );
+                        },
+                      ),
+                  ],
+                );
+              },
             ),
           ),
     );
-  }
-
-  Future<List<Journal>> _getJornalList(
-    JournalController journalController,
-    List<String> petIds,
-  ) async {
-    return journalController.getJournalsByPets(petIds);
   }
 }

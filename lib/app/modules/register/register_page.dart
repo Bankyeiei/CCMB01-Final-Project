@@ -63,6 +63,7 @@ class RegisterPage extends StatelessWidget {
                         controller: registerValidateController.emailController,
                         validate: registerValidateController.validateEmail,
                         keyboardType: TextInputType.emailAddress,
+                        lengthLimiting: 50,
                       ),
                     ),
                     Obx(
@@ -105,6 +106,7 @@ class RegisterPage extends StatelessWidget {
                         validate: registerValidateController.validatePassword,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
+                        lengthLimiting: 50,
                       ),
                     ),
                     Obx(
@@ -123,6 +125,7 @@ class RegisterPage extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                         textInputAction: TextInputAction.done,
                         obscureText: true,
+                        lengthLimiting: 50,
                       ),
                     ),
                     const SizedBox(height: 24),

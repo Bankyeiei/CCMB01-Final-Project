@@ -29,7 +29,7 @@ class PetListPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  "Let's set your",
+                  "Let's set your pet",
                   style: Get.textTheme.headlineMedium!.copyWith(
                     color: Get.theme.colorScheme.onSecondary,
                   ),
@@ -89,6 +89,7 @@ class PetListPage extends StatelessWidget {
                             style: Get.textTheme.headlineMedium!.copyWith(
                               color: Get.theme.colorScheme.onSecondary,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         );
                       }

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../routes/app_routes.dart';
 
-class GetStartPage extends StatelessWidget {
-  const GetStartPage({super.key});
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
 
   void jumpToRegister() async {
     final isRegister = await Get.toNamed(Routes.register) ?? false;
