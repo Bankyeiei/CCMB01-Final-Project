@@ -315,7 +315,7 @@ class HomePage extends StatelessWidget {
           )]]!;
     }
 
-    return FutureBuilder(
+    return FutureBuilder<List<Journal>>(
       future: _getJornalList(journalController, petController.petIds),
       builder:
           (context, snapshot) => Container(

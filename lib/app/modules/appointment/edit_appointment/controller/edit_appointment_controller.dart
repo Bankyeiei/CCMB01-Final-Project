@@ -96,7 +96,11 @@ class EditAppointmentController extends GetxController {
             appointment.appointmentId,
           );
           appointmentController.update();
-          Get.until((route) => Get.currentRoute == Routes.home);
+          Get.until(
+            (route) =>
+                Get.currentRoute == Routes.petProfile ||
+                Get.currentRoute == Routes.home,
+          );
           SnackbarService.showDeleteSuccess('Appointment');
         } catch (error) {
           SnackbarService.showDeleteError();

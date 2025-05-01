@@ -33,6 +33,7 @@ class GroomingAppointmentController extends GetxController {
         );
       }
       await appointmentController.deleteAppointment(appointment.appointmentId);
+      appointmentController.update();
       groomingController.update();
       Get.back(closeOverlays: true);
       SnackbarService.showMarkAppointmentSuccess();
