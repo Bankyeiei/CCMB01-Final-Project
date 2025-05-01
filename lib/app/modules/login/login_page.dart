@@ -117,7 +117,10 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       AppButton(
-                        onPressed: () => SnackbarService.showComingSoon(),
+                        onPressed: () {
+                          Get.closeAllSnackbars();
+                          SnackbarService.showComingSoon();
+                        },
                         child: Row(
                           children: [
                             Image.asset('assets/logo/google.png', height: 24),

@@ -1,5 +1,6 @@
 import 'package:apptomate_custom_list_tile/apptomate_custom_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -185,58 +186,66 @@ class GroomingRecordsPage extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 16),
-              AppDatePicker(
-                dateValue: groomingRecordsController.serviceDate,
-                label: 'Service Date',
-                lastDate: DateTime.now(),
-                dateFormat: DateFormat.YEAR_MONTH_WEEKDAY_DAY,
-                errorText: serviceValidateController.dateError,
-              ),
-              const SizedBox(height: 8),
-              Obx(
-                () => AppTextField(
-                  icon: Service.grooming.icon,
-                  hintText: 'Grooming details',
-                  errorText: serviceValidateController.detailsError.value,
-                  controller: serviceValidateController.detailsController,
-                  validate: serviceValidateController.timerValidateDetails,
-                  isHintText: false,
-                  lengthLimiting: 40,
-                  isShowLength: true,
-                  textInputAction: TextInputAction.done,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 16),
+                AppDatePicker(
+                  dateValue: groomingRecordsController.serviceDate,
+                  label: 'Service Date',
+                  lastDate: DateTime.now(),
+                  dateFormat: DateFormat.YEAR_MONTH_WEEKDAY_DAY,
+                  errorText: serviceValidateController.dateError,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      controller.close();
-                      Get.back();
-                    },
-                    child: Text(
-                      'Cancel',
-                      style: Get.textTheme.titleLarge!.copyWith(
-                        color: Get.theme.primaryColor,
+                const SizedBox(height: 8),
+                Obx(
+                  () => AppTextField(
+                    icon: Service.grooming.icon,
+                    hintText: 'Grooming details',
+                    errorText: serviceValidateController.detailsError.value,
+                    controller: serviceValidateController.detailsController,
+                    validate: serviceValidateController.timerValidateDetails,
+                    keyboardType: TextInputType.name,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'[A-Za-zก-๛ ]'),
+                      ),
+                    ],
+                    isHintText: false,
+                    lengthLimiting: 40,
+                    isShowLength: true,
+                    textInputAction: TextInputAction.done,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        controller.close();
+                        Get.back();
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: Get.textTheme.titleLarge!.copyWith(
+                          color: Get.theme.primaryColor,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (serviceValidateController.validateForm()) {
-                        groomingRecordsController.editGrooming();
-                      }
-                    },
-                    child: const Text('Edit'),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(width: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (serviceValidateController.validateForm()) {
+                          groomingRecordsController.editGrooming();
+                        }
+                      },
+                      child: const Text('Edit'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
