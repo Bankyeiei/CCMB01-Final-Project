@@ -31,8 +31,8 @@ class RegisterValidateController extends GetxController {
       nameError.value = 'Please remove spaces at the beginning';
     } else if (value.endsWith(' ')) {
       nameError.value = 'Please remove spaces at the end';
-    } else if (value.length < 3) {
-      nameError.value = 'Name must be at least 3 characters';
+    } else if (value.length < 2) {
+      nameError.value = 'Name must be at least 2 characters';
     } else {
       nameError.value = '';
     }

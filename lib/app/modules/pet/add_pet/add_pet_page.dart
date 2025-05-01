@@ -50,7 +50,7 @@ class AddPetPage extends StatelessWidget {
                           keyboardType: TextInputType.name,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
-                              RegExp(r'[A-Za-z0-9. ]'),
+                              RegExp(r'[A-Za-z0-9ก-๛. ]'),
                             ),
                           ],
                           isHintText: false,
@@ -67,7 +67,7 @@ class AddPetPage extends StatelessWidget {
                           keyboardType: TextInputType.name,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
-                              RegExp(r'[A-Za-z ]'),
+                              RegExp(r'[A-Za-zก-๛ ]'),
                             ),
                           ],
                           isHintText: false,

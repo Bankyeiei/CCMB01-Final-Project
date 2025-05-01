@@ -158,9 +158,7 @@ class PetProfilePage extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        pet.story.isNotEmpty
-                            ? '    ${pet.story}'
-                            : "This pet doesn't have a story yet.\n(You can add one to tell others more about them!)",
+                        '    ${pet.story.isNotEmpty ? pet.story : "This pet doesn't have a story yet.\n(You can add one to tell others more about them!)"}',
                         style: Get.textTheme.bodyLarge,
                         softWrap: true,
                       ),

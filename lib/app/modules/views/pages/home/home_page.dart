@@ -150,19 +150,43 @@ class HomePage extends StatelessWidget {
                               children: [
                                 AppButton(
                                   onPressed: () => Get.toNamed(Routes.addPet),
-                                  child: const Text('Add Pet'),
+                                  child: const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(Icons.pets, size: 20),
+                                      Text('Add Pet'),
+                                      Icon(Icons.pets, size: 20),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
                                 AppButton(
                                   onPressed:
                                       () => Get.toNamed(Routes.addAppointment),
-                                  child: const Text('Add Appointment'),
+                                  child: const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(Icons.event, size: 20),
+                                      Text('Add Appointment'),
+                                      Icon(Icons.event, size: 20),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
                                 AppButton(
                                   onPressed:
                                       () => Get.toNamed(Routes.addJournal),
-                                  child: const Text('Add Journal'),
+                                  child: const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(Icons.auto_stories, size: 20),
+                                      Text('Add Journal'),
+                                      Icon(Icons.auto_stories, size: 20),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

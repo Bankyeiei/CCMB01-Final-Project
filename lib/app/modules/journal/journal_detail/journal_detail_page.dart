@@ -129,7 +129,10 @@ class JournalDetailPage extends StatelessWidget {
                       const SizedBox(height: 16),
                       const Divider(thickness: 1.6, indent: 24, endIndent: 24),
                       Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 8,
+                        ),
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(

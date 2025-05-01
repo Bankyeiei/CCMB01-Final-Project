@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -67,6 +68,12 @@ class EditAppointmentPage extends StatelessWidget {
                           validate:
                               appointmentValidateController
                                   .timerValidateDetails,
+                          keyboardType: TextInputType.name,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'[A-Za-zก-๛. ]'),
+                            ),
+                          ],
                           isHintText: false,
                           lengthLimiting: 40,
                           isShowLength: true,
